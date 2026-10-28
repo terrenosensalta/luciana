@@ -1,0 +1,2152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Castillo Mágico de la Princesa Luciana 👑✨</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-primary: #FFF1F5;
+  --bg-pattern: #FCE7F3;
+  --card-bg: #FFFFFF;
+  --text-main: #1F2937;
+  --royal-pink: #EC4899;
+  --royal-pink-dark: #BE185D;
+  --royal-gold: #F59E0B;
+  --royal-gold-dark: #D97706;
+  --royal-purple: #8B5CF6;
+  --royal-cyan: #06B6D4;
+  --vow: #E11D48;
+  --con: #2563EB;
+  --highlight-bg: #FEF08A;
+  box-sizing: border-box;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg-primary);
+  background-image: radial-gradient(var(--bg-pattern) 22%, transparent 22%);
+  background-size: 26px 26px;
+  color: var(--text-main);
+  font-family: "Baloo 2", cursive, sans-serif;
+  font-weight: 700;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 760px;
+  padding: 12px 14px 36px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Cabecera Real */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.brand-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.brand-title h1 {
+  font-size: clamp(20px, 5.2vw, 28px);
+  margin: 0;
+  color: var(--royal-pink-dark);
+  font-weight: 800;
+  line-height: 1.1;
+  text-shadow: 0 2px 4px rgba(236, 72, 153, 0.15);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.stars-badge {
+  background: #FFFBEB;
+  border: 2px solid #FCD34D;
+  border-bottom: 4px solid #F59E0B;
+  color: #B45309;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 16px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+.btn-nav-top {
+  font: inherit;
+  font-size: clamp(13px, 3.6vw, 15px);
+  font-weight: 800;
+  background: #FFFFFF;
+  border: 2px solid #FBCFE8;
+  border-bottom: 4px solid #F472B6;
+  color: var(--royal-pink-dark);
+  border-radius: 999px;
+  padding: 5px 14px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .1s;
+}
+.btn-nav-top:active { transform: translateY(2px); }
+
+/* Navegación Principal: Cuentos vs Juegos */
+.main-nav {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.nav-tab-btn {
+  font: inherit;
+  font-size: clamp(16px, 4.5vw, 20px);
+  font-weight: 800;
+  background: #FFFFFF;
+  border: 3px solid #FBCFE8;
+  border-bottom: 6px solid #F472B6;
+  color: #64748B;
+  border-radius: 22px;
+  padding: 10px 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all .15s ease;
+}
+.nav-tab-btn[aria-selected="true"] {
+  background: linear-gradient(135deg, #F472B6, #EC4899);
+  border-color: #DB2777;
+  border-bottom-color: #9D174D;
+  color: #FFFFFF;
+  transform: translateY(2px);
+  box-shadow: 0 6px 20px rgba(236, 72, 153, 0.35);
+}
+
+/* Guía Lula la Lechuza */
+.fairy-guide {
+  background: #FFFFFF;
+  border: 2px solid #FCE7F3;
+  border-left: 6px solid var(--royal-pink);
+  border-radius: 22px;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  box-shadow: 0 4px 14px rgba(236, 72, 153, 0.08);
+}
+.fairy-icon {
+  font-size: clamp(38px, 10vw, 48px);
+  line-height: 1;
+  animation: floatFairy 2.5s infinite alternate ease-in-out;
+  cursor: pointer;
+}
+@keyframes floatFairy {
+  from { transform: translateY(0) rotate(0deg); }
+  to { transform: translateY(-6px) rotate(4deg); }
+}
+.fairy-speech {
+  flex: 1;
+  font-size: clamp(15px, 4vw, 19px);
+  font-weight: 700;
+  color: #334155;
+  line-height: 1.25;
+}
+
+/* Selector Horizontal de Cuentos (6 cuentos mágicos) */
+.story-selector {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 2px 12px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+.story-selector::-webkit-scrollbar { display: none; }
+.story-tab {
+  font: inherit;
+  font-size: clamp(13px, 3.6vw, 16px);
+  font-weight: 800;
+  background: #FFFFFF;
+  border: 2px solid #FBCFE8;
+  border-bottom: 5px solid #F472B6;
+  color: #64748B;
+  border-radius: 20px;
+  padding: 8px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .15s ease;
+  flex-shrink: 0;
+}
+.story-tab[aria-selected="true"] {
+  background: #FEF08A;
+  border-color: #F59E0B;
+  border-bottom-color: #D97706;
+  color: #92400E;
+  transform: translateY(2px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.3);
+}
+
+/* Tarjeta Principal (Libro / Sala de Juegos) */
+.main-card {
+  background: var(--card-bg);
+  border: 4px solid #FBCFE8;
+  border-bottom: 10px solid #F472B6;
+  border-radius: 32px;
+  padding: 18px 16px 24px;
+  position: relative;
+  box-shadow: 0 12px 32px rgba(236, 72, 153, 0.12);
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+}
+
+/* Escenario ilustrado del cuento */
+.story-stage {
+  background: linear-gradient(180deg, #EFF6FF 0%, #FAF5FF 100%);
+  border: 3px solid #E0E7FF;
+  border-radius: 24px;
+  padding: 14px 10px;
+  margin-bottom: 14px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.stage-emojis {
+  font-size: clamp(52px, 16vw, 84px);
+  margin: 0;
+  line-height: 1.15;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,0.1));
+  animation: popIn .4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* Barra de controles del cuento */
+.reading-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.btn-control {
+  font: inherit;
+  font-weight: 800;
+  font-size: clamp(13px, 3.6vw, 15px);
+  border: 2px solid transparent;
+  border-radius: 999px;
+  padding: 7px 16px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all .12s ease;
+}
+.btn-control:active { transform: translateY(2px); }
+
+.btn-read-story {
+  background: #10B981;
+  border-color: #059669;
+  border-bottom: 4px solid #047857;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+.btn-read-story.btn-reading {
+  background: #F59E0B;
+  border-color: #D97706;
+  border-bottom-color: #B45309;
+}
+.btn-music {
+  background: #FDF2F8;
+  border-color: #FBCFE8;
+  border-bottom: 4px solid #F472B6;
+  color: #BE185D;
+}
+.btn-music.muted {
+  background: #F1F5F9;
+  border-color: #CBD5E1;
+  border-bottom-color: #94A3B8;
+  color: #64748B;
+}
+.btn-voice {
+  background: #EDE9FE;
+  border-color: #DDD6FE;
+  border-bottom: 4px solid #C4B5FD;
+  color: #6D28D9;
+}
+.btn-speed {
+  background: #FEF3C7;
+  border-color: #FCD34D;
+  border-bottom: 4px solid #F59E0B;
+  color: #92400E;
+}
+.btn-sparkle {
+  background: #F0FDF4;
+  border-color: #BBF7D0;
+  border-bottom: 4px solid #86EFAC;
+  color: #166534;
+}
+
+/* Aviso de ayuda */
+.wand-hint {
+  text-align: center;
+  font-size: clamp(13px, 3.6vw, 15px);
+  color: #64748B;
+  background: #FDF2F8;
+  border: 1.5px dashed #F472B6;
+  border-radius: 999px;
+  padding: 4px 16px;
+  margin: 0 auto 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Texto del cuento */
+.story-text-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+  padding: 4px 6px;
+}
+.story-sentence {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px 12px;
+  font-size: clamp(26px, 7vw, 40px);
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: .04em;
+}
+
+.story-word {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 18px;
+  cursor: pointer;
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-bottom: 4px solid #CBD5E1;
+  transition: all .18s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.story-word:hover {
+  background: #FFFBEB;
+  border-color: #FCD34D;
+  border-bottom-color: #F59E0B;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.15);
+}
+.story-word.word-active {
+  background: #FFFBEB !important;
+  border-color: #F59E0B !important;
+  border-bottom-color: #D97706 !important;
+  transform: translateY(-3px) scale(1.06);
+  box-shadow: 0 8px 20px rgba(245, 158, 11, 0.35) !important;
+}
+.syl-part {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: 12px;
+  transition: all .16s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border: 2px solid transparent;
+}
+.syl-part:hover, .syl-part.active-syl {
+  background: var(--highlight-bg) !important;
+  border-color: #F59E0B !important;
+  color: #1E293B !important;
+  transform: translateY(-4px) scale(1.15);
+  box-shadow: 0 6px 14px rgba(245, 158, 11, 0.4);
+}
+.story-word.word-done {
+  background: #DCFCE7 !important;
+  border-color: #86EFAC !important;
+  border-bottom-color: #22C55E !important;
+  transform: scale(1.04);
+  box-shadow: 0 6px 14px rgba(34, 197, 94, 0.2);
+}
+
+.v { color: var(--vow); }
+.c { color: var(--con); }
+
+/* Paginador del cuento */
+.pagination-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 2px dashed #FCE7F3;
+}
+.btn-page {
+  font: inherit;
+  font-weight: 800;
+  font-size: clamp(15px, 4vw, 18px);
+  background: #FFFFFF;
+  border: 2px solid #FBCFE8;
+  border-bottom: 5px solid #F472B6;
+  color: var(--royal-pink-dark);
+  border-radius: 999px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: transform .1s;
+}
+.btn-page:active:not(:disabled) { transform: translateY(2px); }
+.btn-page:disabled { opacity: .4; cursor: default; }
+.page-indicator {
+  font-size: clamp(15px, 4vw, 18px);
+  color: #94A3B8;
+  font-weight: 800;
+}
+
+/* ========================================================
+   SECCIÓN DINÁMICA DE JUEGOS DEL CASTILLO
+   ======================================================== */
+.games-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.game-subnav {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.game-subtab {
+  font: inherit;
+  font-size: clamp(13px, 3.6vw, 16px);
+  font-weight: 800;
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-bottom: 4px solid #CBD5E1;
+  color: #475569;
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.game-subtab[aria-selected="true"] {
+  background: #EDE9FE;
+  border-color: #C084FC;
+  border-bottom-color: #9333EA;
+  color: #6B21A8;
+  transform: translateY(2px);
+}
+
+.game-arena {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Juego 1: Estrellas Flotantes de Sílabas */
+.star-catcher-target {
+  font-size: clamp(34px, 9vw, 56px);
+  font-weight: 800;
+  letter-spacing: .08em;
+  margin-bottom: 14px;
+}
+.star-slots-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.star-slot-box {
+  min-width: clamp(74px, 20vw, 110px);
+  height: clamp(64px, 16vw, 84px);
+  background: #F1F5F9;
+  border: 3px dashed #CBD5E1;
+  border-bottom: 5px solid #94A3B8;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(30px, 8vw, 44px);
+  font-weight: 800;
+  color: #1E293B;
+  transition: all .2s;
+}
+.star-slot-box.filled {
+  background: #EFF6FF;
+  border-style: solid;
+  border-color: #93C5FD;
+  border-bottom-color: #3B82F6;
+  color: #1D4ED8;
+  transform: scale(1.05);
+}
+.floating-stars-pool {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 500px;
+}
+.star-bubble-btn {
+  font: inherit;
+  font-size: clamp(28px, 7.5vw, 40px);
+  font-weight: 800;
+  background: #FFFBEB;
+  border: 3px solid #FDE68A;
+  border-bottom: 6px solid #F59E0B;
+  color: #B45309;
+  border-radius: 999px;
+  padding: 10px 24px;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(245, 158, 11, 0.2);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform .12s;
+  animation: floatBubble 2.4s infinite alternate ease-in-out;
+}
+.star-bubble-btn:nth-child(2) { animation-delay: .4s; }
+.star-bubble-btn:nth-child(3) { animation-delay: .8s; }
+.star-bubble-btn:nth-child(4) { animation-delay: 1.2s; }
+@keyframes floatBubble {
+  from { transform: translateY(0); }
+  to { transform: translateY(-8px); }
+}
+.star-bubble-btn:active:not(:disabled) { transform: translateY(3px); }
+.star-bubble-btn:disabled { opacity: .3; cursor: default; }
+
+/* Juego 2: Cofres del Tesoro */
+.chests-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  width: 100%;
+  max-width: 520px;
+  margin-top: 14px;
+}
+.chest-card {
+  background: #FFFFFF;
+  border: 3px solid #E2E8F0;
+  border-bottom: 6px solid #CBD5E1;
+  border-radius: 22px;
+  padding: 14px 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  transition: all .15s ease;
+}
+.chest-card:active { transform: translateY(3px); }
+.chest-card:hover {
+  background: #FAF5FF;
+  border-color: #C084FC;
+}
+.chest-icon { font-size: clamp(48px, 13vw, 64px); line-height: 1; }
+.chest-word { font-size: clamp(18px, 5vw, 24px); font-weight: 800; color: #1E293B; }
+
+/* Juego 3: Memotest Real */
+.memotest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  width: 100%;
+  max-width: 480px;
+  margin-top: 10px;
+}
+.memo-card {
+  aspect-ratio: 1;
+  background: #FDF2F8;
+  border: 3px solid #FBCFE8;
+  border-bottom: 6px solid #F472B6;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: clamp(34px, 10vw, 48px);
+  font-weight: 800;
+  transition: all .2s;
+  text-align: center;
+  padding: 6px;
+}
+.memo-card.flipped {
+  background: #FFFFFF;
+  border-color: #C084FC;
+  border-bottom-color: #9333EA;
+  color: #6B21A8;
+  transform: rotateY(0deg) scale(1.02);
+}
+.memo-card.matched {
+  background: #DCFCE7;
+  border-color: #86EFAC;
+  border-bottom-color: #22C55E;
+  cursor: default;
+}
+
+/* Modal de Voces */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: #FFFFFF;
+  border: 4px solid #C084FC;
+  border-radius: 28px;
+  padding: 22px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+}
+.modal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.modal-head h2 { font-size: 22px; margin: 0; color: #6B21A8; }
+.btn-close-modal {
+  background: #F1F5F9;
+  border: 0;
+  border-radius: 999px;
+  width: 38px;
+  height: 38px;
+  font-size: 18px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.voice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding: 6px 2px;
+  max-height: 320px;
+}
+.voice-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-radius: 18px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.voice-option:hover { background: #FAF5FF; border-color: #C084FC; }
+.voice-option.selected {
+  background: #F3E8FF;
+  border-color: #A855F7;
+  box-shadow: 0 4px 12px rgba(168, 85, 247, 0.2);
+}
+.voice-info { text-align: left; }
+.voice-name { font-weight: 800; font-size: 16px; color: #1E293B; }
+.voice-badge { font-size: 12px; color: #7E22CE; font-weight: 700; }
+.btn-test-voice {
+  font: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  background: #EDE9FE;
+  border: 1px solid #C4B5FD;
+  color: #6D28D9;
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+}
+
+/* Partículas mágicas */
+.sparkle-trail {
+  position: fixed;
+  pointer-events: none;
+  font-size: 20px;
+  z-index: 9999;
+  animation: fadeSparkle .8s forwards ease-out;
+}
+@keyframes fadeSparkle {
+  0% { transform: scale(1) translateY(0); opacity: 1; }
+  100% { transform: scale(0.2) translateY(-25px); opacity: 0; }
+}
+
+/* Confeti */
+.conf {
+  position: fixed;
+  top: -6vh;
+  font-size: 32px;
+  pointer-events: none;
+  animation: fallConfetti 2.4s cubic-bezier(.25,.46,.45,.94) forwards;
+  z-index: 1000;
+}
+@keyframes fallConfetti {
+  to { transform: translateY(110vh) rotate(640deg); }
+}
+
+/* Pantalla de inicio real */
+.overlay-start {
+  position: fixed;
+  inset: 0;
+  background: #FFF1F5;
+  background-image: radial-gradient(#FCE7F3 24%, transparent 24%);
+  background-size: 28px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  z-index: 2000;
+  text-align: center;
+  padding: 24px;
+}
+.overlay-start .royal-icon {
+  font-size: clamp(75px, 22vw, 120px);
+  animation: pulseCrown 1.6s infinite alternate ease-in-out;
+}
+@keyframes pulseCrown {
+  from { transform: scale(1) rotate(-3deg); }
+  to { transform: scale(1.1) rotate(3deg); }
+}
+.overlay-start h1 {
+  font-size: clamp(28px, 8vw, 42px);
+  color: var(--royal-pink-dark);
+  margin: 0;
+  line-height: 1.1;
+}
+.overlay-start p {
+  font-size: clamp(18px, 5.2vw, 24px);
+  color: #475569;
+  margin: 0;
+  max-width: 460px;
+}
+.btn-royal-start {
+  font: inherit;
+  font-size: clamp(24px, 6.5vw, 32px);
+  font-weight: 800;
+  border: 0;
+  background: linear-gradient(135deg, #EC4899, #DB2777);
+  border-bottom: 7px solid #9D174D;
+  color: #FFFFFF;
+  border-radius: 999px;
+  padding: 14px 44px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.4);
+  transition: transform .1s;
+}
+.btn-royal-start:active { transform: translateY(4px); }
+</style>
+</head>
+<body>
+
+<!-- Pantalla de Bienvenida -->
+<div class="overlay-start" id="start-overlay">
+  <div class="royal-icon">👑🦄✨</div>
+  <h1>El Castillo Mágico</h1>
+  <p>¡Bienvenida, <b>Princesa Luciana</b>! Tenés 5 años, sos hermosa y muy inteligente. ¡Descubrí tus <b>6 cuentos</b> y la nueva <b>sala de juegos</b>!</p>
+  <button class="btn-royal-start" id="btn-enter-castle">✨ Entrar al Castillo ✨</button>
+</div>
+
+<!-- Modal para Seleccionar y Probar Voces -->
+<div class="modal-overlay" id="voice-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h2>🎙️ Voces de Lectura</h2>
+      <button class="btn-close-modal" id="btn-close-voice-modal">✕</button>
+    </div>
+    <p style="font-size:14px;color:#64748B;margin:0 0 10px;">Elegí la voz que más te guste para escuchar a la narradora del cuento:</p>
+    <div class="voice-list" id="voice-list-container"></div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- Cabecera -->
+  <header>
+    <div class="brand-title">
+      <h1>👑 Castillo de Luciana</h1>
+    </div>
+    <div class="header-actions">
+      <div class="stars-badge" id="stars-display">⭐ <span id="stars-count">0</span></div>
+      <a href="index.html" class="btn-nav-top">🏠 Inicio</a>
+    </div>
+  </header>
+
+  <!-- Navegación Principal: Cuentos vs Juegos -->
+  <nav class="main-nav" role="tablist">
+    <button class="nav-tab-btn" id="tab-stories-view" aria-selected="true">
+      <span>📖</span>
+      <span>Cuentos Mágicos</span>
+    </button>
+    <button class="nav-tab-btn" id="tab-games-view" aria-selected="false">
+      <span>🎮</span>
+      <span>Juegos Reales</span>
+    </button>
+  </nav>
+
+  <!-- Lula la Lechuza y el Hada Narradora -->
+  <div class="fairy-guide">
+    <div class="fairy-icon" id="fairy-btn" title="Escuchar de nuevo">🦉</div>
+    <div class="fairy-speech" id="fairy-text">¡Hola, Princesa Luciana! Elegí un cuento o divertite en la sala de juegos mágicos.</div>
+  </div>
+
+  <!-- VISTA 1: BIBLIOTECA DE 6 CUENTOS MÁGICOS -->
+  <div id="view-stories">
+    <!-- Pestañas horizontales para elegir entre los 6 cuentos -->
+    <div class="story-selector" id="story-tabs" role="tablist">
+      <button class="story-tab" data-story="0" aria-selected="true">🦄 El Unicornio</button>
+      <button class="story-tab" data-story="1" aria-selected="false">👑 La Corona</button>
+      <button class="story-tab" data-story="2" aria-selected="false">🌸 El Jardín Real</button>
+      <button class="story-tab" data-story="3" aria-selected="false">🏰 El Gran Baile</button>
+      <button class="story-tab" data-story="4" aria-selected="false">🐬 El Delfín Azul</button>
+      <button class="story-tab" data-story="5" aria-selected="false">🚀 La Luna Mágica</button>
+    </div>
+
+    <!-- Tarjeta del Libro Abierto -->
+    <main class="main-card">
+      <div class="story-stage">
+        <div class="stage-emojis" id="stage-art">🏰👸🦄</div>
+      </div>
+
+      <div class="reading-controls">
+        <button class="btn-control btn-read-story" id="btn-toggle-read">▶ Escuchar Cuento</button>
+        <button class="btn-control btn-music" id="btn-toggle-music">🎵 Música: ON</button>
+        <button class="btn-control btn-voice" id="btn-open-voice-modal">🎙️ Narradora</button>
+        <button class="btn-control btn-speed" id="btn-speed-toggle">🌸 Despacito (0.78x)</button>
+        <button class="btn-control btn-sparkle" id="btn-magic-wand">🪄 Varita: Sí</button>
+      </div>
+
+      <div class="wand-hint">
+        <span>🪄</span>
+        <span>Lectura fluida y continua: las palabras y sílabas se iluminan al ritmo de la voz</span>
+      </div>
+
+      <div class="story-text-container" id="story-container"></div>
+
+      <div class="pagination-row">
+        <button class="btn-page" id="btn-prev-page">⬅ Anterior</button>
+        <div class="page-indicator" id="page-indicator">Página 1 de 3</div>
+        <button class="btn-page" id="btn-next-page">Siguiente ➡</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- VISTA 2: SALA DINÁMICA DE JUEGOS DEL CASTILLO -->
+  <div id="view-games" style="display:none;">
+    <main class="main-card">
+      <div class="games-section">
+        <div class="game-subnav" role="tablist">
+          <button class="game-subtab" data-game="stars" aria-selected="true">⭐ Atrapa Sílabas</button>
+          <button class="game-subtab" data-game="chests" aria-selected="false">🗝️ Cofre Mágico</button>
+          <button class="game-subtab" data-game="memo" aria-selected="false">🃏 Memotest Real</button>
+        </div>
+        <div class="game-arena" id="game-arena"></div>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+<script>
+/* ========================================================
+   BANCO DE 6 CUENTOS DE LA PRINCESA LUCIANA (5 AÑOS)
+   ======================================================== */
+const STORIES_DATA = [
+  {
+    title: "El Unicornio Mágico",
+    tabName: "🦄 El Unicornio",
+    pages: [
+      {
+        art: "🏰👸✨",
+        dialog: "¡Había una vez una hermosa princesa!",
+        sentences: [
+          [
+            { word: "HABÍA", syllables: ["HA", "BÍ", "A"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "VEZ", syllables: ["VEZ"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "MUY", syllables: ["MUY"] },
+            { word: "HERMOSA.", syllables: ["HER", "MO", "SA"] }
+          ],
+          [
+            { word: "SE", syllables: ["SE"] },
+            { word: "LLAMA", syllables: ["LLA", "MA"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "TIENE", syllables: ["TIE", "NE"] },
+            { word: "CINCO", syllables: ["CIN", "CO"] },
+            { word: "AÑOS.", syllables: ["A", "ÑOS"] }
+          ]
+        ]
+      },
+      {
+        art: "🦄🌈💖",
+        dialog: "¡Luciana es muy inteligente y encontró un unicornio brillante!",
+        sentences: [
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "ES", syllables: ["ES"] },
+            { word: "MUY", syllables: ["MUY"] },
+            { word: "INTELIGENTE", syllables: ["IN", "TE", "LI", "GEN", "TE"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "SABE", syllables: ["SA", "BE"] },
+            { word: "LEER.", syllables: ["LE", "ER"] }
+          ],
+          [
+            { word: "UN", syllables: ["UN"] },
+            { word: "DÍA,", syllables: ["DÍ", "A"] },
+            { word: "ENCONTRÓ", syllables: ["EN", "CON", "TRÓ"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "UNICORNIO", syllables: ["U", "NI", "COR", "NIO"] },
+            { word: "BRILLANTE.", syllables: ["BRI", "LLAN", "TE"] }
+          ]
+        ]
+      },
+      {
+        art: "⭐👑🎉",
+        dialog: "¡Juntos viajaron a la fiesta de las estrellas!",
+        sentences: [
+          [
+            { word: "JUNTOS", syllables: ["JUN", "TOS"] },
+            { word: "VOLARON", syllables: ["VO", "LA", "RON"] },
+            { word: "POR", syllables: ["POR"] },
+            { word: "EL", syllables: ["EL"] },
+            { word: "ARCOÍRIS.", syllables: ["AR", "CO", "Í", "RIS"] }
+          ],
+          [
+            { word: "¡TODAS", syllables: ["TO", "DAS"] },
+            { word: "LAS", syllables: ["LAS"] },
+            { word: "ESTRELLAS", syllables: ["ES", "TRE", "LLAS"] },
+            { word: "APLAUDEN", syllables: ["A", "PLAU", "DEN"] },
+            { word: "A", syllables: ["A"] },
+            { word: "LUCIANA!", syllables: ["LU", "CIA", "NA"] }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    title: "La Corona Brillante",
+    tabName: "👑 La Corona",
+    pages: [
+      {
+        art: "👑💎✨",
+        dialog: "¡La corona mágica de Luciana tiene piedras preciosas!",
+        sentences: [
+          [
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "TIENE", syllables: ["TIE", "NE"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "CORONA", syllables: ["CO", "RO", "NA"] },
+            { word: "DE", syllables: ["DE"] },
+            { word: "ORO.", syllables: ["O", "RO"] }
+          ]
+        ]
+      },
+      {
+        art: "📖💡🌟",
+        dialog: "¡Cada vez que Luciana lee una palabra, la corona brilla!",
+        sentences: [
+          [
+            { word: "CUANDO", syllables: ["CUAN", "DO"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "LEE", syllables: ["LE", "E"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "CUENTO,", syllables: ["CUEN", "TO"] },
+            { word: "LA", syllables: ["LA"] },
+            { word: "CORONA", syllables: ["CO", "RO", "NA"] },
+            { word: "SE", syllables: ["SE"] },
+            { word: "ILUMINA.", syllables: ["I", "LU", "MI", "NA"] }
+          ]
+        ]
+      },
+      {
+        art: "👸💖🏰",
+        dialog: "¡Con su sabiduría, Luciana cuida a todo su reino!",
+        sentences: [
+          [
+            { word: "¡QUÉ", syllables: ["QUÉ"] },
+            { word: "ALEGRÍA", syllables: ["A", "LE", "GRÍ", "A"] },
+            { word: "EN", syllables: ["EN"] },
+            { word: "EL", syllables: ["EL"] },
+            { word: "CASTILLO!", syllables: ["CAS", "TI", "LLO"] }
+          ],
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "ES", syllables: ["ES"] },
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "MÁS", syllables: ["MÁS"] },
+            { word: "GENIAL.", syllables: ["GE", "NIAL"] }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    title: "El Jardín Real",
+    tabName: "🌸 El Jardín Real",
+    pages: [
+      {
+        art: "🌷🦋👸",
+        dialog: "¡Un paseo por las flores rosas del jardín!",
+        sentences: [
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "CAMINA", syllables: ["CA", "MI", "NA"] },
+            { word: "POR", syllables: ["POR"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "JARDÍN", syllables: ["JAR", "DÍN"] },
+            { word: "LLENO", syllables: ["LLE", "NO"] },
+            { word: "DE", syllables: ["DE"] },
+            { word: "ROSAS.", syllables: ["RO", "SAS"] }
+          ]
+        ]
+      },
+      {
+        art: "🐦🎵🌺",
+        dialog: "¡Los pajaritos cantan para la princesa hermosa!",
+        sentences: [
+          [
+            { word: "LOS", syllables: ["LOS"] },
+            { word: "PAJARITOS", syllables: ["PA", "JA", "RI", "TOS"] },
+            { word: "CANTAN", syllables: ["CAN", "TAN"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "HERMOSA", syllables: ["HER", "MO", "SA"] },
+            { word: "CANCIÓN.", syllables: ["CAN", "CIÓN"] }
+          ]
+        ]
+      },
+      {
+        art: "🪄⭐👑",
+        dialog: "¡Luciana sonríe y regala abrazos mágicos!",
+        sentences: [
+          [
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "SONRÍE", syllables: ["SON", "RÍ", "E"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "SALUDA", syllables: ["SA", "LU", "DA"] },
+            { word: "A", syllables: ["A"] },
+            { word: "SUS", syllables: ["SUS"] },
+            { word: "AMIGOS.", syllables: ["A", "MI", "GOS"] }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    title: "El Gran Baile Real",
+    tabName: "🏰 El Gran Baile",
+    pages: [
+      {
+        art: "🏰👗✨",
+        dialog: "¡Hoy es la gran fiesta en el palacio real!",
+        sentences: [
+          [
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "TIENE", syllables: ["TIE", "NE"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "HERMOSO", syllables: ["HER", "MO", "SO"] },
+            { word: "VESTIDO", syllables: ["VES", "TI", "DO"] },
+            { word: "ROSA.", syllables: ["RO", "SA"] }
+          ]
+        ]
+      },
+      {
+        art: "👑👠💃",
+        dialog: "¡Luciana baila feliz con sus zapatitos dorados!",
+        sentences: [
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "BAILA", syllables: ["BAI", "LA"] },
+            { word: "AL", syllables: ["AL"] },
+            { word: "RITMO", syllables: ["RIT", "MO"] },
+            { word: "DE", syllables: ["DE"] },
+            { word: "LA", syllables: ["LA"] },
+            { word: "MÚSICA.", syllables: ["MÚ", "SI", "CA"] }
+          ],
+          [
+            { word: "TODOS", syllables: ["TO", "DOS"] },
+            { word: "APLAUDEN", syllables: ["A", "PLAU", "DEN"] },
+            { word: "A", syllables: ["A"] },
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA.", syllables: ["PRIN", "CE", "SA"] }
+          ]
+        ]
+      },
+      {
+        art: "🍰🎉💖",
+        dialog: "¡Una torta gigante con frutillas y estrellas!",
+        sentences: [
+          [
+            { word: "HAY", syllables: ["HAY"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "TORTA", syllables: ["TOR", "TA"] },
+            { word: "DULCE", syllables: ["DUL", "CE"] },
+            { word: "CON", syllables: ["CON"] },
+            { word: "FRUTILLAS.", syllables: ["FRU", "TI", "LLAS"] }
+          ],
+          [
+            { word: "¡QUÉ", syllables: ["QUÉ"] },
+            { word: "NOCHE", syllables: ["NO", "CHE"] },
+            { word: "TAN", syllables: ["TAN"] },
+            { word: "LINDA", syllables: ["LIN", "DA"] },
+            { word: "PARA", syllables: ["PA", "RA"] },
+            { word: "LUCIANA!", syllables: ["LU", "CIA", "NA"] }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    title: "El Delfín del Lago Azul",
+    tabName: "🐬 El Delfín Azul",
+    pages: [
+      {
+        art: "⛵🌊💙",
+        dialog: "¡Un paseo en barquito por las aguas de cristal!",
+        sentences: [
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "PASEA", syllables: ["PA", "SE", "A"] },
+            { word: "EN", syllables: ["EN"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "BARCO", syllables: ["BAR", "CO"] },
+            { word: "BLANCO.", syllables: ["BLAN", "CO"] }
+          ],
+          [
+            { word: "EL", syllables: ["EL"] },
+            { word: "AGUA", syllables: ["A", "GUA"] },
+            { word: "ES", syllables: ["ES"] },
+            { word: "AZUL", syllables: ["A", "ZUL"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "CLARA.", syllables: ["CLA", "RA"] }
+          ]
+        ]
+      },
+      {
+        art: "🐬✨🌊",
+        dialog: "¡Aparece un simpático delfín saltarín!",
+        sentences: [
+          [
+            { word: "UN", syllables: ["UN"] },
+            { word: "DELFÍN", syllables: ["DEL", "FÍN"] },
+            { word: "SALTA", syllables: ["SAL", "TA"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "SALUDA", syllables: ["SA", "LU", "DA"] },
+            { word: "ALEGRE.", syllables: ["A", "LE", "GRE"] }
+          ],
+          [
+            { word: "SE", syllables: ["SE"] },
+            { word: "LLAMA", syllables: ["LLA", "MA"] },
+            { word: "TITO", syllables: ["TI", "TO"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "ES", syllables: ["ES"] },
+            { word: "AMIGO.", syllables: ["A", "MI", "GO"] }
+          ]
+        ]
+      },
+      {
+        art: "🌈🐬👸",
+        dialog: "¡Un arcoíris sobre las olas para Luciana!",
+        sentences: [
+          [
+            { word: "EL", syllables: ["EL"] },
+            { word: "DELFÍN", syllables: ["DEL", "FÍN"] },
+            { word: "Y", syllables: ["Y"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "CANTAN", syllables: ["CAN", "TAN"] },
+            { word: "JUNTOS.", syllables: ["JUN", "TOS"] }
+          ],
+          [
+            { word: "UN", syllables: ["UN"] },
+            { word: "ARCOÍRIS", syllables: ["AR", "CO", "Í", "RIS"] },
+            { word: "ILUMINA", syllables: ["I", "LU", "MI", "NA"] },
+            { word: "EL", syllables: ["EL"] },
+            { word: "DÍA.", syllables: ["DÍ", "A"] }
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    title: "La Luna Mágica",
+    tabName: "🚀 La Luna Mágica",
+    pages: [
+      {
+        art: "🌙✨🔭",
+        dialog: "¡Luciana mira el cielo estrellado desde su balcón!",
+        sentences: [
+          [
+            { word: "DE", syllables: ["DE"] },
+            { word: "NOCHE", syllables: ["NO", "CHE"] },
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "MIRA", syllables: ["MI", "RA"] },
+            { word: "LA", syllables: ["LA"] },
+            { word: "LUNA.", syllables: ["LU", "NA"] }
+          ]
+        ]
+      },
+      {
+        art: "☁️🚀⭐",
+        dialog: "¡Una nube suave la lleva a pasear por el cielo!",
+        sentences: [
+          [
+            { word: "LUCIANA", syllables: ["LU", "CIA", "NA"] },
+            { word: "SUBE", syllables: ["SU", "BE"] },
+            { word: "A", syllables: ["A"] },
+            { word: "UNA", syllables: ["U", "NA"] },
+            { word: "NUBE", syllables: ["NU", "BE"] },
+            { word: "SUAVE.", syllables: ["SUA", "VE"] }
+          ],
+          [
+            { word: "VUELA", syllables: ["VUE", "LA"] },
+            { word: "ALTO", syllables: ["AL", "TO"] },
+            { word: "COMO", syllables: ["CO", "MO"] },
+            { word: "UN", syllables: ["UN"] },
+            { word: "COHETE.", syllables: ["CO", "HE", "TE"] }
+          ]
+        ]
+      },
+      {
+        art: "👸🌟💖",
+        dialog: "¡Luciana sueña feliz en su castillo!",
+        sentences: [
+          [
+            { word: "LA", syllables: ["LA"] },
+            { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"] },
+            { word: "ATRAPA", syllables: ["A", "TRA", "PA"] },
+            { word: "POLVO", syllables: ["POL", "VO"] },
+            { word: "DE", syllables: ["DE"] },
+            { word: "ESTRELLAS.", syllables: ["ES", "TRE", "LLAS"] }
+          ],
+          [
+            { word: "¡DULCES", syllables: ["DUL", "CES"] },
+            { word: "SUEÑOS,", syllables: ["SUE", "ÑOS"] },
+            { word: "HERMOSA", syllables: ["HER", "MO", "SA"] },
+            { word: "LUCIANA!", syllables: ["LU", "CIA", "NA"] }
+          ]
+        ]
+      }
+    ]
+  }
+];
+
+const VOWELS = "AEIOUÁÉÍÓÚÜ";
+const $ = sel => document.querySelector(sel);
+
+let currentStoryIdx = 0;
+let currentPageIdx = 0;
+let isReadingAloud = false;
+let readAloudTimer = null;
+let currentVoice = null;
+let speechRate = 0.78;
+let wandEnabled = true;
+let musicEnabled = true;
+let starsCount = +localStorage.getItem("luchi_stars") || 0;
+
+/* ========================================================
+   SISTEMA DE AUDIO FLUIDO (Web Audio API Synthesizer)
+   ======================================================== */
+class PrincessAudioEngine {
+  constructor() {
+    this.ctx = null;
+    this.musicGain = null;
+    this.isMusicPlaying = false;
+    this.musicTimer = null;
+    this.noteIdx = 0;
+    this.lullabyNotes = [523.25, 659.25, 783.99, 880.00, 1046.50, 783.99, 659.25, 523.25, 587.33, 659.25, 880.00, 783.99];
+  }
+
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      this.ctx = new AudioCtx();
+      this.musicGain = this.ctx.createGain();
+      this.musicGain.gain.setValueAtTime(0.05, this.ctx.currentTime);
+      this.musicGain.connect(this.ctx.destination);
+    }
+    if (this.ctx.state === "suspended") {
+      this.ctx.resume();
+    }
+  }
+
+  playChime(freq = 820) {
+    if (!this.ctx) this.init();
+    try {
+      const now = this.ctx.currentTime;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "sine";
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(0.045, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.28);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start(now);
+      osc.stop(now + 0.3);
+    } catch(e) {}
+  }
+
+  playWordComplete() {
+    if (!this.ctx) this.init();
+    const chords = [523.25, 659.25, 783.99, 1046.50];
+    chords.forEach((freq, idx) => {
+      setTimeout(() => this.playChime(freq), idx * 75);
+    });
+  }
+
+  toggleMusic(forceState) {
+    this.init();
+    if (forceState !== undefined) {
+      this.isMusicPlaying = !forceState;
+    }
+    if (this.isMusicPlaying) {
+      this.isMusicPlaying = false;
+      clearTimeout(this.musicTimer);
+    } else {
+      this.isMusicPlaying = true;
+      this.scheduleMusicNote();
+    }
+    return this.isMusicPlaying;
+  }
+
+  scheduleMusicNote() {
+    if (!this.isMusicPlaying || !this.ctx) return;
+    try {
+      const now = this.ctx.currentTime;
+      const freq = this.lullabyNotes[this.noteIdx % this.lullabyNotes.length];
+      this.noteIdx++;
+
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(freq, now);
+
+      gain.gain.setValueAtTime(0.035, now);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.85);
+
+      osc.connect(gain);
+      gain.connect(this.musicGain);
+
+      osc.start(now);
+      osc.stop(now + 0.9);
+    } catch(e) {}
+
+    this.musicTimer = setTimeout(() => this.scheduleMusicNote(), 750);
+  }
+
+  duckMusic(isSpeaking) {
+    if (!this.musicGain || !this.ctx) return;
+    try {
+      const targetVolume = isSpeaking ? 0.018 : 0.05;
+      this.musicGain.gain.setTargetAtTime(targetVolume, this.ctx.currentTime, 0.25);
+    } catch(e) {}
+  }
+}
+
+const royalAudio = new PrincessAudioEngine();
+
+/* ========================================================
+   OPTIMIZADOR Y SELECTOR DE VOCES (Web Speech API)
+   ======================================================== */
+let availableVoices = [];
+
+function loadAndSelectVoices() {
+  if (!("speechSynthesis" in window)) return;
+  availableVoices = speechSynthesis.getVoices().filter(v => /^es[-_]/i.test(v.lang) || v.lang.startsWith("es"));
+
+  if (!availableVoices.length) {
+    availableVoices = speechSynthesis.getVoices();
+  }
+
+  availableVoices.sort((a, b) => {
+    const aScore = getVoiceScore(a);
+    const bScore = getVoiceScore(b);
+    return bScore - aScore;
+  });
+
+  const savedVoiceName = localStorage.getItem("luchi_chosen_voice");
+  if (savedVoiceName) {
+    currentVoice = availableVoices.find(v => v.name === savedVoiceName) || availableVoices[0] || null;
+  } else {
+    currentVoice = availableVoices[0] || null;
+  }
+}
+
+function getVoiceScore(v) {
+  let score = 0;
+  const name = v.name.toLowerCase();
+  const lang = v.lang.toLowerCase();
+
+  if (/natural|online|neural/i.test(name)) score += 50;
+  if (/salma|dalia|elena|sabina|paulina|mónica|monica|ximena|lupe|paloma|laura/i.test(name)) score += 30;
+  if (/google/i.test(name)) score += 25;
+  if (/es-ar/i.test(lang)) score += 20;
+  if (/es-419|es-mx|es-us/i.test(lang)) score += 15;
+  if (/es-es/i.test(lang)) score += 10;
+  return score;
+}
+
+if ("speechSynthesis" in window) {
+  loadAndSelectVoices();
+  speechSynthesis.onvoiceschanged = loadAndSelectVoices;
+}
+
+function fairySays(text) {
+  $("#fairy-text").textContent = text;
+}
+
+function formatLetters(text) {
+  return [...text].map(char => {
+    if (VOWELS.includes(char.toUpperCase())) {
+      return `<span class="v">${char}</span>`;
+    } else if (/[A-ZÑ]/i.test(char)) {
+      return `<span class="c">${char}</span>`;
+    }
+    return char;
+  }).join("");
+}
+
+function addStar() {
+  starsCount++;
+  $("#stars-count").textContent = starsCount;
+  try { localStorage.setItem("luchi_stars", starsCount); } catch(e){}
+}
+
+/* ========================================================
+   RENDERIZADO DE CUENTOS (6 Cuentos Mágicos)
+   ======================================================== */
+function renderCurrentPage() {
+  stopStoryReading();
+  const story = STORIES_DATA[currentStoryIdx];
+  const page = story.pages[currentPageIdx];
+
+  $("#stage-art").textContent = page.art;
+  fairySays(page.dialog);
+  $("#page-indicator").textContent = `Página ${currentPageIdx + 1} de ${story.pages.length}`;
+  $("#btn-prev-page").disabled = currentPageIdx === 0;
+  $("#btn-next-page").disabled = currentPageIdx === story.pages.length - 1;
+
+  const container = $("#story-container");
+  container.innerHTML = "";
+
+  page.sentences.forEach((sentence, sIdx) => {
+    const sentenceDiv = document.createElement("div");
+    sentenceDiv.className = "story-sentence";
+
+    sentence.forEach((wObj, wIdx) => {
+      const wordSpan = document.createElement("span");
+      wordSpan.className = "story-word";
+      wordSpan.dataset.word = wObj.word;
+      wordSpan.dataset.sIdx = sIdx;
+      wordSpan.dataset.wIdx = wIdx;
+
+      const sylHTML = wObj.syllables.map((syl) => {
+        return `<span class="syl-part" data-syl="${syl}">${formatLetters(syl)}</span>`;
+      }).join("");
+
+      const punctuationMatch = wObj.word.match(/[.,!¡?¿]+$/);
+      const punctuation = punctuationMatch ? punctuationMatch[0] : "";
+
+      wordSpan.innerHTML = sylHTML + (punctuation ? `<span>${punctuation}</span>` : "");
+      sentenceDiv.appendChild(wordSpan);
+
+      bindWordHover(wordSpan, wObj.syllables, wObj.word);
+    });
+
+    container.appendChild(sentenceDiv);
+  });
+}
+
+function bindWordHover(wordEl, syllables, fullWord) {
+  wordEl.addEventListener("mouseenter", () => {
+    if (isReadingAloud) return;
+    readWordInteractive(wordEl, syllables, fullWord);
+  });
+
+  wordEl.addEventListener("click", () => {
+    readWordInteractive(wordEl, syllables, fullWord);
+  });
+
+  wordEl.querySelectorAll(".syl-part").forEach((sylEl, i) => {
+    sylEl.addEventListener("mouseenter", (e) => {
+      if (isReadingAloud) return;
+      e.stopPropagation();
+      sylEl.classList.add("active-syl");
+      royalAudio.playChime(750 + i * 90);
+    });
+    sylEl.addEventListener("mouseleave", () => {
+      sylEl.classList.remove("active-syl");
+    });
+  });
+}
+
+function readWordInteractive(wordEl, syllables, fullWord) {
+  if (isReadingAloud) return;
+
+  document.querySelectorAll(".story-word").forEach(w => w.classList.remove("word-active"));
+  wordEl.classList.remove("word-done");
+  wordEl.classList.add("word-active");
+
+  const cleanWord = fullWord.replace(/[.,!¡?¿]/g, "").trim();
+  const sylParts = wordEl.querySelectorAll(".syl-part");
+
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(cleanWord.toLowerCase());
+  u.lang = currentVoice ? currentVoice.lang : "es-AR";
+  if (currentVoice) u.voice = currentVoice;
+  u.rate = speechRate * 0.95;
+  u.pitch = 1.22;
+
+  const totalSyls = syllables.length;
+  const stepMs = Math.max(180, Math.floor((cleanWord.length * 75) / totalSyls));
+
+  sylParts.forEach(s => s.classList.remove("active-syl"));
+
+  syllables.forEach((syl, i) => {
+    setTimeout(() => {
+      sylParts.forEach(s => s.classList.remove("active-syl"));
+      if (sylParts[i]) {
+        sylParts[i].classList.add("active-syl");
+        royalAudio.playChime(720 + i * 100);
+      }
+    }, i * stepMs);
+  });
+
+  u.onend = () => {
+    setTimeout(() => {
+      sylParts.forEach(s => s.classList.remove("active-syl"));
+      wordEl.classList.remove("word-active");
+      wordEl.classList.add("word-done");
+      royalAudio.playWordComplete();
+      setTimeout(() => wordEl.classList.remove("word-done"), 800);
+    }, 90);
+  };
+
+  speechSynthesis.speak(u);
+}
+
+/* Modo Escuchar Cuento Continuo */
+function stopStoryReading() {
+  if (readAloudTimer) {
+    clearTimeout(readAloudTimer);
+    readAloudTimer = null;
+  }
+  isReadingAloud = false;
+  speechSynthesis.cancel();
+  $("#btn-toggle-read").textContent = "▶ Escuchar Cuento";
+  $("#btn-toggle-read").classList.remove("btn-reading");
+  document.querySelectorAll(".syl-part").forEach(s => s.classList.remove("active-syl"));
+  document.querySelectorAll(".story-word").forEach(w => {
+    w.classList.remove("word-active");
+    w.classList.remove("word-done");
+  });
+  royalAudio.duckMusic(false);
+}
+
+function startStoryReading() {
+  stopStoryReading();
+  isReadingAloud = true;
+  $("#btn-toggle-read").textContent = "⏸ Pausar Cuento";
+  $("#btn-toggle-read").classList.add("btn-reading");
+  royalAudio.duckMusic(true);
+
+  const story = STORIES_DATA[currentStoryIdx];
+  const page = story.pages[currentPageIdx];
+  let sentenceIdx = 0;
+
+  function readNextSentence() {
+    if (!isReadingAloud) return;
+
+    if (sentenceIdx >= page.sentences.length) {
+      stopStoryReading();
+      fairySays("¡Hermosa lectura, Princesa Luciana! ¡Sos súper inteligente!");
+      royalAudio.playWordComplete();
+      addStar();
+      triggerConfetti(30);
+      return;
+    }
+
+    const sentenceWords = page.sentences[sentenceIdx];
+    const rawSentenceText = sentenceWords.map(w => w.word).join(" ");
+    let searchPointer = 0;
+    const lowerSentence = rawSentenceText.toLowerCase();
+
+    const wordTokens = sentenceWords.map((wObj, wIdx) => {
+      const clean = wObj.word.replace(/[.,!¡?¿]/g, "").trim().toLowerCase();
+      let start = lowerSentence.indexOf(clean, searchPointer);
+      if (start === -1) start = searchPointer;
+      const end = start + clean.length;
+      searchPointer = end;
+
+      const el = document.querySelector(`.story-word[data-s-idx="${sentenceIdx}"][data-w-idx="${wIdx}"]`);
+      return { wObj, el, start, end, wIdx, syllables: wObj.syllables };
+    });
+
+    let activeToken = null;
+    let sylWaveTimer = null;
+
+    function highlightToken(token) {
+      if (!token || token === activeToken) return;
+
+      if (activeToken && activeToken.el) {
+        activeToken.el.classList.remove("word-active");
+        activeToken.el.querySelectorAll(".syl-part").forEach(s => s.classList.remove("active-syl"));
+        activeToken.el.classList.add("word-done");
+      }
+
+      if (sylWaveTimer) clearInterval(sylWaveTimer);
+
+      activeToken = token;
+      if (!token.el) return;
+
+      token.el.classList.add("word-active");
+      royalAudio.playChime(760);
+
+      const sylParts = token.el.querySelectorAll(".syl-part");
+      const totalSyls = token.syllables.length;
+      let sStep = 0;
+
+      if (totalSyls > 1) {
+        sylParts.forEach(s => s.classList.remove("active-syl"));
+        if (sylParts[0]) sylParts[0].classList.add("active-syl");
+
+        const stepTime = Math.max(140, Math.floor(580 / totalSyls / speechRate));
+        sylWaveTimer = setInterval(() => {
+          sStep++;
+          if (sStep < totalSyls) {
+            sylParts.forEach(s => s.classList.remove("active-syl"));
+            if (sylParts[sStep]) {
+              sylParts[sStep].classList.add("active-syl");
+              royalAudio.playChime(760 + sStep * 90);
+            }
+          } else {
+            clearInterval(sylWaveTimer);
+          }
+        }, stepTime);
+      } else if (sylParts[0]) {
+        sylParts[0].classList.add("active-syl");
+      }
+    }
+
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(rawSentenceText.toLowerCase());
+    u.lang = currentVoice ? currentVoice.lang : "es-AR";
+    if (currentVoice) u.voice = currentVoice;
+    u.rate = speechRate;
+    u.pitch = 1.2;
+
+    let hasAdvanced = false;
+    function advanceSentence() {
+      if (hasAdvanced) return;
+      hasAdvanced = true;
+      if (sylWaveTimer) clearInterval(sylWaveTimer);
+      if (activeToken && activeToken.el) {
+        activeToken.el.classList.remove("word-active");
+        activeToken.el.querySelectorAll(".syl-part").forEach(s => s.classList.remove("active-syl"));
+        activeToken.el.classList.add("word-done");
+      }
+      sentenceIdx++;
+      readAloudTimer = setTimeout(readNextSentence, 500);
+    }
+
+    u.onboundary = (e) => {
+      if (e.name === 'word') {
+        const charIdx = e.charIndex;
+        const found = wordTokens.find(t => charIdx >= t.start && charIdx <= t.end + 1) ||
+                      wordTokens.find(t => charIdx >= t.start);
+        if (found) highlightToken(found);
+      }
+    };
+
+    let fallbackIdx = 0;
+    let fallbackTimer = null;
+    u.onstart = () => {
+      highlightToken(wordTokens[0]);
+      const avgWordDuration = Math.max(360, Math.floor(440 / speechRate));
+      fallbackTimer = setInterval(() => {
+        fallbackIdx++;
+        if (fallbackIdx < wordTokens.length) {
+          highlightToken(wordTokens[fallbackIdx]);
+        } else {
+          clearInterval(fallbackTimer);
+        }
+      }, avgWordDuration);
+    };
+
+    u.onend = () => {
+      if (fallbackTimer) clearInterval(fallbackTimer);
+      advanceSentence();
+    };
+
+    u.onerror = () => {
+      if (fallbackTimer) clearInterval(fallbackTimer);
+      advanceSentence();
+    };
+
+    speechSynthesis.speak(u);
+  }
+
+  readNextSentence();
+}
+
+$("#btn-toggle-read").onclick = () => {
+  if (isReadingAloud) stopStoryReading();
+  else startStoryReading();
+};
+
+$("#btn-toggle-music").onclick = () => {
+  const isPlaying = royalAudio.toggleMusic();
+  const btn = $("#btn-toggle-music");
+  if (isPlaying) {
+    btn.textContent = "🎵 Música: ON";
+    btn.classList.remove("muted");
+  } else {
+    btn.textContent = "🔇 Música: OFF";
+    btn.classList.add("muted");
+  }
+};
+
+const speeds = [
+  { rate: 0.68, label: "🐢 Muy Despacio (0.68x)" },
+  { rate: 0.78, label: "🌸 Despacito (0.78x)" },
+  { rate: 0.95, label: "🐇 Normal (0.95x)" }
+];
+let speedIndex = 1;
+$("#btn-speed-toggle").onclick = () => {
+  speedIndex = (speedIndex + 1) % speeds.length;
+  speechRate = speeds[speedIndex].rate;
+  $("#btn-speed-toggle").textContent = speeds[speedIndex].label;
+  if (isReadingAloud) startStoryReading();
+};
+
+$("#btn-magic-wand").onclick = () => {
+  wandEnabled = !wandEnabled;
+  $("#btn-magic-wand").textContent = wandEnabled ? "🪄 Varita: Sí" : "🪄 Varita: No";
+};
+
+window.addEventListener("pointermove", (e) => {
+  if (!wandEnabled) return;
+  if (Math.random() > 0.35) return;
+  const spark = document.createElement("span");
+  spark.className = "sparkle-trail";
+  spark.textContent = ["✨", "💖", "⭐", "🌸"][Math.floor(Math.random() * 4)];
+  spark.style.left = (e.clientX - 10) + "px";
+  spark.style.top = (e.clientY - 10) + "px";
+  document.body.appendChild(spark);
+  setTimeout(() => spark.remove(), 750);
+});
+
+/* Paginación de Cuentos */
+$("#btn-prev-page").onclick = () => {
+  if (currentPageIdx > 0) {
+    currentPageIdx--;
+    renderCurrentPage();
+  }
+};
+$("#btn-next-page").onclick = () => {
+  const story = STORIES_DATA[currentStoryIdx];
+  if (currentPageIdx < story.pages.length - 1) {
+    currentPageIdx++;
+    renderCurrentPage();
+  }
+};
+
+const storyTabs = document.querySelectorAll(".story-tab");
+storyTabs.forEach(tab => {
+  tab.onclick = () => {
+    storyTabs.forEach(t => t.setAttribute("aria-selected", "false"));
+    tab.setAttribute("aria-selected", "true");
+    currentStoryIdx = +tab.dataset.story;
+    currentPageIdx = 0;
+    renderCurrentPage();
+  };
+});
+
+/* ========================================================
+   SECCIÓN DINÁMICA DE JUEGOS DEL CASTILLO
+   ======================================================== */
+const ROYAL_WORDS_DATA = [
+  { word: "CORONA", syllables: ["CO", "RO", "NA"], pic: "👑" },
+  { word: "CASTILLO", syllables: ["CAS", "TI", "LLO"], pic: "🏰" },
+  { word: "PRINCESA", syllables: ["PRIN", "CE", "SA"], pic: "👸" },
+  { word: "UNICORNIO", syllables: ["U", "NI", "COR", "NIO"], pic: "🦄" },
+  { word: "VARITA", syllables: ["VA", "RI", "TA"], pic: "🪄" },
+  { word: "ESTRELLA", syllables: ["ES", "TRE", "LLA"], pic: "⭐" },
+  { word: "DELFÍN", syllables: ["DEL", "FÍN"], pic: "🐬" },
+  { word: "ZAPATO", syllables: ["ZA", "PA", "TO"], pic: "👠" }
+];
+
+let currentGameType = "stars";
+let gameRound = 0;
+
+function speakWordSimple(txt) {
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(txt.toLowerCase());
+  u.voice = currentVoice;
+  u.rate = 0.85;
+  u.pitch = 1.22;
+  speechSynthesis.speak(u);
+}
+
+// JUEGO 1: ATRAER ESTRELLAS DE SÍLABAS
+function initStarCatcherGame() {
+  const arena = $("#game-arena");
+  const targetObj = ROYAL_WORDS_DATA[gameRound % ROYAL_WORDS_DATA.length];
+  const syls = targetObj.syllables;
+
+  // Letras de las sílabas + distractores suaves
+  let pool = [...syls];
+  const distractors = ["LU", "MA", "SO", "PA", "TE", "LA"].filter(d => !syls.includes(d));
+  pool.push(distractors[0]);
+  pool.sort(() => Math.random() - 0.5);
+
+  let currentStep = 0;
+
+  arena.innerHTML = `
+    <div style="font-size: clamp(60px, 16vw, 90px); line-height: 1; margin: 4px 0 10px;">${targetObj.pic}</div>
+    <div class="star-catcher-target">${formatLetters(targetObj.word)}</div>
+    <div class="star-slots-row" id="game-slots">
+      ${syls.map(() => `<div class="star-slot-box">?</div>`).join("")}
+    </div>
+    <div class="floating-stars-pool" id="stars-pool">
+      ${pool.map((s, idx) => `<button class="star-bubble-btn" data-syl="${s}" data-idx="${idx}">⭐ ${s}</button>`).join("")}
+    </div>
+  `;
+
+  fairySays(`¡Atrapá las sílabas en orden para formar ${targetObj.word}!`);
+  speakWordSimple(`Formemos la palabra ${targetObj.word}`);
+
+  const slotBoxes = arena.querySelectorAll(".star-slot-box");
+  const starBtns = arena.querySelectorAll(".star-bubble-btn");
+
+  starBtns.forEach(btn => {
+    btn.onclick = () => {
+      const syl = btn.dataset.syl;
+      speakWordSimple(syl);
+
+      if (syl === syls[currentStep]) {
+        btn.disabled = true;
+        slotBoxes[currentStep].textContent = syl;
+        slotBoxes[currentStep].classList.add("filled");
+        royalAudio.playChime(760 + currentStep * 110);
+        currentStep++;
+
+        if (currentStep >= syls.length) {
+          royalAudio.playWordComplete();
+          addStar();
+          triggerConfetti(28);
+          fairySays(`¡Excelente, Princesa Luciana! ¡Completaste ${targetObj.word}!`);
+          gameRound++;
+          setTimeout(initStarCatcherGame, 2400);
+        }
+      } else {
+        royalAudio.playChime(320);
+        fairySays(`Esa es ${syl}. Busquemos ${syls[currentStep]}`);
+      }
+    };
+  });
+}
+
+// JUEGO 2: COFRE MÁGICO DEL TESORO
+function initChestsGame() {
+  const arena = $("#game-arena");
+  const targetObj = ROYAL_WORDS_DATA[gameRound % ROYAL_WORDS_DATA.length];
+  
+  const others = ROYAL_WORDS_DATA.filter(w => w.word !== targetObj.word).sort(() => Math.random() - 0.5).slice(0, 2);
+  const options = [targetObj, ...others].sort(() => Math.random() - 0.5);
+
+  arena.innerHTML = `
+    <div style="font-size: 15px; color: #64748B; font-weight: 800; margin-bottom: 4px;">ENCONTRÁ EL OBJETO DE LA PALABRA:</div>
+    <div style="font-size: clamp(38px, 10vw, 60px); font-weight: 800; color: #BE185D; margin-bottom: 12px; letter-spacing: .06em;">
+      ${formatLetters(targetObj.word)}
+    </div>
+    <div class="chests-grid">
+      ${options.map(opt => `
+        <div class="chest-card" data-word="${opt.word}">
+          <div class="chest-icon">${opt.pic}</div>
+          <div class="chest-word">${formatLetters(opt.word)}</div>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  fairySays(`¿Cuál de estos cofres es ${targetObj.word}? ¡Tocalo para abrir el tesoro!`);
+  speakWordSimple(`Buscá ${targetObj.word}`);
+
+  arena.querySelectorAll(".chest-card").forEach(card => {
+    card.onclick = () => {
+      const selected = card.dataset.word;
+      if (selected === targetObj.word) {
+        card.style.background = "#DCFCE7";
+        card.style.borderColor = "#22C55E";
+        royalAudio.playWordComplete();
+        addStar();
+        triggerConfetti(32);
+        fairySays(`¡Abriste el tesoro de ${targetObj.word}! ¡Sos una gran lectora, Luciana!`);
+        gameRound++;
+        setTimeout(initChestsGame, 2200);
+      } else {
+        card.style.animation = "shake 0.4s";
+        speakWordSimple(selected);
+        fairySays(`Ese es ${selected}. Volvé a leer arriba.`);
+      }
+    };
+  });
+}
+
+// JUEGO 3: MEMOTEST REAL
+function initMemoGame() {
+  const arena = $("#game-arena");
+  const chosen = ROYAL_WORDS_DATA.slice(0, 3); // 3 pares = 6 cartas
+  let cards = [];
+  chosen.forEach((c, id) => {
+    cards.push({ id, type: 'pic', content: c.pic, word: c.word });
+    cards.push({ id, type: 'word', content: c.word, word: c.word });
+  });
+  cards.sort(() => Math.random() - 0.5);
+
+  arena.innerHTML = `
+    <div style="font-size: 16px; color: #64748B; font-weight: 800; margin-bottom: 8px;">ENCONTRÁ LOS PARES DE CARTAS REALES:</div>
+    <div class="memotest-grid" id="memo-grid">
+      ${cards.map((c, idx) => `
+        <div class="memo-card" data-idx="${idx}" data-id="${c.id}" data-type="${c.type}">
+          <span>👑</span>
+        </div>
+      `).join("")}
+    </div>
+  `;
+
+  fairySays("¡Tocá dos cartas para encontrar la palabra y su dibujo mágico!");
+
+  const cardEls = arena.querySelectorAll(".memo-card");
+  let flipped = [];
+  let matches = 0;
+
+  cardEls.forEach(card => {
+    card.onclick = () => {
+      if (flipped.length >= 2 || card.classList.contains("flipped") || card.classList.contains("matched")) return;
+
+      const idx = +card.dataset.idx;
+      const data = cards[idx];
+
+      card.classList.add("flipped");
+      card.innerHTML = data.type === 'pic' ? data.content : `<span style="font-size:clamp(16px,4.5vw,22px)">${formatLetters(data.word)}</span>`;
+      speakWordSimple(data.word);
+      royalAudio.playChime(780);
+
+      flipped.push({ card, data });
+
+      if (flipped.length === 2) {
+        if (flipped[0].data.id === flipped[1].data.id) {
+          // Acierto
+          flipped[0].card.classList.add("matched");
+          flipped[1].card.classList.add("matched");
+          royalAudio.playWordComplete();
+          matches++;
+          flipped = [];
+
+          if (matches === 3) {
+            addStar();
+            triggerConfetti(36);
+            fairySays("¡Ganaste el memotest real! ¡Qué memoria inteligente tenés, Luciana!");
+            setTimeout(initMemoGame, 2600);
+          }
+        } else {
+          // Fallo suave
+          setTimeout(() => {
+            flipped[0].card.classList.remove("flipped");
+            flipped[0].card.innerHTML = "<span>👑</span>";
+            flipped[1].card.classList.remove("flipped");
+            flipped[1].card.innerHTML = "<span>👑</span>";
+            flipped = [];
+          }, 1100);
+        }
+      }
+    };
+  });
+}
+
+// Selector de sub-juegos
+const gameSubtabs = document.querySelectorAll(".game-subtab");
+gameSubtabs.forEach(tab => {
+  tab.onclick = () => {
+    gameSubtabs.forEach(t => t.setAttribute("aria-selected", "false"));
+    tab.setAttribute("aria-selected", "true");
+    currentGameType = tab.dataset.game;
+    loadActiveGame();
+  };
+});
+
+function loadActiveGame() {
+  stopStoryReading();
+  if (currentGameType === "stars") initStarCatcherGame();
+  else if (currentGameType === "chests") initChestsGame();
+  else if (currentGameType === "memo") initMemoGame();
+}
+
+/* ========================================================
+   NAVEGACIÓN PRINCIPAL: CUENTOS VS JUEGOS
+   ======================================================== */
+$("#tab-stories-view").onclick = () => {
+  $("#tab-stories-view").setAttribute("aria-selected", "true");
+  $("#tab-games-view").setAttribute("aria-selected", "false");
+  $("#view-stories").style.display = "block";
+  $("#view-games").style.display = "none";
+  renderCurrentPage();
+};
+
+$("#tab-games-view").onclick = () => {
+  $("#tab-games-view").setAttribute("aria-selected", "true");
+  $("#tab-stories-view").setAttribute("aria-selected", "false");
+  $("#view-stories").style.display = "none";
+  $("#view-games").style.display = "block";
+  loadActiveGame();
+};
+
+/* Modal de Voz */
+function openVoiceModal() {
+  loadAndSelectVoices();
+  const list = $("#voice-list-container");
+  list.innerHTML = "";
+
+  if (!availableVoices.length) {
+    list.innerHTML = "<p style='color:#64748B'>No se detectaron voces adicionales en este navegador.</p>";
+  } else {
+    availableVoices.forEach((v) => {
+      const isSelected = currentVoice && currentVoice.name === v.name;
+      const row = document.createElement("div");
+      row.className = `voice-option ${isSelected ? 'selected' : ''}`;
+
+      const isNatural = /natural|online|neural/i.test(v.name);
+      const isCute = /salma|dalia|paulina|sabina|elena|mónica|monica/i.test(v.name);
+      let badge = isNatural ? "✨ Voz Natural HD" : (isCute ? "🌸 Voz Dulce" : v.lang);
+
+      row.innerHTML = `
+        <div class="voice-info">
+          <div class="voice-name">${v.name.replace(/Microsoft |Google /g, "")}</div>
+          <div class="voice-badge">${badge}</div>
+        </div>
+        <button class="btn-test-voice" type="button">Probar 🔊</button>
+      `;
+
+      row.querySelector(".btn-test-voice").onclick = (e) => {
+        e.stopPropagation();
+        currentVoice = v;
+        try { localStorage.setItem("luchi_chosen_voice", v.name); } catch(err){}
+        
+        speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance("¡Hola, Princesa Luciana!");
+        u.voice = v;
+        u.lang = v.lang;
+        u.rate = speechRate;
+        u.pitch = 1.22;
+        speechSynthesis.speak(u);
+        openVoiceModal();
+      };
+
+      row.onclick = () => {
+        currentVoice = v;
+        try { localStorage.setItem("luchi_chosen_voice", v.name); } catch(err){}
+        openVoiceModal();
+      };
+
+      list.appendChild(row);
+    });
+  }
+
+  $("#voice-modal").classList.add("open");
+}
+
+$("#btn-open-voice-modal").onclick = openVoiceModal;
+$("#btn-close-voice-modal").onclick = () => $("#voice-modal").classList.remove("open");
+$("#voice-modal").onclick = (e) => {
+  if (e.target === $("#voice-modal")) $("#voice-modal").classList.remove("open");
+};
+
+function triggerConfetti(count = 24) {
+  const icons = ["⭐", "💖", "👑", "🦄", "🌸", "✨", "🎉"];
+  for (let i = 0; i < count; i++) {
+    const s = document.createElement("span");
+    s.className = "conf";
+    s.textContent = icons[Math.floor(Math.random() * icons.length)];
+    s.style.left = Math.random() * 92 + "vw";
+    s.style.animationDelay = (Math.random() * 0.4) + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2600);
+  }
+}
+
+$("#fairy-btn").onclick = () => {
+  const story = STORIES_DATA[currentStoryIdx];
+  const page = story.pages[currentPageIdx];
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(page.dialog.toLowerCase());
+  u.voice = currentVoice;
+  u.rate = speechRate;
+  u.pitch = 1.2;
+  speechSynthesis.speak(u);
+};
+
+$("#btn-enter-castle").onclick = () => {
+  $("#start-overlay").style.display = "none";
+  royalAudio.init();
+  royalAudio.toggleMusic(true);
+  $("#stars-count").textContent = starsCount;
+  renderCurrentPage();
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance("¡Hola Princesa Luciana! Bienvenida a tu castillo de cuentos y juegos mágicos.");
+  u.voice = currentVoice;
+  u.rate = speechRate;
+  u.pitch = 1.22;
+  speechSynthesis.speak(u);
+};
+
+$("#stars-count").textContent = starsCount;
+renderCurrentPage();
+</script>
+</body>
+</html>
