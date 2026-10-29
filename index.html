@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-/* Layout: una columna tipo "mochila": barra arriba, escenario al centro, Lula (la lechuza) abajo */
+/* Layout: una columna tipo "mochila": barra arriba, escenario al centro, Pocoyó abajo */
 :root{
   --sky:#E4F2FF; --sky-dot:#D3E8FB; --paper:#FFFFFF; --ink:#17304D; --muted:#5A7290; --line:#CFE0F1;
   --vow:#E5405E; --con:#2563EB; --leaf:#2E9E58; --sun:#FFB21E; --grape:#7C4DDB; --clay:#F2733B; --ok:#16A34A;
@@ -80,14 +80,33 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 .whybanner .q{font-size:clamp(54px,14vw,72px);line-height:1;font-family:var(--f-read);color:var(--clay)}
 .whybanner b{display:block;font-size:clamp(24px,6vw,32px);line-height:1.05}
 .whybanner span{color:var(--muted);font-size:16px}
+.whybanner.pzb{background:#FFEAF4;border-color:#FF7EB6}
+.whybanner.pzb .q{font-family:inherit}
+
+/* Rompecabezas */
+.scenes{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;margin-top:12px}
+.scene{position:relative;padding:0;border-radius:20px;overflow:hidden;border:3px solid var(--line);border-bottom-width:7px;background:var(--paper)}
+.scene img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover}
+.scene b{display:block;padding:4px 6px 6px;font-size:16px;line-height:1.1}
+.scene .ok{position:absolute;top:6px;right:8px;background:#fff;border-radius:999px;padding:0 8px;font-size:14px;color:#A45A00}
+.pzboard{position:relative;display:grid;margin:12px auto 0;border-radius:16px;overflow:hidden;border:4px solid #FF7EB6;background:#fff}
+.pzslot{position:relative;box-shadow:inset 0 0 0 1px rgba(255,126,182,.45)}
+.pzslot::before{content:"";position:absolute;inset:0;background:var(--img);background-size:var(--bs);background-position:var(--bp);opacity:.18}
+.pzslot.hl{box-shadow:inset 0 0 0 4px var(--sun)}
+.pztray{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:14px;min-height:60px}
+.pzp{flex:none;border-radius:8px;background-repeat:no-repeat;box-shadow:0 3px 0 var(--shadow),0 0 0 2px #fff;touch-action:none;cursor:grab}
+.pzp.sel{outline:4px solid var(--sun);outline-offset:2px}
+.pzp.drag{position:fixed;z-index:15;pointer-events:none;transform:scale(1.08);box-shadow:0 10px 20px rgba(0,0,0,.25)}
+.pzslot .pzp{position:absolute;inset:0;width:100%!important;height:100%!important;border-radius:0;box-shadow:none;cursor:default}
+.pzboard.done .pzslot{box-shadow:none}
 .parents{display:flex;justify-content:center;margin-top:8px}
 .parents button{position:relative;overflow:hidden;background:transparent;border:2px dashed var(--line);border-radius:999px;padding:8px 18px;color:var(--muted);font-size:15px}
 .parents button i{position:absolute;inset:0;width:0;background:rgba(124,77,219,.18)}
 
-/* Lula */
+/* Pocoyó */
 .lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));pointer-events:none}
 .lula .in{max-width:780px;margin:0 auto;display:flex;align-items:flex-end;gap:10px}
-.owl{pointer-events:auto;flex:none;width:76px;height:76px;border-radius:50%;background:#FFF4D6;border:4px solid var(--sun);font-size:46px;display:grid;place-items:center;box-shadow:0 5px 0 var(--shadow)}
+.owl{pointer-events:auto;flex:none;width:76px;height:76px;border-radius:50%;background:#E6F4FF;border:4px solid #3FA9F5;font-size:46px;display:grid;place-items:center;padding:4px;overflow:hidden;box-shadow:0 5px 0 var(--shadow)}
 .owl.talk{animation:talk .5s infinite alternate}
 @keyframes talk{to{transform:rotate(-6deg) scale(1.05)}}
 .bubble{pointer-events:auto;flex:1;min-width:0;background:var(--paper);border:3px solid var(--line);border-radius:22px 22px 22px 6px;padding:10px 14px;font-size:clamp(16px,4.2vw,20px);box-shadow:0 5px 0 var(--shadow);max-height:30vh;overflow:auto}
@@ -283,7 +302,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 .newstk{font-size:120px;text-align:center;line-height:1.1;animation:pop .6s}
 @keyframes pop{0%{transform:scale(.2) rotate(-30deg)}70%{transform:scale(1.15)}}
 .start{position:fixed;inset:0;z-index:30;background:var(--sky);display:grid;place-items:center;text-align:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
-.start .owlbig{font-size:110px;line-height:1;animation:talk 1s infinite alternate}
+.start .owlbig{width:150px;height:150px;margin:0 auto;font-size:110px;line-height:1;animation:talk 1s infinite alternate}
 .start h1{font-family:var(--f-read);font-size:clamp(40px,11vw,64px);margin:6px 0;line-height:1.05}
 .start p{color:var(--muted);margin:0 0 18px}
 .start .btn{font-size:28px;min-height:72px;padding:8px 36px}
@@ -322,14 +341,14 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 
 <div class="lula" aria-live="polite">
   <div class="in">
-    <button class="owl" id="owl" aria-label="Repetir lo que dijo Lula">🦉</button>
-    <div class="bubble" id="bubble">¡Hola! Soy Lula.</div>
+    <button class="owl" id="owl" aria-label="Repetir lo que dijo Pocoyó"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><path d="M13 60C13 24 31 9 50 9s37 15 37 51v16c0 6-9 8-11 1l-3-13H27l-3 13c-2 7-11 5-11-1z" fill="#3FA9F5"/><ellipse cx="50" cy="65" rx="26" ry="23" fill="#FFD3B0"/><path d="M22 58C22 32 35 18 50 18s28 14 28 40c-11-8-45-8-56 0z" fill="#3FA9F5"/><path d="M35 66q5-6 10 0M55 66q5-6 10 0" stroke="#3A2A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="50" cy="71" r="2.4" fill="#F2A985"/><path d="M43 77q7 6 14 0" stroke="#B5523B" stroke-width="3" fill="none" stroke-linecap="round"/></svg></button>
+    <div class="bubble" id="bubble">¡Hola! Soy Pocoyó.</div>
   </div>
 </div>
 
 <div class="start" id="start">
   <div>
-    <div class="owlbig">🦉</div>
+    <div class="owlbig"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><path d="M13 60C13 24 31 9 50 9s37 15 37 51v16c0 6-9 8-11 1l-3-13H27l-3 13c-2 7-11 5-11-1z" fill="#3FA9F5"/><ellipse cx="50" cy="65" rx="26" ry="23" fill="#FFD3B0"/><path d="M22 58C22 32 35 18 50 18s28 14 28 40c-11-8-45-8-56 0z" fill="#3FA9F5"/><path d="M35 66q5-6 10 0M55 66q5-6 10 0" stroke="#3A2A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="50" cy="71" r="2.4" fill="#F2A985"/><path d="M43 77q7 6 14 0" stroke="#B5523B" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
     <h1><span class="c">L</span><span class="v">u</span><span class="c">c</span><span class="v">i</span><span class="v">a</span><span class="c">n</span><span class="v">a</span><br>Exploradora</h1>
     <p>Letras, naturaleza y un montón de porqués</p>
     <button class="btn go" id="startBtn">¡Empezar! ▶</button>
@@ -348,7 +367,7 @@ const cw=t=>[...fmt(t)].map(ch=>ch===' '?' ':`<span class="${VOW.has(ch)?'v':'c'
 const strip=t=>t.replace(/[\p{Extended_Pictographic}️‍]/gu,'').replace(/\s+/g,' ').trim();
 
 /* ---------- datos guardados ---------- */
-const DEF={stars:0,stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{},upper:true,rate:.85,voice:''};
+const DEF={stars:0,stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{},pz:{},upper:true,rate:.85,voice:''};
 let S=(()=>{try{return Object.assign({},DEF,JSON.parse(localStorage.getItem('luciana_v3')||'{}'))}catch(e){return {...DEF}}})();
 function save(){try{localStorage.setItem('luciana_v3',JSON.stringify(S))}catch(e){}}
 
@@ -469,6 +488,7 @@ const ACTS={
   hora:{t:'¿Qué hora es?',e:'🕒',z:'esc',run:actHora},
   cuerpo:{t:'Mi cuerpo',e:'🫀',z:'esc',run:actCuerpo},
   calendario:{t:'Días y meses',e:'📅',z:'esc',run:actCalendario},
+  rompe:{t:'Rompecabezas de princesas',e:'👸',z:'esc',run:actRompe},
   ciclos:{t:'Ciclos de la vida',e:'🐛',z:'nat',run:actCiclos},
   casas:{t:'¿Dónde vive?',e:'🏡',z:'nat',run:actCasas},
   vivo:{t:'¿Vivo o no vivo?',e:'🌱',z:'nat',run:actVivo},
@@ -504,6 +524,7 @@ function home(st){
   <section class="zone z-let"><h2><i></i>Leer y escribir</h2><div class="tiles">${tiles(['abc','trazar','silabas','sonido','leer','escribir'])}</div></section>
   <section class="zone z-num"><h2><i></i>Números</h2><div class="tiles">${tiles(['numeros','decenas','sumar','restar'])}</div></section>
   <section class="zone z-esc"><h2><i></i>Más de la escuela</h2><div class="tiles">${tiles(['formas','hora','cuerpo','calendario'])}</div></section>
+  <button class="whybanner pzb" data-go="rompe"><span class="q">👸</span><span><b>Rompecabezas de princesas</b><span>${PZS.length} dibujos para armar, de 4 a 12 piezas</span></span></button>
   <button class="whybanner" data-go="porque"><span class="q">¿?</span><span><b>¿Por qué…?</b><span>${WHY.length} preguntas de las que hacés vos, con respuestas y experimentos</span></span></button>
   <section class="zone z-nat"><h2><i></i>Naturaleza</h2><div class="tiles">${tiles(['ciclos','casas','vivo','planta'])}</div></section>
   <section class="zone z-fis"><h2><i></i>Cómo funcionan las cosas</h2><div class="tiles">${tiles(['gravedad','flota','imanes','sombras','colores'])}</div></section>
@@ -515,7 +536,7 @@ function home(st){
   const anim=()=>{fill.style.width=Math.min(100,(performance.now()-t0)/12)+'%';raf=requestAnimationFrame(anim)};
   pb.onpointerdown=()=>{t0=performance.now();anim();tm=setTimeout(()=>{stop();showParents()},1200)};
   pb.onpointerup=pb.onpointerleave=pb.onpointercancel=stop;
-  if(!greeted){greeted=true;lula('¡Hola Luciana! Soy Lula. Elegí qué querés hacer hoy.')}
+  if(!greeted){greeted=true;lula('¡Hola Luciana! Soy Pocoyó. Elegí qué querés hacer hoy.')}
   else lula('¿Qué jugamos ahora?',false);
 }
 /* Menú que se escucha: 1er toque dice qué es, 2do toque entra */
@@ -715,7 +736,7 @@ function actLeer(st){
     st.innerHTML=`<div class="panel center"><p class="hint" style="margin-top:0">Leé la palabra y tocá el dibujo</p>
       <div class="bigword" id="bw">${w.s.map((s,i)=>`<span class="sy" data-i="${i}">${cw(s)}</span>`).join('')}</div>
       <div class="opts">${opts.map(o=>`<button class="opt em" data-w="${o.word}" aria-label="${o.word}">${o.e}</button>`).join('')}</div>
-      <div class="row"><button class="btn sun" id="help">🦉 Ayudame a leer</button></div></div>`;
+      <div class="row"><button class="btn sun" id="help">🙋 Ayudame a leer</button></div></div>`;
     lula('Leé la palabra solita. Si la tocás, te digo cada pedacito.');
     $('#bw').onclick=e=>{const s=e.target.closest('.sy');if(!s)return;$$('.sy').forEach(x=>x.classList.remove('lit'));s.classList.add('lit');hush();say(w.s[+s.dataset.i],{rate:.6})};
     $('#help').onclick=async()=>{hush();await sayAll(w.s,i=>{$$('.sy').forEach((x,j)=>x.classList.toggle('lit',j===i))},{rate:.6});$$('.sy').forEach(x=>x.classList.remove('lit'))};
@@ -1226,7 +1247,7 @@ function mathGame(st,id){
     st.innerHTML=`<div class="panel center"><div class="eq" id="eq">${vis}</div>
       <div class="eqn" id="eqn">${a} ${sg} ${b} = <span class="q">?</span></div>
       <div class="opts">${numOpts(ans,tens?10:1).map(numOpt).join('')}</div>
-      <div class="row"><button class="btn sun" id="hear">🔊 Escuchar</button><button class="btn" id="cnt">👆 Contemos juntas</button></div></div>`;
+      <div class="row"><button class="btn sun" id="hear">🔊 Escuchar</button><button class="btn" id="cnt">👆 Contemos juntos</button></div></div>`;
     const eq=$('#eq');countable(eq);
     const tell=()=>lula(story);
     if(plus)tell();
@@ -1238,7 +1259,7 @@ function mathGame(st,id){
         bt.classList.add('good');$('#eqn').innerHTML=`${a} ${sg} ${b} = <span class="q">${ans}</span>`;bump(id);
         await win(miss?1:2,`¡Sí! ${nw(a)} ${plus?'más':'menos'} ${nw(b)} es igual a ${nw(ans)}.`);
         st.querySelector('.panel').insertAdjacentHTML('beforeend',`<div class="row"><button class="btn go" id="nx">Otra ▶</button></div>`);$('#nx').onclick=round;
-      }else{miss++;oops(bt,miss>=2?`Ese es el ${nw(+bt.dataset.n)}. Tocá "Contemos juntas" y te ayudo.`:`Ese es el ${nw(+bt.dataset.n)}. Probá de nuevo: podés tocar los dibujos para contarlos.`)}
+      }else{miss++;oops(bt,miss>=2?`Ese es el ${nw(+bt.dataset.n)}. Tocá "Contemos juntos" y te ayudo.`:`Ese es el ${nw(+bt.dataset.n)}. Probá de nuevo: podés tocar los dibujos para contarlos.`)}
     });
   }
   round();
@@ -1392,6 +1413,87 @@ function actCalendario(st){
   cleanup=()=>{singing=false};
 }
 
+/* ---------- Rompecabezas de princesas ---------- */
+/* Cada dibujo se pinta en un canvas 800x600: fondo + formas + emojis grandes */
+const PZS=[
+ {n:'La princesa y su castillo',d:(g,e)=>{g.sky('#8FD3FF','#E4F6FF');g.sun(680,90);g.cloud(150,110);g.cloud(470,70);g.hill('#7ED38A',600,200);g.castle(470,180,'#FFB6D5','#FF5FA2');e('🌈',170,250,170);e('👸',250,450,230);e('🌷',60,550,70);e('🌷',740,550,70)}},
+ {n:'La princesa y el unicornio',d:(g,e)=>{g.sky('#C9B8FF','#FFE4F3');g.cloud(120,90);g.cloud(600,130);g.hill('#A5E3B3',560,170);e('🌈',600,240,200);e('🦄',540,430,250);e('👸',220,440,230);e('✨',400,140,70);e('🌸',60,560,70);e('🌸',740,560,70)}},
+ {n:'La princesa en el jardín',d:(g,e)=>{g.sky('#9EE0FF','#F0FBFF');g.sun(100,90);g.hill('#6CC57C',520,210);e('🌻',90,430,150);e('🌻',710,420,150);e('👸',400,430,250);e('🦋',220,190,90);e('🦋',600,160,80);e('🐝',540,260,60);e('🌷',260,560,70);e('🌷',540,560,70)}},
+ {n:'La princesa sirena',d:(g,e)=>{g.sky('#3CB4E6','#0A5C99');g.bubbles();g.sand();e('🧜‍♀️',400,330,280);e('🐠',140,180,110);e('🐟',660,240,100);e('🐙',650,500,120);e('🐚',150,540,80);e('🪸',60,470,110);e('⭐',300,560,60)}},
+ {n:'La princesa de las estrellas',d:(g,e)=>{g.sky('#1B2459','#5B3E9E');g.stars();e('🌙',650,120,140);g.hill('#3B2F7A',560,200);e('👸',380,430,250);e('🦉',130,420,120);e('⭐',220,120,70);e('🌟',480,90,60)}},
+ {n:'La princesa y el dragón amigo',d:(g,e)=>{g.sky('#FFC6A8','#FFF0E0');g.sun(680,100);g.cloud(250,90);g.hill('#88C97A',560,180);g.castle(80,230,'#E9D5FF','#9A6BE0',.7);e('🐉',560,390,260);e('👸',250,440,220);e('💖',410,250,70)}},
+ {n:'El hada del bosque',d:(g,e)=>{g.sky('#B8F0C8','#E9FFF0');g.hill('#4FA866',540,230);e('🌳',110,320,230);e('🌳',700,300,230);e('🧚',400,300,250);e('🍄',200,540,110);e('🍄',600,550,90);e('✨',300,130,60);e('✨',520,170,60)}},
+ {n:'La princesa en la nieve',d:(g,e)=>{g.sky('#BFE3FF','#F4FAFF');g.snow();g.hill('#FFFFFF',540,220);e('⛄',640,420,200);e('👸',300,430,240);e('❄️',140,140,80);e('❄️',560,110,70);e('🎄',90,460,140)}}
+];
+const pzCache={};
+function pzImg(i){
+  if(pzCache[i])return pzCache[i];
+  const c=document.createElement('canvas');c.width=800;c.height=600;const x=c.getContext('2d');
+  const g={
+    sky:(a,b)=>{const gr=x.createLinearGradient(0,0,0,600);gr.addColorStop(0,a);gr.addColorStop(1,b);x.fillStyle=gr;x.fillRect(0,0,800,600)},
+    sun:(cx,cy)=>{x.fillStyle='#FFD84D';x.beginPath();x.arc(cx,cy,55,0,7);x.fill();x.strokeStyle='#FFD84D';x.lineWidth=8;for(let k=0;k<12;k++){const a=k*Math.PI/6;x.beginPath();x.moveTo(cx+Math.cos(a)*70,cy+Math.sin(a)*70);x.lineTo(cx+Math.cos(a)*92,cy+Math.sin(a)*92);x.stroke()}},
+    cloud:(cx,cy)=>{x.fillStyle='rgba(255,255,255,.95)';[[0,0,40],[40,-20,48],[85,0,38],[42,12,40]].forEach(([dx,dy,r])=>{x.beginPath();x.arc(cx+dx,cy+dy,r,0,7);x.fill()})},
+    hill:(col,y,h)=>{x.fillStyle=col;x.beginPath();x.moveTo(0,600);x.lineTo(0,y);x.quadraticCurveTo(200,y-h*.6,420,y-10);x.quadraticCurveTo(620,y+20,800,y-h*.4);x.lineTo(800,600);x.fill()},
+    castle:(cx,cy,wall,roof,s=1)=>{x.save();x.translate(cx,cy);x.scale(s,s);x.fillStyle=wall;x.fillRect(0,80,260,240);x.fillRect(-30,20,70,300);x.fillRect(220,20,70,300);x.fillRect(95,0,70,320);
+      x.fillStyle=roof;[[-30,20,70],[220,20,70],[95,0,70]].forEach(([px,py,w])=>{x.beginPath();x.moveTo(px-10,py);x.lineTo(px+w/2,py-90);x.lineTo(px+w+10,py);x.fill()});
+      x.fillStyle='#7A3B5C';x.beginPath();x.moveTo(100,320);x.lineTo(100,240);x.arc(130,240,30,Math.PI,0);x.lineTo(160,320);x.fill();
+      x.fillStyle='#FFF6A8';[[-5,90],[245,90],[120,60]].forEach(([wx,wy])=>{x.beginPath();x.arc(wx+15,wy,14,Math.PI,0);x.rect(wx+1,wy,28,30);x.fill()});x.restore()},
+    bubbles:()=>{x.strokeStyle='rgba(255,255,255,.7)';x.lineWidth=4;for(let k=0;k<14;k++){x.beginPath();x.arc(60+k*53%760,40+(k*97)%330,8+k%4*5,0,7);x.stroke()}},
+    sand:()=>{x.fillStyle='#F3D9A4';x.beginPath();x.moveTo(0,600);x.lineTo(0,500);x.quadraticCurveTo(400,440,800,510);x.lineTo(800,600);x.fill()},
+    stars:()=>{x.fillStyle='#FFF7C2';for(let k=0;k<60;k++){x.beginPath();x.arc((k*137)%800,(k*71)%380,1.5+k%3,0,7);x.fill()}},
+    snow:()=>{x.fillStyle='#fff';for(let k=0;k<70;k++){x.beginPath();x.arc((k*149)%800,(k*83)%560,3+k%4,0,7);x.fill()}}
+  };
+  const e=(ch,cx,cy,sz)=>{x.font=`${sz}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(ch,cx,cy)};
+  PZS[i].d(g,e);
+  return pzCache[i]=c.toDataURL('image/jpeg',.9);
+}
+function actRompe(st){
+  const LV=[[2,2],[3,2],[3,3],[4,3]];
+  function list(){
+    st.innerHTML=`<p class="qtitle">Elegí un dibujo para armar</p><div class="scenes" id="sc">${PZS.map((p,i)=>`<button class="scene" data-i="${i}" data-say="${p.n}"><img alt="" src="${pzImg(i)}"><b>${p.n}</b>${S.pz[i]?`<span class="ok">★ ${S.pz[i]} piezas</span>`:''}</button>`).join('')}</div>`;
+    $('#sc').onclick=e=>{const b=e.target.closest('.scene');if(!b)return;const i=+b.dataset.i;const done=S.pz[i]||0;play(i,LV.findIndex(l=>l[0]*l[1]>done)>=0?LV.findIndex(l=>l[0]*l[1]>done):3)};
+    lula('Elegí un dibujo de princesa para armar el rompecabezas.');
+  }
+  function play(i,lvi){
+    const [cols,rows]=LV[lvi],img=pzImg(i),bw=Math.min(st.getBoundingClientRect().width,560),bh=Math.round(bw*.75),pw=bw/cols,ph=bh/rows;
+    const bs=`${bw}px ${bh}px`,pos=k=>`${-(k%cols)*pw}px ${-Math.floor(k/cols)*ph}px`;
+    st.innerHTML=`<div class="chips" style="justify-content:center">${LV.map(([c,r],j)=>`<button class="chip name ${j===lvi?'on':''}" data-l="${j}" data-say="${c*r} piezas">${c*r} piezas</button>`).join('')}</div>
+      <div class="pzboard" id="bd" style="width:${bw}px;height:${bh}px;grid-template-columns:repeat(${cols},1fr);--img:url(${img});--bs:${bs}">${Array.from({length:cols*rows},(_,k)=>`<div class="pzslot" data-k="${k}" style="--bp:${pos(k)}"></div>`).join('')}</div>
+      <div class="pztray" id="tr">${shuffle([...Array(cols*rows).keys()]).map(k=>`<div class="pzp" data-k="${k}" style="width:${pw*.86}px;height:${ph*.86}px;background-image:url(${img});background-size:${bw*.86}px ${bh*.86}px;background-position:${-(k%cols)*pw*.86}px ${-Math.floor(k/cols)*ph*.86}px"></div>`).join('')}</div>
+      <div class="row"><button class="btn" id="bk">🖼️ Otro dibujo</button></div>`;
+    $$('.chip',st).forEach(b=>b.onclick=()=>play(i,+b.dataset.l));$('#bk').onclick=list;
+    lula(`${PZS[i].n}. Arrastrá cada pieza a su lugar. ¡Mirá los colores del dibujito de fondo!`);
+    const bd=$('#bd'),tr=$('#tr');let sel=null,placed=0;
+    function place(p,slot){
+      p.classList.remove('sel','drag');p.style.left=p.style.top='';slot.appendChild(p);p.style.backgroundSize=bs;p.style.backgroundPosition=pos(+p.dataset.k);
+      sel=null;placed++;sfx.pop();
+      if(placed===cols*rows){bd.classList.add('done');S.pz[i]=Math.max(S.pz[i]||0,cols*rows);save();bump('rompe');
+        win(cols*rows>=9?3:2,`¡Lo armaste! ${PZS[i].n}. ${lvi<3?'¿Probamos con más piezas?':'¡Sos una experta en rompecabezas!'}`).then(()=>{
+          if(!$('#bd'))return;tr.innerHTML=lvi<3?`<button class="btn go" id="up">🧩 ¡Con ${LV[lvi+1][0]*LV[lvi+1][1]} piezas!</button>`:'';const up=$('#up');if(up)up.onclick=()=>play(i,lvi+1)})}
+    }
+    function tryDrop(p,slot){
+      if(slot&&!slot.firstChild&&slot.dataset.k===p.dataset.k){place(p,slot);return true}
+      if(slot){oops(null,'Esa pieza no va ahí. Mirá bien los colores.');slot.classList.add('hl');setTimeout(()=>slot.classList.remove('hl'),400)}
+      return false;
+    }
+    // Arrastrar con el dedo, o tocar la pieza y después el lugar
+    tr.addEventListener('pointerdown',e=>{
+      const p=e.target.closest('.pzp');if(!p||!tr.contains(p))return;e.preventDefault();
+      const r=p.getBoundingClientRect(),ox=e.clientX-r.left,oy=e.clientY-r.top,sx=e.clientX,sy=e.clientY;let moved=false;
+      const mv=ev=>{if(!moved&&Math.hypot(ev.clientX-sx,ev.clientY-sy)<8)return;
+        if(!moved){moved=true;p.classList.add('drag');p.style.width=pw+'px';p.style.height=ph+'px';p.style.backgroundSize=bs;p.style.backgroundPosition=pos(+p.dataset.k)}
+        p.style.left=ev.clientX-ox*(pw/r.width)+'px';p.style.top=ev.clientY-oy*(ph/r.height)+'px'};
+      const up=ev=>{removeEventListener('pointermove',mv);removeEventListener('pointerup',up);removeEventListener('pointercancel',up);
+        if(!moved){if(sel)sel.classList.remove('sel');sel=sel===p?null:p;if(sel){p.classList.add('sel');sfx.tap()}return}
+        const slot=document.elementFromPoint(ev.clientX,ev.clientY)?.closest('.pzslot');
+        if(!tryDrop(p,slot)){p.classList.remove('drag');p.style.left=p.style.top='';p.style.width=pw*.86+'px';p.style.height=ph*.86+'px';p.style.backgroundSize=`${bw*.86}px ${bh*.86}px`;p.style.backgroundPosition=`${-(+p.dataset.k%cols)*pw*.86}px ${-Math.floor(+p.dataset.k/cols)*ph*.86}px`}};
+      addEventListener('pointermove',mv);addEventListener('pointerup',up);addEventListener('pointercancel',up);
+    });
+    bd.onclick=e=>{const slot=e.target.closest('.pzslot');if(!slot||!sel)return;tryDrop(sel,slot)};
+  }
+  list();
+}
+
 /* ---------- Rincón de papás ---------- */
 function showParents(){
   const vs=('speechSynthesis' in window)?speechSynthesis.getVoices().filter(v=>/^es/i.test(v.lang)):[];
@@ -1402,14 +1504,14 @@ function showParents(){
    <p class="tips">Azul: la escuchó · Verde: la trazó bien.</p>
    <details><summary class="tips">Actividades completadas</summary><div class="kv" style="margin-top:6px">${acts}</div></details>
    <label class="field">Letras en pantalla<select id="pcase"><option value="1" ${S.upper?'selected':''}>IMPRENTA MAYÚSCULA (como en el jardín)</option><option value="0" ${!S.upper?'selected':''}>minúscula</option></select></label>
-   <label class="field">Voz de Lula<select id="pvoice"><option value="">Automática</option>${vs.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voice?'selected':''}>${v.name} (${v.lang})</option>`).join('')}</select></label>
+   <label class="field">Voz de Pocoyó<select id="pvoice"><option value="">Automática</option>${vs.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voice?'selected':''}>${v.name} (${v.lang})</option>`).join('')}</select></label>
    <label class="field">Velocidad de la voz<input type="range" id="prate" min="0.6" max="1.1" step="0.05" value="${S.rate}"></label>
    <p class="tips" style="margin-top:14px"><b>Ideas:</b> 10 a 15 minutos por día alcanzan. Leé con ella los "¿Por qué?" y hagan juntas el experimento de "Probalo en casa". En Trazar, el botón "Mi nombre" practica L-U-C-I-A-N-A letra por letra.</p>
    <div class="row"><button class="btn" id="preset">🗑️ Borrar progreso</button><button class="btn go" data-close>Listo</button></div><div id="pconf"></div>`);
   $('#pcase',m).onchange=e=>{S.upper=e.target.value==='1';save()};
-  $('#pvoice',m).onchange=e=>{S.voice=e.target.value;save();pickVoice();say('Hola Luciana, soy Lula.')};
+  $('#pvoice',m).onchange=e=>{S.voice=e.target.value;save();pickVoice();say('Hola Luciana, soy Pocoyó.')};
   $('#prate',m).onchange=e=>{S.rate=+e.target.value;save();say('Así hablo ahora.')};
-  $('#preset',m).onclick=()=>{$('#pconf',m).innerHTML=`<p class="tips center">¿Seguro? Se borran estrellas, figuritas y avances.</p><div class="row"><button class="btn" id="pyes" style="border-color:var(--vow);color:var(--vow)">Sí, borrar todo</button></div>`;$('#pyes',m).onclick=()=>{const keep={upper:S.upper,rate:S.rate,voice:S.voice};S=Object.assign({},DEF,{stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{}},keep);save();updateBadges();m.remove();go('home')}};
+  $('#preset',m).onclick=()=>{$('#pconf',m).innerHTML=`<p class="tips center">¿Seguro? Se borran estrellas, figuritas y avances.</p><div class="row"><button class="btn" id="pyes" style="border-color:var(--vow);color:var(--vow)">Sí, borrar todo</button></div>`;$('#pyes',m).onclick=()=>{const keep={upper:S.upper,rate:S.rate,voice:S.voice};S=Object.assign({},DEF,{stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{},pz:{}},keep);save();updateBadges();m.remove();go('home')}};
   m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))go('home')});
 }
 
