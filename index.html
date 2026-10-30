@@ -6,7 +6,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-/* Layout: una columna tipo "mochila": barra arriba, escenario al centro, Pocoyó abajo */
+/* Layout: una columna tipo "mochila": barra arriba, escenario al centro, Lula (la lechuza) abajo */
 :root{
   --sky:#E4F2FF; --sky-dot:#D3E8FB; --paper:#FFFFFF; --ink:#17304D; --muted:#5A7290; --line:#CFE0F1;
   --vow:#E5405E; --con:#2563EB; --leaf:#2E9E58; --sun:#FFB21E; --grape:#7C4DDB; --clay:#F2733B; --ok:#16A34A;
@@ -103,10 +103,10 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 .parents button{position:relative;overflow:hidden;background:transparent;border:2px dashed var(--line);border-radius:999px;padding:8px 18px;color:var(--muted);font-size:15px}
 .parents button i{position:absolute;inset:0;width:0;background:rgba(124,77,219,.18)}
 
-/* Pocoyó */
+/* Lula */
 .lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px max(16px,env(safe-area-inset-right,0px)) calc(10px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));pointer-events:none}
 .lula .in{max-width:780px;margin:0 auto;display:flex;align-items:flex-end;gap:10px}
-.owl{pointer-events:auto;flex:none;width:76px;height:76px;border-radius:50%;background:#E6F4FF;border:4px solid #3FA9F5;font-size:46px;display:grid;place-items:center;padding:4px;overflow:hidden;box-shadow:0 5px 0 var(--shadow)}
+.owl{pointer-events:auto;flex:none;width:76px;height:76px;border-radius:50%;background:#FFF4D6;border:4px solid var(--sun);font-size:46px;display:grid;place-items:center;box-shadow:0 5px 0 var(--shadow)}
 .owl.talk{animation:talk .5s infinite alternate}
 @keyframes talk{to{transform:rotate(-6deg) scale(1.05)}}
 .bubble{pointer-events:auto;flex:1;min-width:0;background:var(--paper);border:3px solid var(--line);border-radius:22px 22px 22px 6px;padding:10px 14px;font-size:clamp(16px,4.2vw,20px);box-shadow:0 5px 0 var(--shadow);max-height:30vh;overflow:auto}
@@ -302,7 +302,7 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 .newstk{font-size:120px;text-align:center;line-height:1.1;animation:pop .6s}
 @keyframes pop{0%{transform:scale(.2) rotate(-30deg)}70%{transform:scale(1.15)}}
 .start{position:fixed;inset:0;z-index:30;background:var(--sky);display:grid;place-items:center;text-align:center;padding:24px max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px))}
-.start .owlbig{width:150px;height:150px;margin:0 auto;font-size:110px;line-height:1;animation:talk 1s infinite alternate}
+.start .owlbig{font-size:110px;line-height:1;animation:talk 1s infinite alternate}
 .start h1{font-family:var(--f-read);font-size:clamp(40px,11vw,64px);margin:6px 0;line-height:1.05}
 .start p{color:var(--muted);margin:0 0 18px}
 .start .btn{font-size:28px;min-height:72px;padding:8px 36px}
@@ -341,14 +341,14 @@ button:focus-visible,input:focus-visible,select:focus-visible{outline:4px solid 
 
 <div class="lula" aria-live="polite">
   <div class="in">
-    <button class="owl" id="owl" aria-label="Repetir lo que dijo Pocoyó"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><path d="M13 60C13 24 31 9 50 9s37 15 37 51v16c0 6-9 8-11 1l-3-13H27l-3 13c-2 7-11 5-11-1z" fill="#3FA9F5"/><ellipse cx="50" cy="65" rx="26" ry="23" fill="#FFD3B0"/><path d="M22 58C22 32 35 18 50 18s28 14 28 40c-11-8-45-8-56 0z" fill="#3FA9F5"/><path d="M35 66q5-6 10 0M55 66q5-6 10 0" stroke="#3A2A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="50" cy="71" r="2.4" fill="#F2A985"/><path d="M43 77q7 6 14 0" stroke="#B5523B" stroke-width="3" fill="none" stroke-linecap="round"/></svg></button>
-    <div class="bubble" id="bubble">¡Hola! Soy Pocoyó.</div>
+    <button class="owl" id="owl" aria-label="Repetir lo que dijo Lula">🦉</button>
+    <div class="bubble" id="bubble">¡Hola! Soy Lula.</div>
   </div>
 </div>
 
 <div class="start" id="start">
   <div>
-    <div class="owlbig"><svg viewBox="0 0 100 100" width="100%" height="100%" aria-hidden="true"><path d="M13 60C13 24 31 9 50 9s37 15 37 51v16c0 6-9 8-11 1l-3-13H27l-3 13c-2 7-11 5-11-1z" fill="#3FA9F5"/><ellipse cx="50" cy="65" rx="26" ry="23" fill="#FFD3B0"/><path d="M22 58C22 32 35 18 50 18s28 14 28 40c-11-8-45-8-56 0z" fill="#3FA9F5"/><path d="M35 66q5-6 10 0M55 66q5-6 10 0" stroke="#3A2A2A" stroke-width="3.5" fill="none" stroke-linecap="round"/><circle cx="50" cy="71" r="2.4" fill="#F2A985"/><path d="M43 77q7 6 14 0" stroke="#B5523B" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>
+    <div class="owlbig">🦉</div>
     <h1><span class="c">L</span><span class="v">u</span><span class="c">c</span><span class="v">i</span><span class="v">a</span><span class="c">n</span><span class="v">a</span><br>Exploradora</h1>
     <p>Letras, naturaleza y un montón de porqués</p>
     <button class="btn go" id="startBtn">¡Empezar! ▶</button>
@@ -369,7 +369,32 @@ const strip=t=>t.replace(/[\p{Extended_Pictographic}️‍]/gu,'').replace(/\s+/
 /* ---------- datos guardados ---------- */
 const DEF={stars:0,stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{},pz:{},upper:true,rate:.85,voice:''};
 let S=(()=>{try{return Object.assign({},DEF,JSON.parse(localStorage.getItem('luciana_v3')||'{}'))}catch(e){return {...DEF}}})();
-function save(){try{localStorage.setItem('luciana_v3',JSON.stringify(S))}catch(e){}}
+function save(){try{localStorage.setItem('luciana_v3',JSON.stringify(S))}catch(e){}scheduleSync()}
+
+/* ---------- planilla de Google (base de datos) ---------- */
+/* El link de conexión se guarda solo en este celular, nunca en el código público */
+const DBK='luciana_db',QK='luciana_q';
+let dbUrl=(()=>{try{return localStorage.getItem(DBK)||''}catch(e){return ''}})();
+let queue=(()=>{try{return JSON.parse(localStorage.getItem(QK)||'[]')}catch(e){return []}})();
+let curAct='home',syncT=null,syncing=false;
+const okDbUrl=u=>/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(u);
+function rec(ok,msg){
+  if(!ACTS[curAct])return;
+  queue.push({t:new Date().toISOString(),a:ACTS[curAct].t,ok,d:strip(msg||'').slice(0,140),s:S.stars});
+  if(queue.length>500)queue=queue.slice(-500);
+  try{localStorage.setItem(QK,JSON.stringify(queue))}catch(e){}
+}
+function scheduleSync(){if(!dbUrl)return;clearTimeout(syncT);syncT=setTimeout(pushDb,3000)}
+async function pushDb(){
+  if(!dbUrl||syncing)return false;syncing=true;const batch=queue.slice(0,200);let ok=false;
+  try{
+    const r=await fetch(dbUrl,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({resultados:batch,progreso:S})});
+    if((await r.json()).ok){ok=true;queue=queue.slice(batch.length);try{localStorage.setItem(QK,JSON.stringify(queue))}catch(e){}}
+  }catch(e){}
+  syncing=false;if(ok&&queue.length)scheduleSync();return ok;
+}
+async function pullDb(url=dbUrl){const j=await (await fetch(url)).json();if(!j.ok)throw new Error('planilla');return j}
+function adopt(datos){const keep={upper:S.upper,rate:S.rate,voice:S.voice};S=Object.assign({},DEF,datos,keep);save();updateBadges()}
 
 /* ---------- voz ---------- */
 let voice=null, speakTok=0;
@@ -427,6 +452,7 @@ const STK=['🦄','🐬','🦋','🐞','🌈','🍦','🧁','🍓','🐼','🦊'
 function updateBadges(bump){$('#nstar').textContent=S.stars;$('#nstk').textContent=S.stickers.length;if(bump){const p=$('#starPill');p.classList.remove('bump');void p.offsetWidth;p.classList.add('bump')}}
 function confetti(n=18){const em=['⭐','🎉','✨','💖','🌟','🎈'];for(let i=0;i<n;i++){const s=document.createElement('span');s.className='confetti';s.textContent=pick(em);s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(s);setTimeout(()=>s.remove(),2200)}}
 function win(n=1,msg){
+  rec(true,msg);
   S.stars+=n;save();sfx.ok();confetti();updateBadges(true);
   const p=msg?lula(msg):Promise.resolve();
   const want=Math.floor(S.stars/5);
@@ -437,7 +463,7 @@ function win(n=1,msg){
   return p;
 }
 function bump(id){S.done[id]=(S.done[id]||0)+1;save()}
-function oops(el,msg){sfx.no();if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}if(msg)lula(msg)}
+function oops(el,msg){rec(false,msg);sfx.no();if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}if(msg)lula(msg)}
 function modal(html){const m=document.createElement('div');m.className='modal';m.innerHTML=`<div class="box">${html}</div>`;m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]')){m.remove()}});document.body.appendChild(m);return m}
 function showNewSticker(s){sfx.fanfare();modal(`<h2 class="center">¡Figurita nueva!</h2><div class="newstk">${s}</div><p class="center">Ya tenés ${S.stickers.length} en tu álbum.</p><div class="row"><button class="btn go" data-close>¡Genial!</button></div>`);say('¡Ganaste una figurita nueva para tu álbum!')}
 function showAlbum(){sfx.tap();modal(`<h2>🎁 Mi álbum de figuritas</h2><p class="hint" style="text-align:left;margin:0 0 10px">Tenés ${S.stickers.length} de ${STK.length}. Cada 5 estrellas ganás una nueva.</p><div class="stkgrid">${STK.map(s=>S.stickers.includes(s)?`<div>${s}</div>`:`<div class="lock">?</div>`).join('')}</div><div class="row"><button class="btn" data-close>Cerrar</button></div>`)}
@@ -502,7 +528,7 @@ const ACTS={
 };
 let cleanup=null;
 function go(id,arg){
-  hush();armed=null;if(cleanup){try{cleanup()}catch(e){}cleanup=null}
+  hush();armed=null;curAct=id;if(cleanup){try{cleanup()}catch(e){}cleanup=null}
   const st=$('#stage');st.innerHTML='';st.onclick=null;window.scrollTo(0,0);
   $('#back').hidden=id==='home';$('#ttl').textContent=id==='home'?'Luciana':ACTS[id].t;
   if(id==='home')home(st);else ACTS[id].run(st,arg);
@@ -536,7 +562,7 @@ function home(st){
   const anim=()=>{fill.style.width=Math.min(100,(performance.now()-t0)/12)+'%';raf=requestAnimationFrame(anim)};
   pb.onpointerdown=()=>{t0=performance.now();anim();tm=setTimeout(()=>{stop();showParents()},1200)};
   pb.onpointerup=pb.onpointerleave=pb.onpointercancel=stop;
-  if(!greeted){greeted=true;lula('¡Hola Luciana! Soy Pocoyó. Elegí qué querés hacer hoy.')}
+  if(!greeted){greeted=true;lula('¡Hola Luciana! Soy Lula. Elegí qué querés hacer hoy.')}
   else lula('¿Qué jugamos ahora?',false);
 }
 /* Menú que se escucha: 1er toque dice qué es, 2do toque entra */
@@ -1247,7 +1273,7 @@ function mathGame(st,id){
     st.innerHTML=`<div class="panel center"><div class="eq" id="eq">${vis}</div>
       <div class="eqn" id="eqn">${a} ${sg} ${b} = <span class="q">?</span></div>
       <div class="opts">${numOpts(ans,tens?10:1).map(numOpt).join('')}</div>
-      <div class="row"><button class="btn sun" id="hear">🔊 Escuchar</button><button class="btn" id="cnt">👆 Contemos juntos</button></div></div>`;
+      <div class="row"><button class="btn sun" id="hear">🔊 Escuchar</button><button class="btn" id="cnt">👆 Contemos juntas</button></div></div>`;
     const eq=$('#eq');countable(eq);
     const tell=()=>lula(story);
     if(plus)tell();
@@ -1259,7 +1285,7 @@ function mathGame(st,id){
         bt.classList.add('good');$('#eqn').innerHTML=`${a} ${sg} ${b} = <span class="q">${ans}</span>`;bump(id);
         await win(miss?1:2,`¡Sí! ${nw(a)} ${plus?'más':'menos'} ${nw(b)} es igual a ${nw(ans)}.`);
         st.querySelector('.panel').insertAdjacentHTML('beforeend',`<div class="row"><button class="btn go" id="nx">Otra ▶</button></div>`);$('#nx').onclick=round;
-      }else{miss++;oops(bt,miss>=2?`Ese es el ${nw(+bt.dataset.n)}. Tocá "Contemos juntos" y te ayudo.`:`Ese es el ${nw(+bt.dataset.n)}. Probá de nuevo: podés tocar los dibujos para contarlos.`)}
+      }else{miss++;oops(bt,miss>=2?`Ese es el ${nw(+bt.dataset.n)}. Tocá "Contemos juntas" y te ayudo.`:`Ese es el ${nw(+bt.dataset.n)}. Probá de nuevo: podés tocar los dibujos para contarlos.`)}
     });
   }
   round();
@@ -1504,12 +1530,28 @@ function showParents(){
    <p class="tips">Azul: la escuchó · Verde: la trazó bien.</p>
    <details><summary class="tips">Actividades completadas</summary><div class="kv" style="margin-top:6px">${acts}</div></details>
    <label class="field">Letras en pantalla<select id="pcase"><option value="1" ${S.upper?'selected':''}>IMPRENTA MAYÚSCULA (como en el jardín)</option><option value="0" ${!S.upper?'selected':''}>minúscula</option></select></label>
-   <label class="field">Voz de Pocoyó<select id="pvoice"><option value="">Automática</option>${vs.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voice?'selected':''}>${v.name} (${v.lang})</option>`).join('')}</select></label>
+   <label class="field">📊 Planilla "Avances de Luciana" (link de conexión)<input id="pdb" type="url" inputmode="url" placeholder="https://script.google.com/macros/s/…/exec" value="${dbUrl}"></label>
+   <div class="row" style="margin-top:6px"><button class="btn" id="pdbt">🔌 Conectar y guardar</button></div>
+   <p class="tips center" id="pdbs">${dbUrl?`Conectada · ${queue.length} resultados por enviar`:'Sin conectar: los avances quedan solo en este celular.'}</p>
+   <label class="field">Voz de Lula<select id="pvoice"><option value="">Automática</option>${vs.map(v=>`<option value="${v.voiceURI}" ${v.voiceURI===S.voice?'selected':''}>${v.name} (${v.lang})</option>`).join('')}</select></label>
    <label class="field">Velocidad de la voz<input type="range" id="prate" min="0.6" max="1.1" step="0.05" value="${S.rate}"></label>
    <p class="tips" style="margin-top:14px"><b>Ideas:</b> 10 a 15 minutos por día alcanzan. Leé con ella los "¿Por qué?" y hagan juntas el experimento de "Probalo en casa". En Trazar, el botón "Mi nombre" practica L-U-C-I-A-N-A letra por letra.</p>
    <div class="row"><button class="btn" id="preset">🗑️ Borrar progreso</button><button class="btn go" data-close>Listo</button></div><div id="pconf"></div>`);
+  $('#pdbt',m).onclick=async()=>{
+    const st=$('#pdbs',m),u=$('#pdb',m).value.trim();
+    if(!u){dbUrl='';try{localStorage.removeItem(DBK)}catch(e){}st.textContent='Desconectada: los avances quedan solo en este celular.';return}
+    if(!okDbUrl(u)){st.textContent='❌ Ese link no es el de la planilla. Tiene que empezar con https://script.google.com/macros/s/ y terminar en /exec';return}
+    st.textContent='⏳ Conectando…';
+    try{
+      const j=await pullDb(u);dbUrl=u;try{localStorage.setItem(DBK,u)}catch(e){}
+      const remote=j.datos&&(j.datos.stars||0)>S.stars;
+      st.innerHTML=`✅ Conectada.${j.guardado?` Último guardado: ${j.guardado}.`:''} <a href="${j.url}" target="_blank" rel="noopener">Abrir planilla</a>`+(remote?`<br><button class="btn sun" id="prec" style="margin-top:8px">⬇️ Recuperar avances de la planilla (⭐ ${j.datos.stars})</button>`:'');
+      if(remote)$('#prec',m).onclick=()=>{adopt(j.datos);m.remove();go('home');lula('¡Recuperé tus avances de la planilla!')};
+      else if(!(await pushDb()))st.insertAdjacentText('beforeend',' (no se pudo guardar ahora; se reintenta solo)');
+    }catch(e){st.textContent='❌ No se pudo conectar. Revisá el link y que la aplicación web esté publicada para "Cualquier usuario".'}
+  };
   $('#pcase',m).onchange=e=>{S.upper=e.target.value==='1';save()};
-  $('#pvoice',m).onchange=e=>{S.voice=e.target.value;save();pickVoice();say('Hola Luciana, soy Pocoyó.')};
+  $('#pvoice',m).onchange=e=>{S.voice=e.target.value;save();pickVoice();say('Hola Luciana, soy Lula.')};
   $('#prate',m).onchange=e=>{S.rate=+e.target.value;save();say('Así hablo ahora.')};
   $('#preset',m).onclick=()=>{$('#pconf',m).innerHTML=`<p class="tips center">¿Seguro? Se borran estrellas, figuritas y avances.</p><div class="row"><button class="btn" id="pyes" style="border-color:var(--vow);color:var(--vow)">Sí, borrar todo</button></div>`;$('#pyes',m).onclick=()=>{const keep={upper:S.upper,rate:S.rate,voice:S.voice};S=Object.assign({},DEF,{stickers:[],seen:{},traced:{},done:{},whys:{},grav:{},mixes:{},zones:{},mags:{},flots:{},pz:{}},keep);save();updateBadges();m.remove();go('home')}};
   m.addEventListener('click',e=>{if(e.target===m||e.target.closest('[data-close]'))go('home')});
@@ -1518,5 +1560,7 @@ function showParents(){
 /* ---------- arranque ---------- */
 updateBadges();
 go('home');
-$('#startBtn').onclick=()=>{ac();sfx.fanfare();pickVoice();$('#start').remove();greeted=false;go('home')};
+$('#startBtn').onclick=()=>{ac();sfx.fanfare();pickVoice();$('#start').remove();greeted=false;go('home');
+  // Si en la planilla hay más avances (por ejemplo, de otro celular), los recupera
+  if(dbUrl)pullDb().then(j=>{if(j.datos&&(j.datos.stars||0)>S.stars){adopt(j.datos);go('home');lula('¡Recuperé tus avances de la planilla!')}else pushDb()}).catch(()=>{})};
 </script>
