@@ -13,35 +13,51 @@
   --f-ui:"Baloo 2","Trebuchet MS",system-ui,sans-serif;--f-read:"Andika","Century Gothic","Trebuchet MS",sans-serif;color-scheme:light}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
-html{background:var(--bg)}
-body{margin:0;background:var(--bg) radial-gradient(var(--dot) 18%,transparent 19%) 0 0/26px 26px;color:var(--ink);font-family:var(--f-ui);font-weight:800;font-size:18px;line-height:1.3;
-  padding-left:max(12px,env(safe-area-inset-left,0px));padding-right:max(12px,env(safe-area-inset-right,0px));user-select:none;-webkit-user-select:none}
+html{background:var(--bg);height:100%;overflow:hidden;-webkit-text-size-adjust:100%;text-size-adjust:100%;touch-action:manipulation}
+body{margin:0;background:var(--bg) radial-gradient(var(--dot) 18%,transparent 19%) 0 0/26px 26px;color:var(--ink);font-family:var(--f-ui);font-weight:800;font-size:18px;line-height:1.3;height:100%;overflow:hidden;overscroll-behavior:none;
+  padding-left:max(8px,env(safe-area-inset-left,0px));padding-right:max(8px,env(safe-area-inset-right,0px));user-select:none;-webkit-user-select:none}
 button{font:inherit;color:inherit;cursor:pointer}
 button:focus-visible{outline:4px solid var(--sun);outline-offset:2px}
-.app{max-width:620px;margin:0 auto;padding-block:6px 120px}
-.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding-block:6px;background:var(--bg)}
-.ttl{flex:1;min-width:0;font-size:clamp(19px,5.2vw,26px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pill{flex:none;padding:3px 12px;border-radius:999px;background:var(--paper);border:3px solid #FFE08A;font-size:19px;color:#8A5A00}
+.app{position:relative;height:100vh;height:100dvh;max-width:620px;margin:0 auto;padding-block:max(4px,env(safe-area-inset-top,0px)) max(4px,env(safe-area-inset-bottom,0px));display:flex;flex-direction:column;gap:6px}
+.top{flex:none;display:flex;align-items:center;gap:8px}
+.ttl{flex:1;min-width:0;font-size:clamp(18px,5vw,24px);line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{flex:none;padding:0 10px;border-radius:999px;background:var(--paper);border:3px solid #FFE08A;font-size:19px;color:#8A5A00}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:54px;padding:6px 14px;border-radius:18px;background:var(--paper);border:3px solid var(--line);border-bottom-width:6px;font-size:18px}
 .btn:active,.opt:active,.wc:active{transform:translateY(3px)}
 .btn.go{background:var(--ok);border-color:#17803F;color:#fff}
 .btn.sun{background:#FFF4D6;border-color:var(--sun)}
 .btn.armed{outline:4px solid var(--sun)}
-.row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:10px}
+.row{display:flex;gap:6px;flex:none;margin-top:auto}
+.row .btn{flex:1;min-width:0;min-height:44px;padding:2px 4px;border-radius:14px;border-bottom-width:4px;font-size:clamp(14px,4vw,17px);white-space:nowrap}
 
 /* Panel de la letra */
-.panel{background:var(--paper);border:3px solid var(--line);border-radius:20px;padding:8px 10px;text-align:center;min-height:104px}
-.ofl{font-size:clamp(20px,5.6vw,26px);line-height:1.15}
+.panel{flex:1;min-height:0;overflow:auto;background:var(--paper);border:3px solid var(--line);border-radius:18px;padding:4px 8px;text-align:center}
+.panel{display:flex;flex-direction:column}.panel>:first-child{margin-top:auto}.panel>:last-child{margin-bottom:auto}
+.panel.asking{position:absolute;left:0;right:0;bottom:max(4px,env(safe-area-inset-bottom,0px));z-index:7;max-height:var(--sheet);border-color:var(--grape);box-shadow:0 -4px 0 var(--shadow);--row:clamp(40px,calc((var(--sheet) - 90px)/3),72px)}
+.ofl{font-size:clamp(18px,5vw,24px);line-height:1.15}
 .ofl .L{font-family:var(--f-read);font-size:1.6em;color:var(--vow)}
 .ofl .w{font-family:var(--f-read)}
-.hintline{color:var(--muted);font-size:16px;line-height:1.2;margin-top:2px}
+.hintline{color:var(--muted);font-size:clamp(14px,3.9vw,16px);line-height:1.2;margin-top:2px}
 .ideas{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:6px}
 .wc{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;background:#F7F3FF;border:2px solid var(--line);border-bottom-width:4px;font-family:var(--f-read);font-size:clamp(15px,4.2vw,18px);line-height:1.2}
 .wc b{color:var(--vow);font-size:1.15em}
 .wc .e{font-size:1.25em;font-family:var(--f-ui)}
 
+/* Pregunta antes de mover: dibujo al costado de cada palabra */
+.ask{font-size:clamp(17px,4.6vw,20px);line-height:1.15;margin-top:2px}
+.qrows{display:grid;gap:5px;margin-top:4px}
+.qopt{display:flex;align-items:center;gap:10px;min-height:var(--row,48px);padding:2px 14px;border-radius:16px;background:var(--paper);border:3px solid var(--line);border-bottom-width:5px;font-family:var(--f-read);font-size:clamp(19px,5.2vw,24px);line-height:1;text-align:left}
+.qopt:active{transform:translateY(2px)}
+.qopt .e{font-size:calc(var(--row,48px)*.62);line-height:1;font-family:var(--f-ui)}
+.qopt b{color:var(--vow)}
+.qopt.no{animation:shake .45s}
+.reward{display:flex;align-items:center;justify-content:center;gap:10px;text-align:left}
+.reward .pic{font-size:clamp(40px,12vw,60px);line-height:1}
+.reward .bigw{font-family:var(--f-read);font-size:clamp(24px,7vw,34px);line-height:1.05}
+.reward .bigw b{color:var(--vow)}
+
 /* Tablero */
-.board{position:relative;width:100%;aspect-ratio:1;margin-top:8px;border-radius:12px;overflow:hidden;border:4px solid #5B4B8A;background:var(--sq1);touch-action:manipulation}
+.board{position:relative;flex:none;width:var(--bs,100%);aspect-ratio:1;margin-inline:auto;border-radius:10px;overflow:hidden;border:3px solid #5B4B8A;background:var(--sq1);touch-action:manipulation}
 .sq{position:absolute;width:12.5%;height:12.5%;display:grid;place-items:center;padding:0;border:0;background:var(--sq1)}
 .sq.d{background:var(--sq2)}
 .sq.sel{box-shadow:inset 0 0 0 4px var(--sun)}
@@ -55,8 +71,8 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:2px}
 .pc.gone{opacity:0;transform:scale(.3)}
 
 /* Tarjetas */
-.ov{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:14px;background:rgba(44,35,80,.5);overflow:auto}
-.box{width:min(520px,100%);background:var(--paper);border:5px solid var(--grape);border-radius:24px;padding:12px 14px 14px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.15)}
+.ov{position:fixed;inset:0;z-index:20;display:flex;padding:10px;background:rgba(44,35,80,.5);overflow:auto}
+.box{margin:auto;width:min(520px,100%);background:var(--paper);border:5px solid var(--grape);border-radius:24px;padding:12px 14px 14px;text-align:center;box-shadow:0 8px 0 rgba(0,0,0,.15)}
 .box h2{margin:0;font-size:clamp(20px,5.4vw,25px);line-height:1.15}
 .box h3{margin:10px 0 0;font-size:18px;color:var(--muted)}
 .box .pcbig{width:62px;height:62px;display:block;margin:0 auto}
@@ -72,36 +88,55 @@ button:focus-visible{outline:4px solid var(--sun);outline-offset:2px}
 .tabs{display:flex;gap:6px;justify-content:center;margin-top:8px}
 .tabs button{min-width:50px;min-height:50px;border-radius:14px;background:var(--paper);border:3px solid var(--line);border-bottom-width:5px;font-family:var(--f-read);font-size:26px}
 .tabs button.on{background:#FFF0B8;border-color:var(--sun)}
-.bigwin{font-size:80px;line-height:1.1}
+.bigwin{font-size:clamp(32px,9vh,80px);line-height:1.1}
+.box .row{position:sticky;bottom:0;margin-top:8px;padding-block:4px;background:var(--paper)}
 
 /* Lula */
-.lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:6px max(10px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(10px,env(safe-area-inset-left,0px));pointer-events:none}
-.lula .in{max-width:620px;margin:0 auto;display:flex;align-items:flex-end;gap:8px}
-.owl{pointer-events:auto;flex:none;width:58px;height:58px;border-radius:50%;background:#FFF4D6;border:4px solid var(--sun);font-size:34px;display:grid;place-items:center;box-shadow:0 4px 0 var(--shadow)}
-.bubble{pointer-events:auto;flex:1;min-width:0;background:var(--paper);border:3px solid var(--line);border-radius:18px 18px 18px 6px;padding:6px 12px;font-size:clamp(15px,4.1vw,18px);box-shadow:0 4px 0 var(--shadow);max-height:22vh;overflow:auto}
+.lula{flex:none}
+.lula .in{display:flex;align-items:center;gap:6px;height:60px}
+.owl{flex:none;width:52px;height:52px;padding:0;border-radius:50%;background:#FFF4D6 url(luciana-bruja-2.png) no-repeat -38px -38px/128px auto;border:3px solid var(--sun)}
+.hero{display:block;height:min(38vh,340px);width:auto;margin:0 auto}
+.bubble{flex:1;min-width:0;height:100%;display:flex;align-items:center;background:var(--paper);border:3px solid var(--line);border-radius:14px 14px 14px 4px;padding:2px 8px;font-size:clamp(13px,3.7vw,16px);line-height:1.12;overflow:auto}
 .confetti{position:fixed;top:-40px;z-index:25;pointer-events:none;font-size:26px;animation:conf 1.6s linear forwards}
 @keyframes conf{to{transform:translateY(110vh) rotate(540deg)}}
-.start{position:fixed;inset:0;z-index:30;background:var(--bg);display:grid;place-items:center;text-align:center;padding:24px}
+.start{position:fixed;inset:0;z-index:30;background:var(--bg);display:grid;place-items:center;text-align:center;padding:12px;overflow:auto}
 .start svg{width:140px;height:140px}
 .start h1{font-family:var(--f-read);font-size:clamp(38px,11vw,58px);margin:4px 0;line-height:1.05}
 .start p{color:var(--muted);margin:0 0 16px}
 .start .btn{font-size:28px;min-height:72px;padding:8px 36px}
+@media (max-height:640px){
+  .box{padding:8px 10px 10px}.box .pcbig{width:44px;height:44px}.bigL{font-size:44px}
+  .opt{min-height:88px}.opt .e{font-size:36px}.bigwin{font-size:26px}.start svg{width:96px;height:96px}
+  .opts:has(.good) .opt:not(.good){display:none}
+}
+/* Celular acostado: tablero a la izquierda, todo lo demás a la derecha */
+@media (orientation:landscape) and (max-height:560px){
+  .app{max-width:none;display:grid;grid-template-columns:var(--bs) minmax(0,1fr);grid-template-rows:auto minmax(0,1fr) auto auto;column-gap:10px}
+  .board{grid-column:1;grid-row:1/5;align-self:center}
+  .top,.panel,.row,.lula{grid-column:2}
+  .top{grid-row:1}.panel{grid-row:2}.row{grid-row:3}.lula{grid-row:4}
+  .row{margin-top:0}
+  .bubble{font-size:14px}
+  .panel.asking{grid-row:1/5;left:0;right:0;top:0;bottom:0;--row:clamp(40px,calc((var(--sheet) - 90px)/3),64px)}
+  .box{width:min(640px,100%)}.box .pcbig,.bigL{display:none}.opt{min-height:76px}.opt .e{font-size:30px}
+  .start>div{display:grid;grid-template-columns:auto 1fr;align-items:center;column-gap:12px}.start h1{font-size:32px}.start p{margin-bottom:6px}.start .btn{grid-column:2;min-height:54px;font-size:22px;justify-self:center}#startPc{grid-row:1/4}
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top"><div class="ttl">♟️ Ajedrez de las letras</div><span class="pill">⭐ <span id="nstar">0</span></span></header>
-  <div class="panel" id="info"></div>
   <div class="board" id="bd"></div>
+  <div class="panel" id="info"></div>
   <div class="row" id="tools">
     <button class="btn sun" id="help" aria-label="Ayuda">💡 Ayuda</button>
     <button class="btn" id="dict" aria-label="Palabras">📖 Palabras</button>
     <button class="btn" id="re" aria-label="Partida nueva">🔄 Nueva</button>
   </div>
+  <div class="lula"><div class="in"><button class="owl" id="owl" aria-label="Repetir"></button><div class="bubble" id="bubble">¡Hola!</div></div></div>
 </div>
-<div class="lula"><div class="in"><button class="owl" id="owl" aria-label="Repetir">🦉</button><div class="bubble" id="bubble">¡Hola!</div></div></div>
-<div class="start" id="start"><div><div id="startPc"></div><h1>Ajedrez de las letras</h1><p>Cada pieza tiene su letra y sus palabras</p><button class="btn go" id="startBtn">¡Jugar! ▶</button><a class="btn" href="experimentos.html" style="display:flex;width:fit-content;margin:10px auto 0;min-height:60px;font-size:22px;padding:6px 24px;color:inherit;text-decoration:none">🧪 Experimentos</a></div></div>
+<div class="start" id="start"><div><img class="hero" id="startPc" src="luciana-bruja-2.png" alt="Luciana de brujita"><h1>Ajedrez de las letras</h1><p>Cada pieza tiene su letra y sus palabras</p><button class="btn go" id="startBtn">¡Jugar! ▶</button><a class="btn" href="experimentos.html" style="display:flex;width:fit-content;margin:10px auto 0;min-height:60px;font-size:22px;padding:6px 24px;color:inherit;text-decoration:none">🧪 Experimentos</a></div></div>
 
 <script>
 /* ---------- utilidades ---------- */
@@ -186,7 +221,31 @@ function showIdeas(t,speak){
   $('#info').innerHTML=`<div class="ofl"><span class="L">${P.L}</span> de <span class="w">${P.n.toUpperCase()}</span></div><div class="hintline">${P.how}</div><div class="ideas">${ideas.map(chip).join('')}</div>`;
   if(speak){const ej=ideas.slice(0,2).map(i=>i[0]).join(', ');lula(`${LSAY[P.L]} de ${P.n}. ${P.how} Con ${LSAY[P.L]} también empieza ${ej}.`)}
 }
-function showTurn(msg){$('#info').innerHTML=`<div class="ofl" style="margin-top:6px">${msg}</div><div class="hintline">Tocá una pieza rosada para ver su letra y sus palabras.</div>`}
+/* Para mover una pieza primero hay que decir otra palabra con su letra */
+let okL=new Set(),asking=null;
+function reveal(P,hint){
+  sel=P;asking=null;clearMarks();sqEl(P.x,P.y).classList.add('sel');
+  for(const[a,b]of moves(B,P.x,P.y))sqEl(a,b).innerHTML=B[b][a]?'<i class="cap"></i>':'<i></i>';
+  if(hint)sqEl(hint.x2,hint.y2).classList.add('help');
+}
+function askWord(P,hint){
+  const I=PN[P.t],L=I.L,good=nextOf('w'+L,WORDS[L]);
+  const others=shuffle(Object.keys(WORDS).filter(x=>x!==L)).slice(0,2).map(x=>pick(WORDS[x]));
+  sel=null;asking=P;clearMarks();sqEl(P.x,P.y).classList.add('sel');
+  $('#info').innerHTML=`<div class="ofl"><span class="L">${L}</span> de <span class="w">${I.n.toUpperCase()}</span></div><div class="ask">¿Qué otra palabra empieza con ${L}?</div>
+    <div class="qrows">${shuffle([good,...others]).map(([w,e])=>`<button class="qopt" data-w="${w}"><span class="e">${e}</span><span>${wHtml(w)}</span></button>`).join('')}</div>`;
+  lula(`${LSAY[L]} de ${I.n}. ¿Qué otra palabra empieza con ${LSAY[L]}?`);
+  let miss=0;
+  $$('.qopt').forEach(b=>b.onclick=()=>{
+    const w=b.dataset.w;
+    if(w!==good[0]){miss++;sfx.no();b.classList.remove('no');void b.offsetWidth;b.classList.add('no');lula(`${w} empieza con ${LSAY[w.normalize('NFD')[0]]}. Buscá una con ${LSAY[L]}.`);return}
+    sfx.ok();addStars(1);confetti(8);learn(w);okL.add(L);reveal(P,hint);
+    const more=shuffle(WORDS[L].filter(x=>x[0]!==w)).slice(0,3);
+    $('#info').innerHTML=`<div class="reward"><span class="pic">${good[1]}</span><div><div class="bigw">${wHtml(w)}</div><div class="hintline">empieza con ${L}, como ${I.n.toUpperCase()}</div></div></div><div class="ideas">${more.map(chip).join('')}</div>`;
+    lula(`¡Sí! ${w} empieza con ${LSAY[L]}, como ${I.n}. ${hint?'Mirá el cuadrado verde.':`Ahora mové ${I.a}.`}`);
+  });
+}
+function showTurn(msg){$('#info').innerHTML=`<div class="ofl" style="margin-top:6px">${msg}</div><div class="hintline">Tocá una pieza rosada y decí otra palabra con su letra para moverla.</div>`}
 function learn(w){S.learned[w]=1;save()}
 document.addEventListener('click',e=>{
   const c=e.target.closest('.wc');if(c){sfx.tap();learn(c.dataset.w);hush();say(c.dataset.w);return}
@@ -250,7 +309,7 @@ function clearMarks(){$$('.sq',bd).forEach(s=>{s.classList.remove('sel','help');
 function addPiece(p){p.el=document.createElement('div');p.el.className='pc';p.el.style.left=p.x*12.5+'%';p.el.style.top=p.y*12.5+'%';p.el.innerHTML=pcSvg(p.t,p.c);bd.appendChild(p.el);B[p.y][p.x]=p}
 function storeGame(){S.game=B.flat().filter(Boolean).map(p=>[p.t,p.c,p.x,p.y]);save()}
 function newGame(resume){
-  alive++;sel=null;busy=false;over=false;$('#ovl')?.remove();
+  alive++;sel=null;asking=null;okL.clear();busy=false;over=false;$('#ovl')?.remove();
   B=Array.from({length:n},()=>Array(n).fill(null));
   bd.innerHTML=Array.from({length:64},(_,i)=>{const x=i%8,y=i>>3;return `<button class="sq ${(x+y)%2?'d':''}" data-x="${x}" data-y="${y}" style="left:${x*12.5}%;top:${y*12.5}%"></button>`}).join('');
   let list;
@@ -294,19 +353,21 @@ async function cpu(){
 async function tap(x,y){
   if(busy||over)return;const P=B[y][x];
   if(sel&&moves(B,sel.x,sel.y).some(([a,b])=>a===x&&b===y)){
-    const me=sel,tk=alive,moved=me.t;sel=null;clearMarks();busy=true;S.moves++;
+    const me=sel,tk=alive;sel=null;okL.clear();clearMarks();busy=true;S.moves++;
     const {got,promoted}=doMove(me,x,y);await wait(320);if(tk!==alive)return;
     const won=got&&got.t==='k';
     if(promoted)await lula('¡Tu peón llegó al final y se convirtió en reina!');
     if(tk!==alive)return;
     if(got)await wordCard(got.t,`¡Capturaste ${PN[got.t].a}!`);
-    else if(S.moves%3===0)await wordCard(moved,`✨ ¡Jugaste ${PN[moved].a}!`);
     if(tk!==alive)return;
     if(won)return finish(true);
     storeGame();return cpu();
   }
-  if(P&&P.c==='w'){sfx.tap();sel=P;clearMarks();sqEl(x,y).classList.add('sel');const l=moves(B,x,y);for(const[a,b]of l)sqEl(a,b).innerHTML=B[b][a]?'<i class="cap"></i>':'<i></i>';showIdeas(P.t,true);if(!l.length)$('#info .hintline').textContent='Ahora no se puede mover: probá con otra pieza.';return}
+  if(P&&P.c==='w'){sfx.tap();
+    if(!moves(B,x,y).length){sel=null;asking=null;clearMarks();sqEl(x,y).classList.add('sel');showIdeas(P.t,false);$('#info .hintline').textContent='Ahora no se puede mover: probá con otra pieza.';lula(`${PN[P.t].a} ahora no se puede mover. Probá con otra pieza.`);return}
+    if(okL.has(PN[P.t].L)){reveal(P);showIdeas(P.t,true)}else askWord(P);return}
   if(P){sfx.tap();showIdeas(P.t,false);lula(`Ese es ${PN[P.t].a} de la compu. ${LSAY[PN[P.t].L]} de ${PN[P.t].n}. ¡Capturalo!`);return}
+  if(asking){sfx.no();lula(`Primero elegí una palabra que empiece con ${LSAY[PN[asking.t].L]}.`);return}
   if(sel){sfx.no();lula(`${PN[sel.t].a} no puede ir ahí. Andá a un puntito verde.`);return}
   lula('Primero tocá una de tus piezas rosadas.');
 }
@@ -314,15 +375,30 @@ bd.onclick=e=>{const s=e.target.closest('.sq');if(s)tap(+s.dataset.x,+s.dataset.
 function wireTools(){
   $('#help').onclick=()=>{if(busy||over)return;const all=allMoves('w');if(!all.length)return;
     const score=m=>{const q=B[m.y2][m.x2];return q?(q.t==='k'?1000:{q:50,r:30,b:20,n:20,p:10}[q.t]):(m.P.t==='p'?2:1)+Math.random()*2};
-    const best=all.reduce((a,c)=>score(c)>score(a)?c:a);sel=best.P;clearMarks();sqEl(best.P.x,best.P.y).classList.add('sel');
-    for(const[a,b]of moves(B,best.P.x,best.P.y))sqEl(a,b).innerHTML=B[b][a]?'<i class="cap"></i>':'<i></i>';sqEl(best.x2,best.y2).classList.add('help');
-    showIdeas(best.P.t,false);lula(`Probá con ${PN[best.P.t].a}: mirá el cuadrado verde.`)};
+    const best=all.reduce((a,c)=>score(c)>score(a)?c:a);
+    if(!okL.has(PN[best.P.t].L)){askWord(best.P,best);return}
+    reveal(best.P,best);showIdeas(best.P.t,false);lula(`Probá con ${PN[best.P.t].a}: mirá el cuadrado verde.`)};
   $('#dict').onclick=()=>showDict(sel?PN[sel.t].L:'P');
   const re=$('#re');re.onclick=()=>{if(!re.classList.contains('armed')){re.classList.add('armed');lula('¿Empezamos otra partida? Tocá otra vez.');setTimeout(()=>re.classList.remove('armed'),4000);return}newGame(false);lula('¡Partida nueva! Tocá una pieza rosada.')};
 }
 
+/* ---------- que todo entre en la pantalla ---------- */
+const LAND=matchMedia('(orientation:landscape) and (max-height:560px)');
+function trimPanel(){const I=$('#info');if(I.classList.contains('asking'))return;const c=[...I.querySelectorAll('.wc')];while(c.length&&I.scrollHeight>I.clientHeight+1)c.pop().remove()}
+function fit(){
+  const app=$('.app'),cs=getComputedStyle(app),H=app.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom),W=app.clientWidth;
+  const rest=$('.top').offsetHeight+$('#tools').offsetHeight+$('.lula').offsetHeight+6*3+6+92;
+  const bs=Math.max(180,Math.floor(LAND.matches?Math.min(H,W*.55):Math.min(W,H-rest)));
+  app.style.setProperty('--bs',bs+'px');
+  app.style.setProperty('--sheet',(LAND.matches?H:H-$('.top').offsetHeight-bs-12)+'px');
+  trimPanel();
+}
+new MutationObserver(()=>{$('#info').classList.toggle('asking',!!$('#info .qrows'));trimPanel()}).observe($('#info'),{childList:true});
+addEventListener('resize',fit);addEventListener('orientationchange',fit);fit();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+
 /* ---------- arranque ---------- */
-$('#nstar').textContent=S.stars;$('#startPc').innerHTML=pcSvg('n','w','',false);
+$('#nstar').textContent=S.stars;
 const hadGame=!!(S.game&&S.game.length);newGame(true);
 $('#startBtn').onclick=()=>{ac();sfx.win();pickVoice();$('#start').remove();lula(hadGame?'¡Seguimos con tu partida! Tocá una pieza rosada.':'¡Hola Luciana! Tus piezas son las rosadas. Cada una tiene su letra: P de peón, T de torre. Tocá una para empezar.')};
 </script>

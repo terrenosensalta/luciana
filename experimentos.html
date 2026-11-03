@@ -88,7 +88,9 @@ h2{font-family:var(--f-read);font-weight:700;font-size:clamp(25px,7vw,34px);line
 /* Lula */
 .lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px 16px max(10px,env(safe-area-inset-bottom));pointer-events:none}
 .lula .in{max-width:640px;margin:0 auto;display:flex;align-items:flex-end;gap:8px}
-.owl{pointer-events:auto;flex:none;width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);background:var(--sun);font-size:36px;line-height:1;padding:0}
+.owl{pointer-events:auto;flex:none;width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);background:var(--sun) url(luciana-bruja-2.png) no-repeat -47px -47px/158px auto;padding:0}
+.labhead{display:flex;align-items:center;gap:8px}.labhead h1{flex:1;min-width:0}
+.hero{display:block;flex:none;height:clamp(120px,22vh,190px);width:auto}
 .bubble{pointer-events:auto;flex:1;min-height:48px;max-height:96px;overflow:auto;background:#fff;border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:6px 12px;font-family:var(--f-read);font-weight:400;font-size:18px;line-height:1.25}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.b.on{opacity:1}}
 </style>
@@ -96,8 +98,8 @@ h2{font-family:var(--f-read);font-weight:700;font-size:clamp(25px,7vw,34px);line
 <body>
 <main id="app"></main>
 <div class="lula" aria-live="polite"><div class="in">
-  <button class="owl" id="owl" aria-label="Repetir lo que dijo Lula">🦉</button>
-  <div class="bubble" id="bubble">¡Hola! Soy Lula.</div>
+  <button class="owl" id="owl" aria-label="Repetir"></button>
+  <div class="bubble" id="bubble">¡Hola!</div>
 </div></div>
 <div id="ovl"></div>
 <script>
@@ -257,7 +259,7 @@ function home(){
   tok++;armed=null;hush();
   const n=EXP.filter(x=>S.done[x.id]).length;
   app.innerHTML=`<div class="top"><a class="pill" href="index.html" aria-label="Volver al inicio">🏠</a><span class="sp"></span><span class="pill">⭐ ${S.stars}</span></div>
-  <h1>Laboratorio de Luciana</h1>
+  <div class="labhead"><img class="hero" src="luciana-bruja-2.png" alt="Luciana de brujita"><h1>Laboratorio de Luciana</h1></div>
   <div class="shelf">${EXP.map(x=>`<button class="jar" data-id="${x.id}" aria-label="${x.name}${S.done[x.id]?', ya lo hiciste':''}">${jar(x,S.done[x.id])}<span class="nm">${x.name}</span></button>`).join('')}</div>`;
   app.querySelectorAll('.jar').forEach(b=>b.onclick=()=>{
     const x=EXP.find(e=>e.id===b.dataset.id);ac();
@@ -265,7 +267,7 @@ function home(){
     if(armed)armed.classList.remove('armed');
     armed=b;b.classList.add('armed');sfx.pop();lula(`${x.name}. ¡Tocá otra vez para empezar!`);
   });
-  lula(n===EXP.length?'¡Llenaste todos los frascos! Sos una científica. Podés repetir el que quieras.':n?`Ya llenaste ${n===1?'un frasco':n+' frascos'}. Elegí otro.`:'¡Hola Luciana! Soy Lula. Cada frasco es un experimento. Tocá uno.',n>0);
+  lula(n===EXP.length?'¡Llenaste todos los frascos! Sos una científica. Podés repetir el que quieras.':n?`Ya llenaste ${n===1?'un frasco':n+' frascos'}. Elegí otro.`:'¡Hola Luciana! Sos la brujita del laboratorio. Cada frasco es un experimento. Tocá uno.',n>0);
   window.scrollTo(0,0);
 }
 const PASOS=[['🧺','Juntar'],['🤔','Pensar'],['🧪','Probar'],['💡','Aprender']];
