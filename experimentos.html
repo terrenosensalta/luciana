@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Laboratorio de Luciana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Baloo+2:wght@600;800&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#123F4A;--paper:#F1FAF8;--grid:#D3EBE6;--wood:#C48746;--wood2:#8C5A2B;--go:#D92A82;--go2:#A11C60;--sun:#FFC83D;--ok:#14855A;--line:#BFE0DA;
+  --f-ui:"Baloo 2","Trebuchet MS",system-ui,sans-serif;--f-read:"Andika","Century Gothic",sans-serif}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html{background:var(--paper)}
+body{margin:0;min-height:100dvh;color:var(--ink);font-family:var(--f-ui);font-weight:800;user-select:none;-webkit-user-select:none;
+  background:var(--paper) linear-gradient(var(--grid) 1px,transparent 1px) 0 0/100% 28px,var(--paper);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:28px 28px}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,a:focus-visible{outline:4px solid var(--go);outline-offset:2px}
+main{max-width:640px;margin:0 auto;padding:max(10px,env(safe-area-inset-top)) 16px 132px}
+
+/* Barra de arriba */
+.top{display:flex;align-items:center;gap:8px;min-height:48px}
+.top .sp{flex:1}
+.pill{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:4px;min-height:48px;min-width:48px;padding:0 12px;border-radius:999px;background:#fff;border:3px solid var(--line);font-size:20px;text-decoration:none;color:inherit}
+h1{font-family:var(--f-read);font-weight:700;font-size:clamp(36px,10.5vw,58px);line-height:1;margin:12px 0 18px;letter-spacing:-.01em}
+
+/* Estante de frascos */
+.shelf{display:grid;grid-template-columns:repeat(2,1fr);margin:0 -4px}
+@media (min-width:520px){.shelf{grid-template-columns:repeat(3,1fr)}}
+.jar{position:relative;background:none;border:0;padding:10px 4px 8px;display:flex;flex-direction:column;align-items:center;border-bottom:14px solid var(--wood);box-shadow:0 5px 0 var(--wood2);margin-bottom:22px}
+.jar svg{width:min(112px,100%);height:auto;display:block;transition:transform .15s}
+.jar:active svg{transform:scale(.95)}
+.jar.armed svg{transform:scale(1.1) rotate(-3deg)}
+.jar .nm{position:absolute;top:calc(100% + 19px);left:0;right:0;font-size:17px;line-height:1.05;text-align:center}
+.shelf .jar{margin-bottom:58px}
+
+/* Pasos del experimento */
+.track{display:flex;gap:4px;list-style:none;margin:10px 0 12px;padding:0}
+.track li{flex:1;text-align:center;font-size:15px;line-height:1.1;padding:5px 0 3px;border-radius:12px;background:#fff;border:2px solid var(--line);opacity:.65}
+.track li span{display:block;font-size:22px;line-height:1.1}
+.track li.past{opacity:1;background:#DDF4EA;border-color:var(--ok)}
+.track li.now{opacity:1;background:var(--sun);border-color:var(--ink)}
+h2{font-family:var(--f-read);font-weight:700;font-size:clamp(25px,7vw,34px);line-height:1.15;margin:6px 0 10px}
+.say{font-family:var(--f-read);font-weight:400;font-size:clamp(21px,5.6vw,26px);line-height:1.35;margin:8px 0}
+
+/* Materiales y opciones */
+.mats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:10px 0}
+.mat,.opt{min-height:96px;padding:8px;border-radius:20px;background:#fff;border:3px solid var(--line);border-bottom-width:7px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:18px;line-height:1.1}
+.mat .e,.opt .e{font-size:40px;line-height:1.1}
+.mat:active,.opt:active,.btn:active{transform:translateY(3px)}
+.mat.got{background:#DDF4EA;border-color:var(--ok)}
+.mat.got .e::after{content:"✓";color:var(--ok);font-size:28px;font-weight:800;margin-left:4px}
+.opts{display:grid;gap:10px;margin:12px 0}
+.opt{flex-direction:row;justify-content:flex-start;gap:12px;font-size:21px;text-align:left;min-height:80px;width:100%}
+.opt.good{background:#DDF4EA;border-color:var(--ok)}
+.shake{animation:shake .45s}
+@keyframes shake{20%,60%{transform:translateX(-8px)}40%,80%{transform:translateX(8px)}}
+.grande{font-family:var(--f-read);font-weight:400;font-size:17px;line-height:1.35;background:#FFF6D8;border:2px dashed var(--wood);border-radius:14px;padding:8px 12px;margin:12px 0}
+.grande b{font-weight:700}
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:68px;padding:6px 20px;border-radius:22px;background:var(--go);border:3px solid var(--go2);border-bottom-width:7px;color:#fff;font-size:25px;margin-top:10px}
+.btn[disabled]{background:#E4ECEA;border-color:#C4D3D0;color:#5C7A78;cursor:default}
+.btn.soft{background:#fff;color:var(--ink);border-color:var(--line);font-size:20px;min-height:56px}
+
+/* Escena animada */
+.scene{display:block;width:100%;height:auto;background:#fff;border:4px solid var(--ink);border-radius:16px;margin:6px 0 8px}
+.scene text{font-family:system-ui,"Segoe UI Emoji","Apple Color Emoji","Noto Color Emoji",sans-serif}
+.f{opacity:0;transition:opacity .9s}.f.on{opacity:1}
+.x{transition:opacity .9s}.x.on{opacity:0}
+.m{transform-box:fill-box;transform-origin:var(--o,50% 50%);transform:translate(var(--x0,0px),var(--y0,0px)) scale(var(--k0,1));transition:transform 1.5s cubic-bezier(.3,.7,.3,1)}
+.m.on{transform:translate(var(--x,0px),var(--y,0px)) scale(var(--k,1))}
+.b{opacity:0}.b.on{animation:rise 1.5s ease-out infinite;animation-delay:var(--d,0s)}
+@keyframes rise{0%{transform:translate(0,0);opacity:1}100%{transform:translate(var(--bx,0px),-58px);opacity:0}}
+.spin{transform-box:fill-box;transform-origin:50% 50%}.spin.on{animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wig.on{transform-box:fill-box;animation:wig .3s linear 8}
+@keyframes wig{25%{transform:translateX(-7px) rotate(-5deg)}75%{transform:translateX(7px) rotate(5deg)}}
+
+/* Premio */
+.ov{position:fixed;inset:0;z-index:10;display:grid;place-items:center;padding:16px;background:rgba(18,63,74,.55);overflow:auto}
+.box{width:min(440px,100%);background:#fff;border:5px solid var(--ink);border-radius:26px;padding:16px;text-align:center;animation:pop .3s}
+@keyframes pop{from{transform:scale(.88);opacity:.3}}
+.box svg{width:130px;height:auto;display:block;margin:0 auto}
+.box .liq{transform-box:fill-box;transform-origin:50% 100%;animation:fill 2s ease-out both}
+@keyframes fill{from{transform:scaleY(0)}}
+
+/* Lula */
+.lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px 16px max(10px,env(safe-area-inset-bottom));pointer-events:none}
+.lula .in{max-width:640px;margin:0 auto;display:flex;align-items:flex-end;gap:8px}
+.owl{pointer-events:auto;flex:none;width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);background:var(--sun);font-size:36px;line-height:1;padding:0}
+.bubble{pointer-events:auto;flex:1;min-height:48px;max-height:96px;overflow:auto;background:#fff;border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:6px 12px;font-family:var(--f-read);font-weight:400;font-size:18px;line-height:1.25}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.b.on{opacity:1}}
+</style>
+</head>
+<body>
+<main id="app"></main>
+<div class="lula" aria-live="polite"><div class="in">
+  <button class="owl" id="owl" aria-label="Repetir lo que dijo Lula">🦉</button>
+  <div class="bubble" id="bubble">¡Hola! Soy Lula.</div>
+</div></div>
+<div id="ovl"></div>
+<script>
+const $=s=>document.querySelector(s);
+const app=$('#app');
+
+/* ---------- avances ---------- */
+const KEY='experimentos_luciana_v1';
+let S=(()=>{try{return Object.assign({stars:0,done:{}},JSON.parse(localStorage.getItem(KEY)||'{}'))}catch(e){return {stars:0,done:{}}}})();
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+/* ---------- voz ---------- */
+let voice=null,speakTok=0,lastCancel=0,lastText='';
+function pickVoice(){if(!('speechSynthesis' in window))return;const vs=speechSynthesis.getVoices();voice=vs.find(v=>/es[-_](AR|UY)/i.test(v.lang))||vs.find(v=>/es[-_](419|MX|US|CO|CL)/i.test(v.lang))||vs.find(v=>/^es/i.test(v.lang))||null}
+if('speechSynthesis' in window){pickVoice();speechSynthesis.onvoiceschanged=pickVoice}
+function hush(){speakTok++;lastCancel=performance.now();try{speechSynthesis.cancel()}catch(e){}}
+function say(text,rate=.85){
+  return new Promise(res=>{
+    const clean=text.replace(/[\p{Extended_Pictographic}️‍]/gu,'').replace(/\s+/g,' ').trim();
+    let done=false;const fin=()=>{if(!done){done=true;res()}};
+    if(!clean||!('speechSynthesis' in window))return fin();
+    const u=new SpeechSynthesisUtterance(clean.toLowerCase());u.lang=voice?voice.lang:'es-AR';if(voice)u.voice=voice;u.rate=rate;u.pitch=1.15;u.onend=u.onerror=fin;
+    setTimeout(fin,1800+clean.length*110/rate);const tok=speakTok;
+    const start=()=>{if(tok!==speakTok)return fin();try{speechSynthesis.resume();speechSynthesis.speak(u)}catch(e){fin()}};
+    performance.now()-lastCancel<250?setTimeout(start,150):start();
+  });
+}
+function lula(text,speak=true){lastText=text;$('#bubble').textContent=text;if(speak){hush();return say(text)}return Promise.resolve()}
+$('#owl').onclick=()=>{if(lastText){hush();say(lastText)}};
+
+/* ---------- sonidos ---------- */
+let AC=null;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(AC&&AC.state==='suspended')AC.resume();return AC}
+function tone(f,d=.15,type='sine',vol=.16,when=0){const a=ac();if(!a)return;const o=a.createOscillator(),g=a.createGain(),t=a.currentTime+when;o.type=type;o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(vol,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+d+.05)}
+const sfx={pop(){tone(620,.09)},no(){tone(200,.22,'triangle')},ok(){tone(660,.12);tone(880,.16,'sine',.16,.1)},win(){[523,659,784,1047].forEach((f,i)=>tone(f,.2,'sine',.16,i*.13))}};
+
+/* ---------- dibujos: cada parte aparece o se mueve al llegar a su paso (data-at) ---------- */
+const mesa='<rect y="170" width="320" height="30" fill="#E2B27C"/>';
+const emo=(e,x,y,s=28)=>`<text x="${x}" y="${y}" font-size="${s}" text-anchor="middle">${e}</text>`;
+const vaso=(x,w=60,y=90)=>`<rect x="${x}" y="${y}" width="${w}" height="${170-y}" rx="5" fill="none" stroke="#123F4A" stroke-width="3"/>`;
+const espuma=[[150,'#D92A82',0,-16],[160,'#FF7A45',.3,4],[170,'#D92A82',.6,18],[155,'#FFC83D',.9,-8],[166,'#FF7A45',1.2,10],[160,'#fff',.15,-22],[172,'#fff',.75,24]]
+  .map(([x,c,d,bx])=>`<circle class="b" data-at="3" cx="${x}" cy="68" r="9" fill="${c}" stroke="#123F4A" stroke-width="1" style="--d:${d}s;--bx:${bx}px"/>`).join('');
+const osito=`<circle cx="0" cy="-34" r="11"/><circle cx="-9" cy="-44" r="5"/><circle cx="9" cy="-44" r="5"/><ellipse cx="0" cy="-12" rx="14" ry="14"/>`;
+const papeles=[[66,-38],[84,-26],[102,-42],[120,-30],[138,-44]].map(([x,y],i)=>`<g class="m" data-at="2" style="--y:${y}px;--d:${i}"><rect x="${x}" y="160" width="10" height="7" fill="#fff" stroke="#123F4A" stroke-width="1.5"/></g>`).join('');
+const colores=['#E23B3B','#FF9A1F','#FFD93B','#3FBF5F','#2F8FE8','#7A4FD0'];
+
+const EXP=[
+{id:'volcan',name:'El volcán',e:'🌋',color:'#E2452F',
+ mats:[['🥛','Un vaso chico'],['🍽️','Una bandeja'],['🧂','Bicarbonato'],['🍶','Vinagre'],['🎨','Colorante']],
+ adult:'usen una bandeja o háganlo en la pileta. Que no le entre vinagre en los ojos.',
+ ask:'¿Qué va a pasar cuando echemos el vinagre?',
+ opts:[{e:'😴',t:'Nada, se queda quieto'},{e:'🫧',t:'Sale mucha espuma',ok:1},{e:'🧊',t:'Se pone duro'}],
+ steps:['Poné dos cucharadas de bicarbonato en el vaso.','Echale unas gotas de colorante.','¡Ahora echá un chorro de vinagre!'],
+ scene:`${mesa}<path d="M70 170L140 70h40l70 100z" fill="#8B6A4E"/><ellipse class="f" data-at="1" cx="160" cy="71" rx="20" ry="5" fill="#fff"/><ellipse class="f" data-at="2" cx="160" cy="71" rx="20" ry="5" fill="#D92A82"/><path class="f" data-at="3" d="M140 70L122 100q6 14 14-2l14 24q8 8 12-16l14 22q10 6 10-28l-6-30z" fill="#D92A82"/>${espuma}`,
+ result:'¡Salió un montón de espuma, como un volcán!',
+ why:'El bicarbonato y el vinagre, cuando se juntan, hacen un gas. Ese gas forma burbujas que empujan la espuma para arriba.',
+ quiz:{q:'¿Qué hay adentro de las burbujas?',opts:[{e:'💨',t:'Gas',ok:1},{e:'🪨',t:'Piedras'},{e:'🍬',t:'Caramelos'}]}},
+{id:'flota',name:'¿Flota o se hunde?',e:'🛟',color:'#2F8FE8',
+ mats:[['🪣','Un balde con agua'],['🍃','Una hoja'],['🔑','Una llave'],['✏️','Un lápiz'],['🪙','Una moneda'],['🧽','Una esponja']],
+ adult:'mírenla mientras juega cerca del agua, y guarden la moneda después: es chiquita para tener en la boca.',
+ ask:'¿La llave flota o se hunde?',
+ opts:[{e:'⛵',t:'Flota'},{e:'⚓',t:'Se hunde',ok:1}],
+ steps:['Soltá la hoja en el agua.','Soltá la llave.','Soltá el lápiz.','Soltá la moneda.','Soltá la esponja.'],
+ scene:`${[['🍃',70,40],['🔑',115,125],['✏️',160,40],['🪙',205,125],['🧽',250,40]].map(([e,x,y],i)=>`<g class="m" data-at="${i+1}" style="--y:${y}px">${emo(e,x,38)}</g>`).join('')}<rect x="40" y="70" width="240" height="100" fill="#7FD0F0" opacity=".55"/>${mesa}<path d="M40 50v120h240V50" fill="none" stroke="#123F4A" stroke-width="3"/>`,
+ result:'La hoja, el lápiz y la esponja flotaron. La llave y la moneda se hundieron.',
+ why:'Las cosas muy pesadas para su tamaño se van al fondo. Las cosas livianas para su tamaño se quedan arriba del agua.',
+ quiz:{q:'Una pluma es muy liviana. ¿Qué hace en el agua?',opts:[{e:'⛵',t:'Flota',ok:1},{e:'⚓',t:'Se hunde'}]}},
+{id:'leche',name:'Leche mágica',e:'🥛',color:'#E63A9A',
+ mats:[['🍽️','Un plato hondo'],['🥛','Leche'],['🎨','Colorantes'],['🧴','Detergente'],['🦯','Un hisopo']],
+ adult:'el detergente lo maneja el grande. Después no se toma esa leche.',
+ ask:'¿Qué van a hacer los colores cuando toquemos la leche con detergente?',
+ opts:[{e:'🏃',t:'Van a escaparse y moverse',ok:1},{e:'🫥',t:'Van a desaparecer'},{e:'😴',t:'Se van a quedar quietos'}],
+ steps:['Poné leche en el plato y unas gotas de colores en el medio.','Mojá el hisopo con detergente y tocá el medio de la leche.'],
+ scene:`<circle cx="160" cy="100" r="92" fill="#EDEDED" stroke="#123F4A" stroke-width="3"/><circle cx="160" cy="100" r="74" fill="#FFFCEB"/><clipPath id="cp"><circle cx="160" cy="100" r="74"/></clipPath><g clip-path="url(#cp)"><g class="spin" data-at="2">${[['#E23B3B',-10,-10,-24,-26],['#2F8FE8',10,-10,26,-24],['#FFD93B',-10,10,-26,24],['#3FBF5F',10,10,24,26]].map(([c,x,y,mx,my])=>`<g class="m" data-at="2" style="--x:${mx}px;--y:${my}px;--k:3.6"><circle class="f" data-at="1" cx="${160+x}" cy="${100+y}" r="9" fill="${c}" style="mix-blend-mode:multiply"/></g>`).join('')}</g></g><g class="m f" data-at="2" style="--x:-104px;--x0:30px"><path d="M264 100h30" stroke="#123F4A" stroke-width="4"/><circle cx="264" cy="100" r="6" fill="#fff" stroke="#123F4A" stroke-width="2"/></g>`,
+ result:'¡Los colores se escaparon para todos lados y se mezclaron!',
+ why:'La leche tiene grasa. El detergente empuja la grasa, y al moverse la grasa se llevan a los colores de paseo.',
+ quiz:{q:'¿Qué hizo mover los colores?',opts:[{e:'🧴',t:'El detergente',ok:1},{e:'🎵',t:'La música'},{e:'🌬️',t:'El viento'}]}},
+{id:'huevo',name:'El huevo que flota',e:'🥚',color:'#F2A71B',
+ mats:[['🥛','Un vaso grande'],['💧','Agua'],['🥚','Un huevo'],['🧂','Sal'],['🥄','Una cuchara']],
+ adult:'el huevo tiene que ser fresco y crudo, y hay que lavarse las manos después. Si no sube, agreguen más sal.',
+ ask:'Si le ponemos mucha sal al agua, ¿qué va a hacer el huevo?',
+ opts:[{e:'⬆️',t:'Va a subir y flotar',ok:1},{e:'⬇️',t:'Se va a quedar abajo'},{e:'💥',t:'Se va a romper'}],
+ steps:['Llená el vaso con agua y meté el huevo despacito con la cuchara.','Sacá el huevo con la cuchara.','Poné seis cucharadas de sal y revolvé bien.','Volvé a meter el huevo despacito.'],
+ scene:`${mesa}<g class="f" data-at="0" data-off="2"><g class="m" data-at="1" style="--y0:-122px">${emo('🥚',160,165,34)}</g></g><g class="f" data-at="4"><g class="m" data-at="4" style="--y0:-50px;--y:0px">${emo('🥚',160,88,34)}</g></g><rect x="110" y="60" width="100" height="110" fill="#7FD0F0" opacity=".5"/><rect class="f" data-at="3" x="110" y="60" width="100" height="110" fill="#fff" fill-opacity=".35"/><g class="f" data-at="3" data-off="4">${emo('🥄',235,70,34)}</g>${vaso(110,100,40)}`,
+ result:'En el agua sola el huevo se fue al fondo. ¡En el agua con sal, flotó!',
+ why:'La sal hace que el agua sea más pesada y más fuerte para empujar. Por eso puede sostener al huevo.',
+ quiz:{q:'¿Qué ayudó al huevo a flotar?',opts:[{e:'🧂',t:'La sal',ok:1},{e:'🍬',t:'Un caramelo'},{e:'🥄',t:'La cuchara'}]}},
+{id:'camina',name:'El agua que camina',e:'🌈',color:'#2FAE66',
+ mats:[['🥛','Tres vasos'],['💧','Agua'],['🟦','Colorante azul'],['🟨','Colorante amarillo'],['🧻','Papel de cocina']],
+ adult:'tarda una o dos horas. Lo pueden dejar armado y volver a mirarlo.',
+ ask:'El vaso del medio está vacío. ¿Qué va a pasar?',
+ opts:[{e:'🟩',t:'Se va a llenar de agua verde',ok:1},{e:'🫙',t:'Va a seguir vacío'},{e:'🟥',t:'Se va a llenar de agua roja'}],
+ steps:['Poné agua azul en un vaso y agua amarilla en otro. Dejá uno vacío en el medio. Uní los vasos con tiras de papel.','Esperá una hora y mirá el papel.','Esperá un rato más y mirá el vaso del medio.'],
+ scene:`${mesa}<rect class="m" data-at="3" x="40" y="110" width="60" height="60" fill="#2F8FE8" style="--o:50% 100%;--k:.75"/><rect class="m" data-at="3" x="220" y="110" width="60" height="60" fill="#FFD93B" style="--o:50% 100%;--k:.75"/><rect class="m" data-at="3" x="130" y="125" width="60" height="45" fill="#3FBF5F" style="--o:50% 100%;--k0:0"/>${vaso(40)}${vaso(130)}${vaso(220)}<g fill="none" stroke-width="13" stroke-linecap="round"><path class="f" data-at="1" d="M70 140Q70 50 115 56T160 140" stroke="#F4F4F4"/><path class="f" data-at="1" d="M160 140Q160 50 205 56T250 140" stroke="#E8E8E8"/><path class="f" data-at="2" d="M70 140Q70 50 115 56T160 140" stroke="#2F8FE8"/><path class="f" data-at="2" d="M160 140Q160 50 205 56T250 140" stroke="#FFD93B"/></g>`,
+ result:'¡El agua subió por el papel y el vaso del medio se llenó de agua verde!',
+ why:'El papel tiene agujeritos muy chiquitos y el agua trepa por ahí. El azul y el amarillo se juntaron, y juntos hacen verde.',
+ quiz:{q:'¿Qué color hacen el azul y el amarillo?',opts:[{e:'🟩',t:'Verde',ok:1},{e:'🟥',t:'Rojo'},{e:'🟪',t:'Violeta'}]}},
+{id:'arcoiris',name:'Arcoíris en casa',e:'🌞',color:'#FF9A1F',
+ mats:[['🥛','Un vaso de vidrio'],['💧','Agua'],['📄','Una hoja blanca'],['☀️','Un rayo de sol']],
+ adult:'háganlo con sol directo, cerca de una ventana o afuera. Muevan el vaso y la hoja hasta que aparezcan los colores. Nunca hay que mirar el sol de frente.',
+ ask:'¿Qué vamos a ver en la hoja?',
+ opts:[{e:'🌈',t:'Muchos colores',ok:1},{e:'⬛',t:'Todo negro'},{e:'🔲',t:'Nada, sigue blanca'}],
+ steps:['Llená el vaso con agua y ponelo donde le dé el sol.','Poné la hoja en el piso, al lado del vaso, y buscá los colores.'],
+ scene:`${mesa}${emo('☀️',40,50,44)}<polygon class="f" data-at="1" points="52,48 150,116 150,146" fill="#FFE98A" fill-opacity=".8"/><polygon class="f" data-at="2" points="196,178 318,178 318,196 182,196" fill="#fff" stroke="#123F4A" stroke-width="2"/><g class="f" data-at="2" stroke-width="5">${colores.map((c,i)=>`<line x1="182" y1="150" x2="${222+i*15}" y2="188" stroke="${c}"/>`).join('')}</g><rect x="150" y="104" width="44" height="66" fill="#7FD0F0" opacity=".55"/>${vaso(150,44,90)}`,
+ result:'¡Apareció un arcoíris en la hoja!',
+ why:'La luz del sol parece blanca, pero guarda muchos colores. Al pasar por el agua, los colores se separan y los podemos ver.',
+ quiz:{q:'¿Qué colores tiene la luz del sol adentro?',opts:[{e:'🌈',t:'Todos los del arcoíris',ok:1},{e:'⬛',t:'Solo negro'}]}},
+{id:'globo',name:'El globo que atrae',e:'🎈',color:'#7A4FD0',
+ mats:[['🎈','Un globo inflado'],['📰','Papelitos cortados'],['💇','Tu pelo seco']],
+ adult:'si el globo se pincha, junten los pedazos enseguida: son peligrosos si van a la boca. Funciona mejor con el pelo seco.',
+ ask:'Si frotamos el globo en el pelo, ¿qué va a hacer con los papelitos?',
+ opts:[{e:'🧲',t:'Los va a levantar',ok:1},{e:'💨',t:'Los va a soplar'},{e:'😴',t:'No va a pasar nada'}],
+ steps:['Frotá el globo en tu pelo muchas veces.','Acercá despacito el globo a los papelitos.'],
+ scene:`${mesa}${emo('👧',255,150,70)}${papeles}<g class="m" data-at="2" style="--x:-108px;--y:42px"><g class="wig" data-at="1"><ellipse cx="205" cy="62" rx="30" ry="36" fill="#E63A9A" stroke="#123F4A" stroke-width="2"/><path d="M205 98l-6 9h12z" fill="#E63A9A" stroke="#123F4A"/><path d="M193 44q6-8 14-8" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round"/></g></g><g class="f" data-at="1" data-off="2">${emo('✨',170,50,22)}${emo('✨',240,30,22)}</g>`,
+ result:'¡Los papelitos saltaron y se pegaron al globo!',
+ why:'Al frotar el globo, se llena de electricidad muy chiquita, que no se ve. Esa electricidad atrae a los papelitos. Se llama electricidad estática.',
+ quiz:{q:'¿Qué hicimos para que el globo atraiga?',opts:[{e:'💇',t:'Frotarlo en el pelo',ok:1},{e:'💧',t:'Mojarlo'},{e:'😴',t:'Dejarlo quieto'}]}},
+{id:'sombras',name:'Sombras gigantes',e:'🔦',color:'#123F4A',
+ mats:[['🔦','Una linterna'],['🧸','Un juguete'],['🧱','Una pared lisa'],['🌙','Un cuarto oscuro']],
+ adult:'que nadie apunte la linterna a los ojos.',
+ ask:'Si acercamos la linterna al juguete, ¿cómo va a ser la sombra?',
+ opts:[{e:'🐘',t:'Más grande',ok:1},{e:'🐜',t:'Más chiquita'},{e:'🫥',t:'Va a desaparecer'}],
+ steps:['Poné el juguete cerca de la pared y prendé la linterna lejos.','Acercá la linterna un poco al juguete.','Acercala un poco más.'],
+ scene:`<rect width="320" height="200" fill="#31535C"/><rect x="235" width="85" height="170" fill="#7D979C"/><rect y="170" width="320" height="30" fill="#8C5A2B"/><polygon class="f" data-at="1" data-off="2" points="35,140 235,70 235,170 35,150" fill="#FFF3B0" fill-opacity=".45"/><polygon class="f" data-at="2" data-off="3" points="70,140 235,40 235,170 70,150" fill="#FFF3B0" fill-opacity=".45"/><polygon class="f" data-at="3" points="105,140 235,5 235,170 105,150" fill="#FFF3B0" fill-opacity=".45"/><g class="f" data-at="1"><g class="m" data-at="2" style="--o:50% 100%;--k:1.5"><g class="m" data-at="3" style="--o:50% 100%;--k:1.6"><g transform="translate(280 170)" fill="#123F4A">${osito}</g></g></g></g><g transform="translate(165 170)" fill="#A9743C" stroke="#123F4A" stroke-width="1.5">${osito}</g><g class="m" data-at="2" style="--x:35px"><g class="m" data-at="3" style="--x:35px"><g transform="translate(40 0) scale(-1 1)">${emo('🔦',20,155,30)}</g></g></g>`,
+ result:'¡Cuanto más cerca estuvo la linterna, más grande se hizo la sombra!',
+ why:'El juguete tapa la luz. Si la linterna está cerca, tapa mucha más luz y la sombra en la pared crece.',
+ quiz:{q:'Para hacer una sombra gigante, la linterna va…',opts:[{e:'👉',t:'Cerca del juguete',ok:1},{e:'🏃',t:'Muy lejos del juguete'}]}},
+{id:'poroto',name:'El poroto que crece',e:'🌱',color:'#3FBF5F',
+ mats:[['🫙','Un frasco'],['☁️','Algodón'],['🫘','Un poroto'],['💧','Agua']],
+ adult:'es un experimento de dos semanas. Pónganlo cerca de una ventana y mantengan el algodón húmedo, sin que quede lleno de agua. Los porotos crudos no se comen.',
+ ask:'¿Qué va a salir primero del poroto?',
+ opts:[{e:'🪢',t:'Una raíz',ok:1},{e:'🌸',t:'Una flor'},{e:'🍎',t:'Una fruta'}],
+ steps:['Mojá el algodón, ponelo en el frasco y apoyá el poroto contra el vidrio.','Mirá el frasco a los tres días.','Mirá el frasco a la semana.','Mirá el frasco a las dos semanas.'],
+ scene:`${mesa}<g fill="#fff" stroke="#BFE0DA" stroke-width="2"><circle cx="135" cy="150" r="18"/><circle cx="165" cy="146" r="22"/><circle cx="190" cy="152" r="16"/></g><g class="f" data-at="1" fill="#BFE9F7"><circle cx="135" cy="150" r="17"/><circle cx="165" cy="146" r="21"/><circle cx="190" cy="152" r="15"/></g><path class="f" data-at="2" d="M152 130q-4 18 2 34M152 132q8 14 12 28" stroke="#C9A36A" stroke-width="3" fill="none"/><path class="f" data-at="3" d="M152 124q-4-36 6-62" stroke="#3FBF5F" stroke-width="5" fill="none"/><g class="f" data-at="4" fill="#3FBF5F" stroke="#14855A"><path d="M158 64q-30-24-48-6 20 18 48 6z"/><path d="M158 64q28-28 50-10-20 22-50 10z"/></g><ellipse cx="152" cy="127" rx="13" ry="9" fill="#8C3A2B" stroke="#123F4A" stroke-width="1.5"/>${vaso(115,90,50)}`,
+ result:'Primero salió la raíz. Después, un tallo. Y al final, ¡las hojas!',
+ why:'Adentro del poroto hay una plantita dormida. Con agua se despierta. La raíz busca agua y las hojas buscan el sol.',
+ quiz:{q:'¿Qué necesitó el poroto para despertarse?',opts:[{e:'💧',t:'Agua',ok:1},{e:'🍫',t:'Chocolate'},{e:'🎧',t:'Música'}]}},
+{id:'hielo',name:'La carrera del hielo',e:'🧊',color:'#44B8E0',
+ mats:[['🧊','Dos cubitos de hielo'],['🍽️','Dos platos'],['☀️','Un lugar al sol'],['🌳','Un lugar a la sombra']],
+ adult:'con el calor de la siesta salteña va a ganar rápido el del sol. Cuiden a Luciana del sol fuerte mientras espera.',
+ ask:'¿Qué cubito se va a derretir primero?',
+ opts:[{e:'☀️',t:'El del sol',ok:1},{e:'🌳',t:'El de la sombra'}],
+ steps:['Poné un cubito al sol y el otro a la sombra.','Esperá un ratito y mirá los dos platos.','Esperá otro rato y volvé a mirar.'],
+ scene:`${mesa}${emo('☀️',85,50,44)}${emo('🌳',275,166,110)}<ellipse cx="85" cy="166" rx="48" ry="7" fill="#EDEDED" stroke="#123F4A" stroke-width="2"/><ellipse cx="235" cy="166" rx="48" ry="7" fill="#EDEDED" stroke="#123F4A" stroke-width="2"/><g class="m" data-at="2" style="--o:50% 100%;--k:1.5"><g class="m" data-at="3" style="--o:50% 100%;--k:1.5"><ellipse class="f" data-at="2" cx="85" cy="165" rx="20" ry="4" fill="#7FD0F0"/></g></g><ellipse class="f" data-at="3" cx="235" cy="165" rx="20" ry="4" fill="#7FD0F0"/><g class="f" data-at="1"><g class="m" data-at="2" style="--o:50% 100%;--k:.55"><g class="m" data-at="3" style="--o:50% 100%;--k:.01"><rect x="68" y="132" width="34" height="32" rx="5" fill="#CDEFFF" stroke="#123F4A" stroke-width="2"/></g></g></g><g class="f" data-at="1"><g class="m" data-at="3" style="--o:50% 100%;--k:.7"><rect x="218" y="132" width="34" height="32" rx="5" fill="#CDEFFF" stroke="#123F4A" stroke-width="2"/></g></g>`,
+ result:'¡Ganó el cubito del sol: se derritió primero!',
+ why:'El hielo es agua muy fría y dura. El calor lo convierte en agua líquida. Al sol hay más calor, por eso se derrite más rápido.',
+ quiz:{q:'¿En qué se convierte el hielo cuando se derrite?',opts:[{e:'💧',t:'En agua',ok:1},{e:'🪨',t:'En piedra'},{e:'☁️',t:'En algodón'}]}}
+];
+
+/* ---------- pantallas ---------- */
+function jar(x,full){
+  const y=full?42:96,h=full?88:34;
+  return `<svg viewBox="0 0 100 140" aria-hidden="true"><rect x="26" y="4" width="48" height="16" rx="4" fill="${full?x.color:'#9FB7B3'}" stroke="#123F4A" stroke-width="3"/><path d="M30 20v6q-16 6-16 22v72q0 12 12 12h48q12 0 12-12V48q0-16-16-22v-6z" fill="#fff" fill-opacity=".85" stroke="#123F4A" stroke-width="3"/><clipPath id="j${x.id}"><path d="M16 48q0-14 15-20h38q15 6 15 20v72q0 10-10 10H26q-10 0-10-10z"/></clipPath><g clip-path="url(#j${x.id})"><rect class="liq" x="10" y="${y}" width="80" height="${h}" fill="${x.color}" opacity="${full?.85:.22}"/></g><text x="50" y="96" font-size="38" text-anchor="middle">${x.e}</text></svg>`;
+}
+let armed=null,tok=0;
+function home(){
+  tok++;armed=null;hush();
+  const n=EXP.filter(x=>S.done[x.id]).length;
+  app.innerHTML=`<div class="top"><a class="pill" href="index.html" aria-label="Volver al inicio">🏠</a><span class="sp"></span><span class="pill">⭐ ${S.stars}</span></div>
+  <h1>Laboratorio de Luciana</h1>
+  <div class="shelf">${EXP.map(x=>`<button class="jar" data-id="${x.id}" aria-label="${x.name}${S.done[x.id]?', ya lo hiciste':''}">${jar(x,S.done[x.id])}<span class="nm">${x.name}</span></button>`).join('')}</div>`;
+  app.querySelectorAll('.jar').forEach(b=>b.onclick=()=>{
+    const x=EXP.find(e=>e.id===b.dataset.id);ac();
+    if(armed===b)return abrir(x);
+    if(armed)armed.classList.remove('armed');
+    armed=b;b.classList.add('armed');sfx.pop();lula(`${x.name}. ¡Tocá otra vez para empezar!`);
+  });
+  lula(n===EXP.length?'¡Llenaste todos los frascos! Sos una científica. Podés repetir el que quieras.':n?`Ya llenaste ${n===1?'un frasco':n+' frascos'}. Elegí otro.`:'¡Hola Luciana! Soy Lula. Cada frasco es un experimento. Tocá uno.',n>0);
+  window.scrollTo(0,0);
+}
+const PASOS=[['🧺','Juntar'],['🤔','Pensar'],['🧪','Probar'],['💡','Aprender']];
+function frame(x,i,body){
+  app.innerHTML=`<div class="top"><button class="pill" id="back" aria-label="Volver al estante">🫙 Estante</button><span class="sp"></span><span class="pill" style="font-size:17px;padding:0 10px">${x.e} ${x.name}</span></div>
+  <ol class="track">${PASOS.map((p,k)=>`<li class="${k<i?'past':k===i?'now':''}"${k===i?' aria-current="step"':''}><span>${p[0]}</span>${p[1]}</li>`).join('')}</ol>${body}`;
+  $('#back').onclick=()=>{sfx.pop();home()};
+  window.scrollTo(0,0);
+}
+function abrir(x){
+  tok++;
+  const got=new Set();
+  frame(x,0,`<h2>Vamos a necesitar</h2><div class="mats">${x.mats.map((m,i)=>`<button class="mat" data-i="${i}" aria-pressed="false"><span class="e">${m[0]}</span>${m[1]}</button>`).join('')}</div>
+  <p class="grande"><b>Para el grande:</b> ${x.adult}</p>
+  <button class="btn" id="go" disabled>Ya tengo todo</button><button class="btn soft" id="skip">Mirarlo solo en la pantalla</button>`);
+  const go=$('#go');
+  app.querySelectorAll('.mat').forEach(b=>b.onclick=()=>{
+    const m=x.mats[+b.dataset.i];const on=!got.has(b.dataset.i);
+    on?got.add(b.dataset.i):got.delete(b.dataset.i);
+    b.classList.toggle('got',on);b.setAttribute('aria-pressed',on);sfx.pop();hush();say(m[1]);
+    go.disabled=got.size<x.mats.length;
+  });
+  go.onclick=()=>think(x);$('#skip').onclick=()=>think(x);
+  lula(`¡${x.name}! Llamá a un grande y busquen estas cosas: ${x.mats.map(m=>m[1]).join(', ')}. Tocá cada una cuando la tengas.`);
+}
+function think(x){
+  const t=++tok;
+  frame(x,1,`<h2>${x.ask}</h2><p class="say">No hay respuesta mala. Elegí lo que te parece.</p><div class="opts">${x.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span class="e">${o.e}</span>${o.t}</button>`).join('')}</div>`);
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const o=x.opts[+b.dataset.i];sfx.pop();
+    app.querySelectorAll('.opt').forEach(e=>e.disabled=true);b.classList.add('good');
+    lula(`Pensaste: ${o.t}. ¡Vamos a probar!`).then(()=>{if(t===tok)run(x,o)});
+  });
+  lula(`${x.ask} ${x.opts.map(o=>o.t).join('. O ')}.`);
+}
+function paint(sc,s){
+  sc.querySelectorAll('[data-at]').forEach(e=>{const off=e.dataset.off;e.classList.toggle('on',+e.dataset.at<=s&&(off===undefined||s<+off))});
+}
+function run(x,guess){
+  tok++;
+  let s=0;
+  frame(x,2,`<svg class="scene" id="sc" viewBox="0 0 320 200" role="img" aria-label="Dibujo del experimento">${x.scene}</svg>
+  <h2 id="ins"></h2><button class="btn" id="done"></button>`);
+  const sc=$('#sc');paint(sc,0);
+  const show=()=>{const txt=x.steps[s];$('#ins').textContent=txt;$('#done').textContent=`¡Listo! (${s+1} de ${x.steps.length})`;lula(txt)};
+  $('#done').onclick=()=>{
+    s++;paint(sc,s);sfx.pop();
+    if(s<x.steps.length)return show();
+    const b=$('#done');$('#ins').textContent=x.result;b.textContent='¿Por qué pasó?';
+    b.onclick=()=>learn(x,guess);
+    lula(x.result);
+  };
+  show();
+}
+function learn(x,guess){
+  tok++;
+  const hit=guess.ok;
+  frame(x,3,`<svg class="scene" id="sc" viewBox="0 0 320 200" role="img" aria-label="Dibujo del experimento terminado">${x.scene}</svg>
+  <p class="say"><b>${hit?'¡Adivinaste!':'¡Sorpresa! Pensaste otra cosa, y así se aprende.'}</b></p><p class="say">${x.why}</p>
+  <button class="btn" id="next">Una pregunta</button>`);
+  paint($('#sc'),x.steps.length);
+  $('#next').onclick=()=>quiz(x);
+  lula(`${hit?'¡Adivinaste!':'¡Sorpresa! Pensaste otra cosa, y así se aprende.'} ${x.why}`);
+}
+function quiz(x){
+  tok++;
+  const q=x.quiz;
+  frame(x,3,`<h2>${q.q}</h2><div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}"><span class="e">${o.e}</span>${o.t}</button>`).join('')}</div>`);
+  app.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    const o=q.opts[+b.dataset.i];
+    if(!o.ok){sfx.no();b.classList.remove('shake');void b.offsetWidth;b.classList.add('shake');lula('Casi. Probá con otra.');return}
+    b.classList.add('good');sfx.ok();reward(x);
+  });
+  lula(`${q.q} ${q.opts.map(o=>o.t).join('. O ')}.`);
+}
+function reward(x){
+  const first=!S.done[x.id],won=first?3:1;
+  S.done[x.id]=(S.done[x.id]||0)+1;S.stars+=won;save();sfx.win();
+  const stars='⭐'.repeat(won);
+  $('#ovl').innerHTML=`<div class="ov"><div class="box" role="dialog" aria-label="¡Lo lograste!">${jar(x,true)}<h2>${first?'¡Llenaste el frasco!':'¡Muy bien, otra vez!'}</h2><p class="say" aria-label="${won} ${won===1?'estrella':'estrellas'}">${stars}</p><button class="btn" id="shelf">Volver al estante</button></div></div>`;
+  $('#shelf').onclick=()=>{$('#ovl').innerHTML='';sfx.pop();home()};
+  lula(first?`¡Sos una científica! Ganaste ${won} estrellas y llenaste el frasco.`:'¡Muy bien! Ganaste una estrella.');
+}
+home();
+</script>
+</body>
+</html>
