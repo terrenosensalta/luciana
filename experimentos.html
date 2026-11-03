@@ -89,7 +89,8 @@ h2{font-family:var(--f-read);font-weight:700;font-size:clamp(25px,7vw,34px);line
 .lula{position:fixed;left:0;right:0;bottom:0;z-index:6;padding:8px 16px max(10px,env(safe-area-inset-bottom));pointer-events:none}
 .lula .in{max-width:640px;margin:0 auto;display:flex;align-items:flex-end;gap:8px}
 .owl{pointer-events:auto;flex:none;width:64px;height:64px;border-radius:50%;border:3px solid var(--ink);background:var(--sun) url(luciana-bruja-2.png) no-repeat -47px -47px/158px auto;padding:0}
-.labhead{display:flex;align-items:center;gap:8px}.labhead h1{flex:1;min-width:0}
+.labhead{display:flex;align-items:center;gap:8px}.labtxt{flex:1;min-width:0}
+.dogs{display:flex;gap:6px}.dogs img{height:clamp(56px,10vh,84px);width:auto}
 .hero{display:block;flex:none;height:clamp(120px,22vh,190px);width:auto}
 .bubble{pointer-events:auto;flex:1;min-height:48px;max-height:96px;overflow:auto;background:#fff;border:3px solid var(--ink);border-radius:18px 18px 18px 4px;padding:6px 12px;font-family:var(--f-read);font-weight:400;font-size:18px;line-height:1.25}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.b.on{opacity:1}}
@@ -259,7 +260,7 @@ function home(){
   tok++;armed=null;hush();
   const n=EXP.filter(x=>S.done[x.id]).length;
   app.innerHTML=`<div class="top"><a class="pill" href="index.html" aria-label="Volver al inicio">🏠</a><span class="sp"></span><span class="pill">⭐ ${S.stars}</span></div>
-  <div class="labhead"><img class="hero" src="luciana-bruja-2.png" alt="Luciana de brujita"><h1>Laboratorio de Luciana</h1></div>
+  <div class="labhead"><img class="hero" src="luciana-bruja-2.png" alt="Luciana de brujita"><div class="labtxt"><h1>Laboratorio de Luciana</h1><div class="dogs"><img src="perrito-negro.png" alt="Perrito negro"><img src="perrito-marron.png" alt="Perrito marrón y blanco"></div></div></div>
   <div class="shelf">${EXP.map(x=>`<button class="jar" data-id="${x.id}" aria-label="${x.name}${S.done[x.id]?', ya lo hiciste':''}">${jar(x,S.done[x.id])}<span class="nm">${x.name}</span></button>`).join('')}</div>`;
   app.querySelectorAll('.jar').forEach(b=>b.onclick=()=>{
     const x=EXP.find(e=>e.id===b.dataset.id);ac();
