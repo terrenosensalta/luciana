@@ -169,13 +169,13 @@ const spoken=w=>plain(w).toLowerCase();
 const wordList=lv=>lv<2?W1:W2;
 
 /* ---------- armado de cada tarea ---------- */
-function numOpts(ans){const s=new Set([ans]);let t=0;while(s.size<3&&t<60){t++;const v=ans+pick([-3,-2,-1,1,2,3]);if(v>=1)s.add(v)}return shuffle([...s])}
+function numOpts(ans){const s=new Set([ans]);let t=0;while(s.size<3&&t<60){t++;const v=ans+pick([-2,-1,1,2]);if(v>=1)s.add(v)}return shuffle([...s])}
 function mathEx(kind,lv){
-  const max=[5,10,20][lv-1];
+  const max=[7,12,20][lv-1];
   let a,b;
   if(kind==='suma'){a=rnd(1,max-1);b=rnd(1,max-a)}else{a=rnd(2,max);b=rnd(1,a-1)}
   const ex={kind,a,b,ans:kind==='suma'?a+b:a-b,em:pick(COSAS),hide:lv===3};
-  if(lv>1&&a>=2&&Math.random()<.35)ex.story=true;
+  if(lv>1&&a>=2&&Math.random()<.5)ex.story=true;
   return ex;
 }
 function buildRound(subj,n){
@@ -333,7 +333,7 @@ function readSentence(ex){
 /* ---------- escritura ---------- */
 function buildWord(ex){
   const w=nextOf('a'+ex.lv,wordList(ex.lv)),p=plain(w),letters=[...p];
-  const extra=ex.lv>1?[pick([...'MPSLTNDRC'].filter(c=>!letters.includes(c)))]:[];
+  const extra=shuffle([...'MPSLTNDRC'].filter(c=>!letters.includes(c))).slice(0,ex.lv>1?2:1);
   const tiles=shuffle([...letters,...extra]);
   frame(`<p class="ask">Armá la palabra</p><div class="pic">${PIC[p]}</div>
     <div class="slots" style="--n:${letters.length}">${letters.map(()=>'<span class="slot"></span>').join('')}</div>
