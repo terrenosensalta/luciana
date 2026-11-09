@@ -195,6 +195,12 @@ const wordList=lv=>lv<2?[...W1,...W2]:lv<3?[...W2,...W3]:W3;
 function numOpts(ans){const s=new Set([ans]);let t=0;while(s.size<3&&t<60){t++;const v=ans+pick(ans>=20?[-10,-1,1,10]:[-2,-1,1,2]);if(v>=0)s.add(v)}return shuffle([...s])}
 function mathEx(kind,lv){
   let a,b,t=0;
+  if(kind==='suma'){
+    do{a=rnd(1,9);b=rnd(1,9)}while(lv===1?a+b>10:a+b<10);
+    const ex={kind,a,b,ans:a+b,em:pick(COSAS),hide:lv===3};
+    if(lv>1&&Math.random()<.4)ex.story=true;
+    return ex;
+  }
   // Nivel 1: hasta 20 con dibujitos. Nivel 2: con decenas, sin llevarse. Nivel 3: con "me llevo" / "pido prestado".
   if(lv===1){if(kind==='suma'){a=rnd(3,10);b=rnd(2,15-a)}else{a=rnd(6,15);b=rnd(2,a-2)}}
   else do{t++;
@@ -210,7 +216,7 @@ function buildRound(subj,n){
   const lv=S.lv[subj],L=[];
   for(let i=0;i<n;i++){
     if(subj==='suma'||subj==='resta')L.push(mathEx(subj,lv));
-    else if(subj==='lectura')L.push({kind:(lv===1?['palabra','silaba','frase']:lv===2?['palabra','frase','silaba','palabra','cuento','frase']:['cuento','frase','palabra','cuento','silaba','frase'])[i%(lv===1?3:6)],lv});
+    else if(subj==='lectura')L.push({kind:(lv===1?['leesil','silaba','leesil','palabra','silaba','leesil']:lv===2?['leesil','silaba','palabra','leesil','silaba','frase']:['leesil','silaba','palabra','silaba','frase','cuento'])[i%6],lv});
     else L.push({kind:i===n-1?'trazo':(lv===3?['ordenar','armar','letra','ordenar','armar']:['armar','letra'])[i%(lv===3?5:2)],lv});
   }
   return L;
@@ -252,7 +258,7 @@ function frame(body){
 }
 function show(){
   const ex=R.list[R.i];ex.tries=0;ex.helped=false;
-  ({suma:mathView,resta:mathView,palabra:readWord,silaba:readSyl,frase:readSentence,cuento:readStory,armar:buildWord,ordenar:orderSentence,letra:missingLetter,trazo:traceView})[ex.kind](ex);
+  ({suma:mathView,resta:mathView,palabra:readWord,silaba:readSyl,leesil:readSylPic,frase:readSentence,cuento:readStory,armar:buildWord,ordenar:orderSentence,letra:missingLetter,trazo:traceView})[ex.kind](ex);
 }
 // Respuesta correcta: estrella si salió al primer intento y sin ayuda
 async function right(ex,msg){
@@ -343,13 +349,11 @@ function readWord(ex){
   const w=nextOf('w'+ex.lv,wordList(ex.lv)),p=plain(w);
   const opts=picOpts(p,wordList(ex.lv).map(plain));
   frame(`<p class="ask">Leé la palabra y tocá su dibujo</p><div class="word">${wordHtml(w)}</div>
-    <button class="help" id="hint">🔊 Ayuda</button>
     <div class="opts">${opts.map(o=>`<button class="opt pic3" data-w="${o}" aria-label="${o.toLowerCase()}">${PIC[o]}</button>`).join('')}</div>`);
   lula('Leé la palabra despacito y tocá el dibujo que corresponde.');
-  $('#hint').onclick=()=>{ex.helped=true;hush();say(syls(w).join('... ').toLowerCase(),.7)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.w===p){btn.classList.add('good');return right(ex,`¡Sí! Dice ${p.toLowerCase()}.`)}
-    wrong(ex,btn,`Ese dibujo es ${btn.dataset.w.toLowerCase()}. Leé otra vez: ${syls(w).join('... ').toLowerCase()}.`);
+    wrong(ex,btn,`Ese dibujo es ${btn.dataset.w.toLowerCase()}. Leé otra vez, sílaba por sílaba.`);
   });
 }
 function readSyl(ex){
@@ -368,14 +372,26 @@ function readSyl(ex){
     wrong(ex,btn,`Escuchá bien: ${syls(w).join('... ').toLowerCase()}.`);
   });
 }
+// Leer una sílaba sola y encontrar el dibujo que empieza con ella
+function readSylPic(ex){
+  const list=wordList(ex.lv).filter(x=>x.includes('-')),w=nextOf('ls'+ex.lv,list),first=syls(w)[0];
+  const others=[...W1,...W2,...W3].filter(x=>x.includes('-')&&syls(x)[0]!==first&&syls(x)[0][0]!==first[0]||ex.lv>1&&x.includes('-')&&syls(x)[0]!==first&&syls(x)[0][0]===first[0]);
+  const near=shuffle(others.filter(x=>x[0]===first[0])),far=shuffle(others.filter(x=>x[0]!==first[0]));
+  const opts=shuffle([w,...(ex.lv>1?[...near,...far]:far).slice(0,2)].map(plain));
+  frame(`<p class="ask">¿Qué dibujo empieza con esta sílaba?</p><div class="word"><span>${first}</span></div>
+    <div class="opts">${opts.map(o=>`<button class="opt pic3" data-w="${o}" aria-label="${o.toLowerCase()}">${PIC[o]}</button>`).join('')}</div>`);
+  lula('Leé la sílaba y tocá el dibujo que empieza con ella.');
+  $$('.opt').forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.w===plain(w)){btn.classList.add('good');return right(ex,`¡Sí! ${first.toLowerCase()}, ${spoken(w)}.`)}
+    wrong(ex,btn,`Ese es ${btn.dataset.w.toLowerCase()}. Mirá bien la sílaba.`);
+  });
+}
 function readSentence(ex){
   const f=nextOf('frase',FRASES);
   const opts=shuffle([f,...shuffle(FRASES.filter(x=>x!==f)).slice(0,2)]);
   frame(`<p class="ask">Leé y tocá el dibujo</p><div class="sentence">${f[0]}</div>
-    <button class="help" id="hint">🔊 Ayuda</button>
     <div class="opts">${opts.map(o=>`<button class="opt pic3" data-f="${o[0]}" aria-label="${o[0].toLowerCase()}" style="font-size:clamp(34px,10vw,48px)">${o[1]}</button>`).join('')}</div>`);
   lula('Leé la oración y tocá el dibujo que va con ella.');
-  $('#hint').onclick=()=>{ex.helped=true;hush();say(f[0],.65)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.f===f[0]){btn.classList.add('good');return right(ex,`¡Sí! ${f[0].toLowerCase()}.`)}
     wrong(ex,btn,'Leé otra vez, palabra por palabra.');
@@ -386,10 +402,8 @@ function readStory(ex){
   const [txt,q,ans,bad]=nextOf('cuento',CUENTOS);
   const opts=shuffle([ans,...bad]);
   frame(`<p class="ask">Leé el cuento y contestá</p><p class="cuento">${txt}</p><p class="preg">${q}</p>
-    <button class="help" id="hint">🔊 Leer el cuento</button>
     <div class="opts col">${opts.map(o=>`<button class="opt txt" data-a="${o}">${o}</button>`).join('')}</div>`);
   lula(`Leé el cuento despacito. Después contestá: ${q}`);
-  $('#hint').onclick=()=>{ex.helped=true;hush();say(txt+' '+q,.75)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.a===ans){btn.classList.add('good');return right(ex,`¡Sí! ${ans}.`)}
     wrong(ex,btn,'Leé otra vez el cuento y buscá la respuesta.');
