@@ -236,7 +236,7 @@ async function right(ex,msg){
   await wait(250);if(t!==tok)return;
   R.i++;R.i<R.list.length?show():finish();
 }
-function wrong(ex,btn,msg){ex.tries++;sfx.no();if(btn){btn.classList.remove('no');void btn.offsetWidth;btn.classList.add('no')}lula(msg)}
+function wrong(ex,btn,msg){ex.tries++;sfx.no();if(btn){btn.classList.remove('no');void btn.offsetWidth;btn.classList.add('no')}lula(`¡Probá de nuevo! ${msg}`)}
 function finish(){
   const s=R.s;tok++;
   S.stars+=R.stars;let up='';
@@ -282,7 +282,7 @@ function mathView(ex){
     const n=+btn.dataset.n;
     if(n===ans){btn.classList.add('good');$('#q').textContent=ans;return right(ex,`¡Sí! ${a} ${kind==='suma'?'más':'menos'} ${b} es ${ans}.`)}
     $('#objs').hidden=false;$('#hint')?.remove();cross();$('#objs').classList.add('counting');
-    wrong(ex,btn,kind==='suma'?'Mmm, no. Contá todos los dibujitos, uno por uno.':'Mmm, no. Contá los que no están tachados.');
+    wrong(ex,btn,kind==='suma'?'Contá todos los dibujitos, uno por uno.':'Contá los que no están tachados.');
   });
 }
 
@@ -313,7 +313,7 @@ function readSyl(ex){
   $('#hint').onclick=()=>{hush();say(spoken(w),.7)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.s===first){btn.classList.add('good');return right(ex,`¡Sí! ${spoken(w)} empieza con ${first.toLowerCase()}.`)}
-    wrong(ex,btn,`No. Escuchá bien: ${syls(w).join('... ').toLowerCase()}.`);
+    wrong(ex,btn,`Escuchá bien: ${syls(w).join('... ').toLowerCase()}.`);
   });
 }
 function readSentence(ex){
@@ -326,7 +326,7 @@ function readSentence(ex){
   $('#hint').onclick=()=>{ex.helped=true;hush();say(f[0],.65)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.f===f[0]){btn.classList.add('good');return right(ex,`¡Sí! ${f[0].toLowerCase()}.`)}
-    wrong(ex,btn,'Mmm, ese dibujo no va. Leé otra vez, palabra por palabra.');
+    wrong(ex,btn,'Leé otra vez, palabra por palabra.');
   });
 }
 
@@ -345,7 +345,7 @@ function buildWord(ex){
   $$('.tile').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.c===letters[pos]){sfx.tap();btn.classList.add('used');slots[pos].textContent=letters[pos];slots[pos].classList.add('on');pos++;
       if(pos===letters.length)right(ex,`¡Sí! Escribiste ${spoken(w)}.`);return}
-    wrong(ex,btn,`Esa no. Ahora va la ${letters[pos].toLowerCase()}. Escuchá: ${syls(w).join('... ').toLowerCase()}.`);
+    wrong(ex,btn,`Ahora va la ${letters[pos].toLowerCase()}. Escuchá: ${syls(w).join('... ').toLowerCase()}.`);
   });
 }
 function missingLetter(ex){
@@ -359,7 +359,7 @@ function missingLetter(ex){
   $('#hint').onclick=()=>{hush();say(syls(w).join('... ').toLowerCase(),.7)};
   $$('.opt').forEach(btn=>btn.onclick=()=>{
     if(btn.dataset.c===c){btn.classList.add('good');$('.gap').textContent=c;return right(ex,`¡Sí! Falta la ${c.toLowerCase()}: ${spoken(w)}.`)}
-    wrong(ex,btn,`No. Escuchá despacito: ${syls(w).join('... ').toLowerCase()}.`);
+    wrong(ex,btn,`Escuchá despacito: ${syls(w).join('... ').toLowerCase()}.`);
   });
 }
 function traceView(ex){
