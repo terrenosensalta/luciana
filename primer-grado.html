@@ -50,6 +50,10 @@ main{max-width:620px;margin:0 auto;padding:max(10px,env(safe-area-inset-top)) 14
 .opt.found{background:#DDF6E6;border-color:var(--ok);pointer-events:none}
 .opt.found::after{content:'✓';position:absolute;top:2px;right:8px;font-size:20px;color:var(--ok)}
 .opts.six .opt{position:relative}
+.combo{font-family:var(--f-read);font-weight:700;font-size:clamp(46px,14vw,66px);line-height:1.1;display:flex;align-items:center;justify-content:center;gap:10px}
+.combo .c{color:var(--red)}.combo .v{color:var(--blue)}.combo .q{display:inline-block;min-width:1.6em;padding:0 .12em;border-radius:12px;background:#FFF4D2;color:#B37A00}
+.tiles .tile.vow{background:#E6F0FF;border-color:var(--blue);width:clamp(42px,12.5vw,58px)}
+.tiles:has(.vow){gap:6px}
 .subj .check{position:absolute;top:6px;right:10px;font-size:24px}
 
 /* Ejercicio */
@@ -139,7 +143,7 @@ const wait=ms=>new Promise(r=>setTimeout(r,ms));
 /* ---------- avances ---------- */
 const KEY='primergrado_luciana_v1';
 const today=()=>new Date().toLocaleDateString('es-AR');
-let S=(()=>{const d={stars:0,lv:{suma:1,resta:1,lectura:1,escritura:1,juego:1},hechas:{},dia:''};try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');return Object.assign(d,s,{lv:Object.assign(d.lv,s.lv||{})})}catch(e){return d}})();
+let S=(()=>{const d={stars:0,lv:{suma:1,resta:1,lectura:1,escritura:1,juego:1,silabas:1},hechas:{},dia:''};try{const s=JSON.parse(localStorage.getItem(KEY)||'{}');return Object.assign(d,s,{lv:Object.assign(d.lv,s.lv||{})})}catch(e){return d}})();
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 
 /* ---------- voz ---------- */
@@ -194,7 +198,7 @@ const FRASES=[['EL GATO TOMA LECHE','🐱🥛'],['LA VACA COME PASTO','🐄🌱'
 const COSAS=[['flor','flores','🌸',1],['globo','globos','🎈',0],['caramelo','caramelos','🍬',0],['estrella','estrellas','⭐',1],['manzana','manzanas','🍎',1],['pelota','pelotas','⚽',1],['auto','autos','🚗',0],['galletita','galletitas','🍪',1]];
 const LETRAS=[['SOL','MAR','PAN','OSO'],['LUNA','CASA','GATO','MAMÁ'],['LUCIANA']];
 const NOMBRE_LETRA={A:'a',B:'be',C:'ce',D:'de',E:'e',F:'efe',G:'ge',I:'i',L:'ele',M:'eme',N:'ene',O:'o',P:'pe',R:'erre',S:'ese',T:'te',U:'u',V:'ve',Z:'zeta'};
-const SUBJ={juego:{t:'Empieza con la…',p:'Letras',e:'🔤',c:'#D6336C'},suma:{t:'Sumas',e:'➕',c:'var(--suma)'},resta:{t:'Restas',e:'➖',c:'var(--resta)'},lectura:{t:'Lectura',e:'📖',c:'var(--lect)'},escritura:{t:'Escritura',e:'✏️',c:'var(--escr)'}};
+const SUBJ={silabas:{t:'Sílabas',p:'Sílabas',e:'🔡',c:'#0E9AA7'},juego:{t:'Empieza con la…',p:'Letras',e:'🔤',c:'#D6336C'},suma:{t:'Sumas',e:'➕',c:'var(--suma)'},resta:{t:'Restas',e:'➖',c:'var(--resta)'},lectura:{t:'Lectura',e:'📖',c:'var(--lect)'},escritura:{t:'Escritura',e:'✏️',c:'var(--escr)'}};
 const Q={};function nextOf(k,arr){if(!Q[k]||!Q[k].length)Q[k]=shuffle(arr);return Q[k].pop()}
 const plain=w=>w.replace(/-/g,'');
 const syls=w=>w.split('-');
@@ -228,6 +232,7 @@ function buildRound(subj,n){
     if(subj==='suma'||subj==='resta')L.push(mathEx(subj,lv));
     else if(subj==='lectura')L.push({kind:(lv===1?['leesil','unir','silaba','falta','leesil','palabra']:lv===2?['leesil','falta','unir','silaba','palabra','frase']:['falta','unir','leesil','silaba','frase','cuento'])[i%6],lv});
     else if(subj==='juego')L.push({kind:'letra1',lv});
+    else if(subj==='silabas')L.push({kind:['combo','oir','armsil','combo','oir','armsil'][i%6],lv});
     else L.push({kind:i===n-1?'trazo':(lv===3?['ordenar','armar','letra','ordenar','armar']:['armar','letra'])[i%(lv===3?5:2)],lv});
   }
   return L;
@@ -247,7 +252,7 @@ function home(){
   <div class="head"><img src="luciana-bruja-2.png" alt="Luciana"><div><h1>Primer grado</h1><p>Las tareas de Luciana</p></div></div>
   <div class="subjects">
     <button class="subj today" data-s="today" style="--c:#E3A600"><span class="e">📒</span><span><span class="n">Tarea del día</span><br><span class="lv">${hoy?'¡Ya la hiciste hoy! ✓':'Un poquito de todo'}</span></span></button>
-    ${Object.entries(SUBJ).map(([k,v])=>`<button class="subj${k==='juego'?' wide':''}" data-s="${k}" style="--c:${v.c}"><span class="e">${v.e}</span><span class="n">${v.t}</span><span class="lv">Nivel ${'⭐'.repeat(S.lv[k])}</span>${S.hechas[k]?'<span class="check">✓</span>':''}</button>`).join('')}
+    ${Object.entries(SUBJ).map(([k,v])=>`<button class="subj${k==='juego'||k==='silabas'?' wide':''}" data-s="${k}" style="--c:${v.c}"><span class="e">${v.e}</span><span class="n">${v.t}</span><span class="lv">Nivel ${'⭐'.repeat(S.lv[k])}</span>${S.hechas[k]?'<span class="check">✓</span>':''}</button>`).join('')}
   </div>`;
   $$('.subj').forEach(b=>b.onclick=()=>{ac();sfx.tap();start(b.dataset.s)});
   lula(hoy?'¡Hola Luciana! Elegí qué querés practicar.':'¡Hola Luciana! ¿Hacemos la tarea del día?');
@@ -269,7 +274,7 @@ function frame(body){
 }
 function show(){
   const ex=R.list[R.i];ex.tries=0;ex.helped=false;
-  ({suma:mathView,resta:mathView,palabra:readWord,silaba:readSyl,leesil:readSylPic,unir:joinSyl,falta:missingSyl,letra1:letterHunt,frase:readSentence,cuento:readStory,armar:buildWord,ordenar:orderSentence,letra:missingLetter,trazo:traceView})[ex.kind](ex);
+  ({suma:mathView,resta:mathView,palabra:readWord,silaba:readSyl,leesil:readSylPic,unir:joinSyl,falta:missingSyl,letra1:letterHunt,combo:sylCombo,oir:sylHear,armsil:sylBuild,frase:readSentence,cuento:readStory,armar:buildWord,ordenar:orderSentence,letra:missingLetter,trazo:traceView})[ex.kind](ex);
 }
 // Respuesta correcta: estrella si salió al primer intento y sin ayuda
 async function right(ex,msg){
@@ -449,6 +454,58 @@ function letterHunt(ex){
       if(found===good.length)return right(ex,`¡Sí! ${good.map(x=>x.toLowerCase()).join(', ')}. ¡Todos empiezan con la ${nombre}!`);
       hush();say(w.toLowerCase());return}
     wrong(ex,btn,`${w.toLowerCase()} empieza con la ${NOMBRE_LETRA[firstLetter(w)]||firstLetter(w).toLowerCase()}.`);
+  });
+}
+/* ---------- sílabas: consonante + vocal ---------- */
+const VOC=['A','E','I','O','U'];
+const CONS=[['M','P','S','L'],['M','P','S','L','T','N','D'],['M','P','S','L','T','N','D','B','F','R','V']];
+const ln=c=>NOMBRE_LETRA[c]||c.toLowerCase();
+function sylPick(ex){const c=nextOf('sc'+ex.lv,CONS[ex.lv-1]),v=pick(VOC);return [c,v,c+v]}
+// M + A = ? : elegir la sílaba
+function sylCombo(ex){
+  const [c,v,ans]=sylPick(ex);
+  const oc=pick(CONS[ex.lv-1].filter(x=>x!==c)),ov=shuffle(VOC.filter(x=>x!==v));
+  const opts=shuffle([ans,c+ov[0],ex.lv>1?oc+v:c+ov[1]]);
+  frame(`<p class="ask">Juntá las letras</p><div class="combo"><span class="c">${c}</span>+<span class="v">${v}</span>=<span class="q" id="q">?</span></div>
+    <div class="opts">${opts.map(o=>`<button class="opt syl" data-s="${o}">${o}</button>`).join('')}</div>`);
+  lula(`La ${ln(c)} con la ${ln(v)}, ¿cómo suena?`);
+  $$('.opt').forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.s===ans){btn.classList.add('good');$('#q').textContent=ans;return right(ex,`¡Sí! ${ln(c)} con ${ln(v)}: ${ans.toLowerCase()}.`)}
+    wrong(ex,btn,`Buscá la que tiene la ${ln(c)} y la ${ln(v)}.`);
+  });
+}
+// Escuchar una sílaba y encontrarla
+function sylHear(ex){
+  const [c,v,ans]=sylPick(ex);
+  const pool=ex.lv===1?VOC.filter(x=>x!==v).map(x=>c+x):[...VOC.filter(x=>x!==v).map(x=>c+x),...CONS[ex.lv-1].filter(x=>x!==c).map(x=>x+v)];
+  const opts=shuffle([ans,...shuffle(pool).slice(0,ex.lv===1?2:3)]);
+  frame(`<p class="ask">¿Dónde dice…?</p>
+    <button class="help" id="hint">🔊 Escuchar otra vez</button>
+    <div class="opts${opts.length>3?' col2':''}" style="${opts.length>3?'grid-template-columns:1fr 1fr':''}">${opts.map(o=>`<button class="opt syl" data-s="${o}">${o}</button>`).join('')}</div>`);
+  const ask=()=>{hush();say(ans.toLowerCase(),.7)};
+  lula(`¿Dónde dice ${ans.toLowerCase()}?`);
+  $('#hint').onclick=ask;
+  $$('.opt').forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.s===ans){btn.classList.add('good');return right(ex,`¡Sí! Ahí dice ${ans.toLowerCase()}.`)}
+    wrong(ex,btn,`Esa dice ${btn.dataset.s.toLowerCase()}. Buscá ${ans.toLowerCase()}.`);
+  });
+}
+// Escuchar una sílaba y formarla con las letras
+function sylBuild(ex){
+  const [c,v,ans]=sylPick(ex);
+  const cons=shuffle([c,...shuffle(CONS[ex.lv-1].filter(x=>x!==c)).slice(0,2)]);
+  frame(`<p class="ask">Formá la sílaba</p>
+    <div class="slots" style="--n:2"><span class="slot"></span><span class="slot"></span></div>
+    <button class="help" id="hint">🔊 Escuchar otra vez</button>
+    <div class="tiles">${cons.map(x=>`<button class="tile" data-c="${x}">${x}</button>`).join('')}</div>
+    <div class="tiles">${VOC.map(x=>`<button class="tile vow" data-c="${x}">${x}</button>`).join('')}</div>`);
+  lula(`Formá la sílaba ${ans.toLowerCase()}. Primero la consonante, después la vocal.`);
+  $('#hint').onclick=()=>{hush();say(ans.toLowerCase(),.7)};
+  let pos=0;const slots=$$('.slot'),want=[c,v];
+  $$('.tile').forEach(btn=>btn.onclick=()=>{
+    if(btn.dataset.c===want[pos]){sfx.tap();slots[pos].textContent=want[pos];slots[pos].classList.add('on');pos++;
+      if(pos===2)right(ex,`¡Sí! ${ln(c)} con ${ln(v)}: ${ans.toLowerCase()}.`);return}
+    wrong(ex,btn,pos?`Ahora la vocal. ${ans.toLowerCase()}… termina con la ${ln(v)}.`:`${ans.toLowerCase()} empieza con la ${ln(c)}.`);
   });
 }
 function readSentence(ex){
